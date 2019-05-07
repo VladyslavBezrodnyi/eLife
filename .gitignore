@@ -5,10 +5,8 @@
 .vs/
 *.com
 *.class
-*.dll
 *.exe
 *.pdb
-*.dll.config
 *.cache
 *.suo
 # Include dlls if they’re in the NuGet packages directory
