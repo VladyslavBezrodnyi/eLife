@@ -5,8 +5,9 @@ namespace eLifeApi.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
-    public partial class User
+    public partial class User /*: IdentityUser*/
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
@@ -21,6 +22,7 @@ namespace eLifeApi.Models
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
         public int Id { get; set; }
 
         public int Role_id { get; set; }
