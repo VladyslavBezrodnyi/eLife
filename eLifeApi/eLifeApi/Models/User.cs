@@ -21,7 +21,7 @@ namespace eLifeApi.Models
             TypeOfServices = new HashSet<TypeOfService>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+       // [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
         public int Id { get; set; }
 

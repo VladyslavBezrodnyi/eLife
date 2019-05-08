@@ -60,9 +60,8 @@ namespace eLifeApi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
-           // if (ModelState.IsValid)
-           // {
-              //  User user = db.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password &&);
+            //if (ModelState.IsValid) {
+                //User user = db.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password &&);
 
               //  if (user == null)
               //  {
@@ -77,7 +76,7 @@ namespace eLifeApi.Controllers
             //    }
               //  else
                   //  ModelState.AddModelError("", "Пользователь с таким логином уже существует");
-           // }
+           //  }
             return View(model);
         }
         public ActionResult Logoff()
