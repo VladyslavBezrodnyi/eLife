@@ -7,6 +7,7 @@ namespace eLifeApi.Models
     using System.Data.Entity.Spatial;
     using Microsoft.AspNet.Identity.EntityFramework;
 
+    [Serializable]
     public partial class User /*: IdentityUser*/
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

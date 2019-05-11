@@ -240,6 +240,7 @@
     <Compile Include="Models\DoctorInform.cs" />
     <Compile Include="Models\eLifeDB.cs" />
     <Compile Include="Models\Feedback.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PatientInform.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Record.cs" />
