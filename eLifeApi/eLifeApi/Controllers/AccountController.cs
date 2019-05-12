@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using eLifeApi.Models;
 using System.Net.Http;
 using System.Web.Security;
@@ -26,81 +24,53 @@ namespace eLifeApi.Controllers
         //{
         //    return View();
         //}
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IHttpActionResult Login(LoginModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                //    // поиск пользователя в бд
-                User user = db.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
-
-                
-
-                //    if (user != null)
-                //    {
-                //        FormsAuthentication.SetAuthCookie(model.Name, true);
-                //        return RedirectToAction("Index", "Home");
-                //    }
-                //    else
-                //    {
-                //        ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
-                //    }
-                //}
-
-                //User user = db.Users.Find(model.Email, model.Password);
-                if (user != null)
-                {
-                    return Json(user);
-                }
-                else
-                {
-                    return BadRequest();
-                }
-
-            }
-            else
-            {
-               return BadRequest();
-            }            
-        }
-        
-        //public ActionResult Register()
-        //{
-        //    //return View();
-        //}
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        [ResponseType(typeof(void))]
-        public IHttpActionResult Register(RegisterModel model)
+        public IHttpActionResult Login([FromBody] LoginModel model)
         {
-            if (ModelState.IsValid) {
-                User user = db.Users.FirstOrDefault(u => u.Email == model.Email );
 
-                if (user == null)
-                {
-                    db.Users.Add(new User { Name = model.Name, Email = model.Email, Password = model.Password, Role_id = 1 });
-                    db.SaveChanges();
-                    return Json(user);
-                }
-                else
-                {
-                   return BadRequest();
-                }
-            }
-            else
+            //LoginModel model = JsonConvert.DeserializeObject<LoginModel>(value);
+
+            if (model == null)
             {
                 return BadRequest();
             }
-            //return View(model);
-            
+            else
+            {
+                User user = db.Users.FirstOrDefault(u => u.Email == model.Email);
+
+                Person person = new Person(user.Id, user.Name, user.Email);
+                return Json(person);
+            }
+
+
         }
-        //public ActionResult Logoff()
+
+        //[HttpPost]
+        //public IHttpActionResult Register([FromBody] RegisterModel model)
         //{
-        //    FormsAuthentication.SignOut();
-        //    //return RedirectToAction("Index", "Home");
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        User user = db.Users.FirstOrDefault(u => u.Email == model.Email);
+
+        //        if (user == null)
+        //        {
+        //            db.Users.Add(new User { Name = model.Name, Email = model.Email, Password = model.Password, Role_id = 1 });
+        //            db.SaveChanges();
+        //            return Json(user);
+        //        }
+        //        else
+        //        {
+        //            return BadRequest();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return BadRequest();
+        //    }
+        //    //return View(model);
+
         //}
     }
 }

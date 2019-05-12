@@ -221,9 +221,11 @@
     <Compile Include="Controllers\DoctorInformsController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\PatientInformsController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\RecordsController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TypeOfServicesController.cs" />
     <Compile Include="Controllers\TypesController.cs" />
@@ -243,6 +245,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PatientInform.cs" />
     <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Record.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\Role.cs" />

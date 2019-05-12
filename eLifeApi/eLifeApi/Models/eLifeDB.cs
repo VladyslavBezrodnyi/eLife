@@ -6,6 +6,7 @@ namespace eLifeApi.Models
     using System.Linq;
     using Microsoft.AspNet.Identity.EntityFramework;
 
+    [Serializable]
     public partial class eLifeDB /*: IdentityDbContext<User>*/ : DbContext
     {
         public eLifeDB()
