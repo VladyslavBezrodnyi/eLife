@@ -31,26 +31,26 @@ namespace eLifeApi.Controllers
         [ValidateAntiForgeryToken]
         public IHttpActionResult Login(LoginModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    // поиск пользователя в бд
-               //User user = db.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
-
-            //    if (user != null)
-            //    {
-            //        FormsAuthentication.SetAuthCookie(model.Name, true);
-            //        return RedirectToAction("Index", "Home");
-            //    }
-            //    else
-            //    {
-            //        ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
-            //    }
-            //}
-
             if (ModelState.IsValid)
             {
-                User user = db.Users.Find(model.Email, model.Password);
-                if(user != null)
+                //    // поиск пользователя в бд
+                User user = db.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
+
+                
+
+                //    if (user != null)
+                //    {
+                //        FormsAuthentication.SetAuthCookie(model.Name, true);
+                //        return RedirectToAction("Index", "Home");
+                //    }
+                //    else
+                //    {
+                //        ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
+                //    }
+                //}
+
+                //User user = db.Users.Find(model.Email, model.Password);
+                if (user != null)
                 {
                     return Json(user);
                 }
@@ -58,13 +58,12 @@ namespace eLifeApi.Controllers
                 {
                     return BadRequest();
                 }
+
             }
             else
             {
-                return BadRequest();
-            }
-
-            
+               return BadRequest();
+            }            
         }
         
         //public ActionResult Register()

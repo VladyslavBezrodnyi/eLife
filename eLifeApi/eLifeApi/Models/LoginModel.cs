@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace eLifeApi.Models
 {
+    [Serializable]
     public class LoginModel
     {
         [Required]
