@@ -45,7 +45,7 @@ namespace eLifeApi.Controllers
                 {
                     db.Users.Add(new User { Name = model.Name, Email = model.Email, Password = model.Password, Role_id = 1 });
                     db.SaveChanges();
-                    return Ok(user);
+                    return Json(user);
                 }
                 else
                 {

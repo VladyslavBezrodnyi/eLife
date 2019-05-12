@@ -8,7 +8,7 @@ namespace eLifeApi.Models
     using Microsoft.AspNet.Identity.EntityFramework;
 
     [Serializable]
-    public partial class Role : IdentityRole
+    public partial class Role 
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Role()

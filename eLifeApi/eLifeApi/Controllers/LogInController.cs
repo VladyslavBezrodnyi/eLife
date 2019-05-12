@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
+using System.Data.Entity;
 
 
 using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
@@ -40,10 +41,10 @@ namespace eLifeApi.Controllers
         public IHttpActionResult Login([FromBody] LoginModel model)
         {
             
-                User user = db.Users.FirstOrDefault(u => u.Email == model.Email);
+                User user = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Email == model.Email);
                 if(user != null)
                 {
-                    return Json(user);
+                    return Ok(user);
                 }
                 else
                 {
