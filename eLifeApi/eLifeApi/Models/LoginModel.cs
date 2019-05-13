@@ -9,6 +9,7 @@ namespace eLifeApi.Models
     [Serializable]
     public class LoginModel
     {
+        [Key]
         [Required]
         public string Email { get; set; }
 

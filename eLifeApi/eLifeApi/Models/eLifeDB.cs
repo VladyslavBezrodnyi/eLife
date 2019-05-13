@@ -130,5 +130,7 @@ namespace eLifeApi.Models
                 .HasForeignKey(e => e.Id_doctor)
                 .WillCascadeOnDelete(false);
         }
+
+        public System.Data.Entity.DbSet<eLifeApi.Models.LoginModel> LoginModels { get; set; }
     }
 }
