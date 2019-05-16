@@ -27,6 +27,8 @@ namespace eLifeApi.Models
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
         public string PasswordConfirm { get; set; }
-        
+
+        [Required]
+        public int Id_Role{ get; set; }
     }
 }

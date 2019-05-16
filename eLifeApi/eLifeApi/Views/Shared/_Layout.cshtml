@@ -24,6 +24,12 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Регистрация", "Register", "Account", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Войти в грешную жизнь и красиво уйти из неё", "Login", "Account", new { area = "" }, null)</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Здравствуйте," + @User.Identity.Name, "", "", new { area = "" }, null)</li>
+                    }
                 </ul>
             </div>
         </div>

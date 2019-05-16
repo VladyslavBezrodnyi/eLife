@@ -28,10 +28,11 @@ namespace eLifeApi.Controllers.WEBControllers
             {
                 // поиск пользователя в бд
                 User user = db.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
-
+                int i = 0;
+                i++;
                 if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Email, true);
+                    FormsAuthentication.SetAuthCookie(user.Name, true);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -44,6 +45,7 @@ namespace eLifeApi.Controllers.WEBControllers
 
         public ActionResult Register()
         {
+            ViewBag.Roles = new SelectList(db.Roles, "Id", "Name");
             return View();
         }
         [HttpPost]
@@ -52,16 +54,16 @@ namespace eLifeApi.Controllers.WEBControllers
         {
             if (ModelState.IsValid)
             {
-                User user = db.Users.FirstOrDefault(u => u.Email == model.Name && u.Password == model.Password);
+                User user = db.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
 
                 if (user == null)
                 {
-                    db.Users.Add(new User { Email = model.Name, Password = model.Password, Role_id = 2 });
+                    db.Users.Add(new User { Email = model.Email, Password = model.Password, Name = model.Name, Role_id = model.Id_Role });
                     db.SaveChanges();
-                    user = db.Users.Where(u => u.Email == model.Name && u.Password == model.Password).FirstOrDefault();
+                    user = db.Users.Where(u => u.Email == model.Email && u.Password == model.Password).FirstOrDefault();
                     if (user != null)
                     {
-                        FormsAuthentication.SetAuthCookie(model.Name, true);
+                        FormsAuthentication.SetAuthCookie(user.Name, true);
                         return RedirectToAction("Index", "Home");
                     }
                 }
