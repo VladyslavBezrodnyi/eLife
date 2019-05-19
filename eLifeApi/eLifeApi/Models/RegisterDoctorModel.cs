@@ -29,7 +29,5 @@ namespace eLifeApi.Models
 
         public bool Practiced { get; set; }
 
-        [Required]
-        public byte[] Photo { get; set; }
     }
 }

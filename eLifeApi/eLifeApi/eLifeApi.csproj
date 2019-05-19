@@ -232,6 +232,8 @@
     <Compile Include="Controllers\APIControllers\UsersController.cs" />
     <Compile Include="Controllers\APIControllers\ValuesController.cs" />
     <Compile Include="Controllers\WEBControllers\AccountController.cs" />
+    <Compile Include="Controllers\WEBControllers\ClinicsController.cs" />
+    <Compile Include="Controllers\WEBControllers\DoctorInformsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -329,6 +331,17 @@
     <Content Include="Views\Account\RegisterPatient.cshtml" />
     <Content Include="Views\Account\MyAccount.cshtml" />
     <Content Include="Views\Account\RegisterDoctor.cshtml" />
+    <Content Include="Views\Account\AccountDoctor.cshtml" />
+    <Content Include="Views\DoctorInforms\Create.cshtml" />
+    <Content Include="Views\DoctorInforms\Delete.cshtml" />
+    <Content Include="Views\DoctorInforms\Details.cshtml" />
+    <Content Include="Views\DoctorInforms\Edit.cshtml" />
+    <Content Include="Views\DoctorInforms\Index.cshtml" />
+    <Content Include="Views\Clinics\Create.cshtml" />
+    <Content Include="Views\Clinics\Delete.cshtml" />
+    <Content Include="Views\Clinics\Details.cshtml" />
+    <Content Include="Views\Clinics\Edit.cshtml" />
+    <Content Include="Views\Clinics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

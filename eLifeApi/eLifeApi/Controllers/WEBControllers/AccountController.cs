@@ -142,7 +142,7 @@ namespace eLifeApi.Controllers.WEBControllers
                 byte[] imageData = null;
                 using (var binaryReader = new BinaryReader(uploadImage.InputStream))
                 {
-                    imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                     imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
                 }
                 User user = db.Users.Find(id);
                 DoctorInform doctorInform = new DoctorInform {
@@ -151,10 +151,13 @@ namespace eLifeApi.Controllers.WEBControllers
                     Guardian = model.Guardian,
                     Practiced = true,
                     Specialization = model.Specialization,
+                    Id_clinic = model.Id_clinic,
                     Skills = model.Skills,
                     Photo = imageData
                 };
                 db.DoctorInforms.Add(doctorInform);
+                db.SaveChanges();
+                user.DoctorId = doctorInform.Id;
                 db.SaveChanges();
                 return RedirectToAction("MyAccount", "Account");
             }
@@ -169,6 +172,11 @@ namespace eLifeApi.Controllers.WEBControllers
             return View(user);
         }
 
+        public ActionResult AccountDoctor()
+        {
+            User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
+            return View(user.DoctorInform);
+        }
 
         public ActionResult Logoff()
         {
