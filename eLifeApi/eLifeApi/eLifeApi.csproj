@@ -242,7 +242,6 @@
     <Compile Include="Models\Conversation.cs" />
     <Compile Include="Models\ConversationReply.cs" />
     <Compile Include="Models\DoctorInform.cs" />
-    <Compile Include="Models\DoctorRegister.cs" />
     <Compile Include="Models\eLifeDB.cs" />
     <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -251,7 +250,9 @@
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Record.cs" />
+    <Compile Include="Models\RegisterDoctorModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\RegisterPatientModel.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\TypeOfService.cs" />
@@ -324,6 +325,9 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ChoiceRoleRegister.cshtml" />
+    <Content Include="Views\Account\RegisterPatient.cshtml" />
+    <Content Include="Views\Account\MyAccount.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

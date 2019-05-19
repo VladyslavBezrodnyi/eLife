@@ -23,10 +23,10 @@ namespace eLifeApi.Models
         public virtual DbSet<PatientInform> PatientInforms { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Record> Records { get; set; }
-        public new DbSet<Role> Roles { get; set; }
+        public  DbSet<Role> Roles { get; set; }
         public virtual DbSet<TypeOfService> TypeOfServices { get; set; }
         public virtual DbSet<Type> Types { get; set; }
-        public new DbSet<User> Users { get; set; }
+        public  DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -132,5 +132,6 @@ namespace eLifeApi.Models
         }
 
         public System.Data.Entity.DbSet<eLifeApi.Models.LoginModel> LoginModels { get; set; }
+        
     }
 }

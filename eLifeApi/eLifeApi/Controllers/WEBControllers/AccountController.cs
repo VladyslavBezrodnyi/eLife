@@ -5,9 +5,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Security;
 using eLifeApi.Models;
+using Newtonsoft.Json;
+using AuthorizeAttribute = System.Web.Mvc.AuthorizeAttribute;
+using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
 
 namespace eLifeApi.Controllers.WEBControllers
 {
@@ -28,8 +32,7 @@ namespace eLifeApi.Controllers.WEBControllers
             {
                 // поиск пользователя в бд
                 User user = db.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
-                int i = 0;
-                i++;
+                
                 if (user != null)
                 {
                     FormsAuthentication.SetAuthCookie(user.Name, true);
@@ -45,7 +48,6 @@ namespace eLifeApi.Controllers.WEBControllers
 
         public ActionResult Register()
         {
-            ViewBag.Roles = new SelectList(db.Roles, "Id", "Name");
             return View();
         }
         [HttpPost]
@@ -58,13 +60,13 @@ namespace eLifeApi.Controllers.WEBControllers
 
                 if (user == null)
                 {
-                    db.Users.Add(new User { Email = model.Email, Password = model.Password, Name = model.Name, Role_id = model.Id_Role });
+                    db.Users.Add(new User { Email = model.Email, Password = model.Password, Name = model.Name });
                     db.SaveChanges();
                     user = db.Users.Where(u => u.Email == model.Email && u.Password == model.Password).FirstOrDefault();
                     if (user != null)
                     {
-                        FormsAuthentication.SetAuthCookie(user.Name, true);
-                        return RedirectToAction("Index", "Home");
+                        FormsAuthentication.SetAuthCookie(user.Email, true);
+                        return RedirectToAction("ChoiceRoleRegister", "Account", new { id = user.Id });
                     }
                 }
                 else
@@ -73,22 +75,26 @@ namespace eLifeApi.Controllers.WEBControllers
             return View(model);
         }
 
-        public ActionResult ChoiceRoleRegister(User user)
+        public ActionResult ChoiceRoleRegister(int id)
         {
-            return View();
-        }
 
-        public ActionResult ChoiceRoleRegister(int? role, User user)
+            return View(db.Roles.ToList());
+        }
+        [HttpPost]
+        public ActionResult ChoiceRoleRegister(int? role, int id)
         {
             if (role != null)
             {
+                User user = db.Users.Find(id);
                 if (user != null)
                 {
-                    user.Role_id = (int)role;
-                    user.Role = db.Roles.Find(role);
-                    user.Role.Users.Add(user);
+                    User newUser = db.Users.Find(user.Id);
+                    newUser.Role_id = (int)role;
+                    //user.Role = db.Roles.Find(role);
+                    //user.Role.Users.Add(user);
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    if(role == 1)
+                        return RedirectToAction("RegisterPatient", "Account", new { id = user.Id });
                 }
            }
                 else { 
@@ -96,7 +102,59 @@ namespace eLifeApi.Controllers.WEBControllers
             }
             return View();
         }
-        
+
+        public ActionResult RegisterPatient(int id)
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterPatient(RegisterPatientModel model, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                    User user = db.Users.Find(id);
+                    PatientInform patientInform = new PatientInform { Allergy = model.Allergy, BloodGroup = model.BloodGroup, Diabetes = model.Diabetes, Activity = model.Activity, Adress = model.Adress, Infectious_diseases = model.Infectious_diseases, BankCard = model.BankCard, Operations = model.Operations };
+                    db.PatientInforms.Add(patientInform);
+                    db.SaveChanges();
+                    user.PatientId = patientInform.PatientInfoId;
+                    db.SaveChanges();
+                    return RedirectToAction("MyAccount", "Account");
+            }
+            return View(model);
+        }
+
+        public ActionResult RegisterDoctor(int id)
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterDoctor(RegisterPatientModel model, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = db.Users.Find(id);
+                PatientInform patientInform = new PatientInform { Allergy = model.Allergy, BloodGroup = model.BloodGroup, Diabetes = model.Diabetes, Activity = model.Activity, Adress = model.Adress, Infectious_diseases = model.Infectious_diseases, BankCard = model.BankCard, Operations = model.Operations };
+                db.PatientInforms.Add(patientInform);
+                db.SaveChanges();
+                user.PatientId = patientInform.PatientInfoId;
+                db.SaveChanges();
+                return RedirectToAction("MyAccount", "Account");
+            }
+            return View(model);
+        }
+
+        [Authorize]
+        public ActionResult MyAccount()
+        {
+           
+            User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
+            return View(user);
+        }
+
 
         public ActionResult Logoff()
         {

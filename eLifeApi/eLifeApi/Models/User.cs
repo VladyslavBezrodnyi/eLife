@@ -26,7 +26,7 @@ namespace eLifeApi.Models
         [Key]
         public int Id { get; set; }
 
-        public int Role_id { get; set; }
+        public int ?Role_id { get; set; }
 
         public string PhoneNumber { get; set; }
 

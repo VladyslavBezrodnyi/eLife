@@ -9,14 +9,14 @@ namespace eLifeApi.Models
     [Serializable]
     public class RegisterModel
     {
+
         [Required]
         public string Name { get; set; }
 
         [Required]
         public string Email { get; set; }
 
-        // [Required]
-        // public int Year { get; set; }
+       
 
         [Required]
         [DataType(DataType.Password)]
@@ -27,8 +27,6 @@ namespace eLifeApi.Models
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
         public string PasswordConfirm { get; set; }
-
-        [Required]
-        public int Id_Role{ get; set; }
+        
     }
 }
