@@ -328,6 +328,7 @@
     <Content Include="Views\Account\ChoiceRoleRegister.cshtml" />
     <Content Include="Views\Account\RegisterPatient.cshtml" />
     <Content Include="Views\Account\MyAccount.cshtml" />
+    <Content Include="Views\Account\RegisterDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

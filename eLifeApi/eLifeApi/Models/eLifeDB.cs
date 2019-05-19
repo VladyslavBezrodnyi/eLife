@@ -132,6 +132,5 @@ namespace eLifeApi.Models
         }
 
         public System.Data.Entity.DbSet<eLifeApi.Models.LoginModel> LoginModels { get; set; }
-        
     }
 }

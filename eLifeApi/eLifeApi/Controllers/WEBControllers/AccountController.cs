@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -95,6 +96,8 @@ namespace eLifeApi.Controllers.WEBControllers
                     db.SaveChanges();
                     if(role == 1)
                         return RedirectToAction("RegisterPatient", "Account", new { id = user.Id });
+                    if(role == 2)
+                        return RedirectToAction("RegisterDoctor", "Account", new { id = user.Id });
                 }
            }
                 else { 
@@ -132,15 +135,26 @@ namespace eLifeApi.Controllers.WEBControllers
         }
 
         [HttpPost]
-        public ActionResult RegisterDoctor(RegisterPatientModel model, int id)
+        public ActionResult RegisterDoctor(RegisterDoctorModel model, HttpPostedFileBase uploadImage, int id)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid )
             {
+                byte[] imageData = null;
+                using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                {
+                    imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                }
                 User user = db.Users.Find(id);
-                PatientInform patientInform = new PatientInform { Allergy = model.Allergy, BloodGroup = model.BloodGroup, Diabetes = model.Diabetes, Activity = model.Activity, Adress = model.Adress, Infectious_diseases = model.Infectious_diseases, BankCard = model.BankCard, Operations = model.Operations };
-                db.PatientInforms.Add(patientInform);
-                db.SaveChanges();
-                user.PatientId = patientInform.PatientInfoId;
+                DoctorInform doctorInform = new DoctorInform {
+                    Category_ = model.Category_,
+                    Education = model.Education,
+                    Guardian = model.Guardian,
+                    Practiced = true,
+                    Specialization = model.Specialization,
+                    Skills = model.Skills,
+                    Photo = imageData
+                };
+                db.DoctorInforms.Add(doctorInform);
                 db.SaveChanges();
                 return RedirectToAction("MyAccount", "Account");
             }
