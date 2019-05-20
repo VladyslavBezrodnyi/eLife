@@ -2,6 +2,7 @@ namespace eLifeApi.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -20,15 +21,19 @@ namespace eLifeApi.Models
         public int Id_clinic { get; set; }
 
         [Required]
+        [DisplayName("Назва")]
         public string Name { get; set; }
 
         [Required]
+        [DisplayName("Адреса")]
         public string Adress { get; set; }
 
         [Required]
+        [DisplayName("Опис")]
         public string Description { get; set; }
 
         [Required]
+        [DisplayName("Банківська картка")]
         public string BankCard { get; set; }
 
         [Column(TypeName = "image")]

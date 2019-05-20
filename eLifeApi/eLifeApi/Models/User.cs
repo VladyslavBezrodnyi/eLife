@@ -2,6 +2,7 @@ namespace eLifeApi.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -28,28 +29,37 @@ namespace eLifeApi.Models
 
         public int ?Role_id { get; set; }
 
+        [DisplayName("Номер телефону")]
         public string PhoneNumber { get; set; }
 
         public bool PhoneNumberConfimed { get; set; }
 
         [Required]
+        [DisplayName("Пароль")]
         public string Password { get; set; }
 
+        [DisplayName("Електронна пошта")]
         public string Email { get; set; }
 
         public bool EmailConfimed { get; set; }
 
+        [DisplayName("ПІБ")]
         public string Name { get; set; }
 
+        [DisplayName("Стать")]
         public string Gender { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayName("Дата народження")]
         public DateTime? Bithday { get; set; }
 
+        [DisplayName("Пацієнт")]
         public int? PatientId { get; set; }
 
+        [DisplayName("Лікар")]
         public int? DoctorId { get; set; }
 
+        [DisplayName("Адміністратор клініки")]
         public int? ClinicAdminId { get; set; }
 
         public virtual ClinicAdmin ClinicAdmin { get; set; }
