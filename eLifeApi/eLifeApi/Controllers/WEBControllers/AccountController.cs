@@ -245,6 +245,14 @@ namespace eLifeApi.Controllers.WEBControllers
             return View(user);
         }
 
+        public ActionResult ChangePassword(int id)
+        {
+            ChangePasswordModel model = new ChangePasswordModel();
+            User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
+            model.OldPassword = user.Password; 
+            return View();
+        }
+
         [Authorize]
         public ActionResult AccountPatient()
         {
