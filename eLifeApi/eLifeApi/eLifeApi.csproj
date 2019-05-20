@@ -257,6 +257,7 @@
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\RegisterPatientModel.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Specializations.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\TypeOfService.cs" />
     <Compile Include="Models\User.cs" />
@@ -340,7 +341,6 @@
     <Content Include="Views\DoctorInforms\Edit.cshtml" />
     <Content Include="Views\DoctorInforms\Index.cshtml" />
     <Content Include="Views\Clinics\Create.cshtml" />
-    <Content Include="Views\Clinics\Delete.cshtml" />
     <Content Include="Views\Clinics\Details.cshtml" />
     <Content Include="Views\Clinics\Edit.cshtml" />
     <Content Include="Views\Clinics\Index.cshtml" />

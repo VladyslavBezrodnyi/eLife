@@ -15,9 +15,14 @@ namespace eLifeApi.Controllers.WEBControllers
         private eLifeDB db = new eLifeDB();
 
         // GET: DoctorInforms
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            var doctorInforms = db.DoctorInforms.Include(d => d.Clinic);
+            var doctorInforms = db.DoctorInforms.Include(d => d.Clinic).Where(q =>q.Practiced);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                doctorInforms = doctorInforms.Where(s => s.Users.FirstOrDefault().Name.ToUpper().Contains(searchString.ToUpper())
+                                       || s.Clinic.Name.ToUpper().Contains(searchString.ToUpper()));
+            }
             return View(doctorInforms.ToList());
         }
 
@@ -92,32 +97,6 @@ namespace eLifeApi.Controllers.WEBControllers
             }
             ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.Id_clinic);
             return View(doctorInform);
-        }
-
-        // GET: DoctorInforms/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DoctorInform doctorInform = db.DoctorInforms.Find(id);
-            if (doctorInform == null)
-            {
-                return HttpNotFound();
-            }
-            return View(doctorInform);
-        }
-
-        // POST: DoctorInforms/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            DoctorInform doctorInform = db.DoctorInforms.Find(id);
-            db.DoctorInforms.Remove(doctorInform);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
