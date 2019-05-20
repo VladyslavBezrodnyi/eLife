@@ -181,19 +181,22 @@ namespace eLifeApi.Controllers.WEBControllers
             return View(user);
         }
 
-        public ActionResult EditAccountDoctor()
+        public ActionResult EditGeneralInfoDoctor(int id)
         {
-            User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
-            return View(user);
+            User user = db.Users.Find(id);
+            SelectList clinics = new SelectList(db.Clinics, "Id_clinic", "Name");
+            ViewBag.Clinics = clinics;
+            return View(user.DoctorInform);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditAccountDoctor(User user, HttpPostedFileBase uploadImage)
+        public ActionResult EditGeneralInfoDoctor(DoctorInform doctorInform, HttpPostedFileBase uploadImage)
         {
             if (ModelState.IsValid)
             {
-                DoctorInform doctorInform = db.DoctorInforms.Find(user.DoctorInform.Id);
+                User user = db.Users.Find(doctorInform.Id);
+                DoctorInform newDoctor = db.DoctorInforms.Find(user.DoctorId);
                 if (uploadImage != null)
                 {
                     byte[] imageData = null;
@@ -201,11 +204,43 @@ namespace eLifeApi.Controllers.WEBControllers
                     {
                         imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
                     }
-                    doctorInform.Photo = imageData;
-                    user.DoctorInform.Photo = imageData;
+                    newDoctor.Photo = imageData;
                 }
+                newDoctor.Id_clinic = doctorInform.Id_clinic;
+                newDoctor.Practiced = doctorInform.Practiced;
+                newDoctor.Skills = doctorInform.Skills;
+                newDoctor.Specialization = doctorInform.Specialization;
+                newDoctor.Education = doctorInform.Education;
+                newDoctor.Category_ = doctorInform.Category_;
+                newDoctor.Guardian = doctorInform.Guardian;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AccountDoctor");
+            }
+            return View(doctorInform);
+        }
+
+        public ActionResult EditUserInfoDoctor(int id)
+        {
+            User user = db.Users.Find(id);
+            string[] genders = new[] { "Жіноча", "Чоловіча" };
+            ViewBag.Genders = new SelectList(genders);
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUserInfoDoctor(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                User newUser = db.Users.Find(user.Id);
+                newUser.Name = user.Name;
+                newUser.Gender = user.Gender;
+                newUser.Bithday = newUser.Bithday;
+                newUser.Email = user.Email;
+                newUser.PhoneNumber = user.PhoneNumber;
+                db.SaveChanges();
+                return RedirectToAction("AccountDoctor");
             }
             return View(user);
         }

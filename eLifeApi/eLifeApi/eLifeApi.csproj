@@ -345,6 +345,8 @@
     <Content Include="Views\Clinics\Index.cshtml" />
     <Content Include="Views\Account\AccountPatient.cshtml" />
     <Content Include="Views\Account\EditAccountDoctor.cshtml" />
+    <Content Include="Views\Account\EditGeneralInfoDoctor.cshtml" />
+    <Content Include="Views\Account\EditUserInfoDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

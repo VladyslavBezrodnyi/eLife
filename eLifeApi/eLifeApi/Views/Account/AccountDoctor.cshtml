@@ -10,6 +10,16 @@
     <h4>DoctorInform</h4>
     <hr />
     <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorInform.Photo)
+        </dt>
+
+        <dd>
+            @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
+                                + Convert.ToBase64String(Model.DoctorInform.Photo) + "\" />")
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -50,13 +60,8 @@
             @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DoctorInform.Clinic.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DoctorInform.Clinic.Name)
-        </dd>
+        @Html.ActionLink("Редагувати загальну інфу", "EditUserInfoDoctor", new { id = Model.Id })
 
         <dt>
             @Html.DisplayNameFor(model => model.DoctorInform.Specialization)
@@ -106,18 +111,10 @@
             @Html.DisplayFor(model => model.DoctorInform.Practiced)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DoctorInform.Photo)
-        </dt>
-
-        <dd>
-            @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
-                                + Convert.ToBase64String(Model.DoctorInform.Photo) + "\" />")
-        </dd>
+        @Html.ActionLink("Редагувати", "EditGeneralInfoDoctor", new { id = Model.Id })
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("EditAccountDoctor", "Account") |
+<p> |
     @Html.ActionLink("Back to List", "Index")
 </p>
