@@ -348,6 +348,8 @@
     <Content Include="Views\Account\EditAccountDoctor.cshtml" />
     <Content Include="Views\Account\EditGeneralInfoDoctor.cshtml" />
     <Content Include="Views\Account\EditUserInfoDoctor.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\EditGeneralInfoPatient.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

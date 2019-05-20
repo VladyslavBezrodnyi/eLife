@@ -219,6 +219,36 @@ namespace eLifeApi.Controllers.WEBControllers
             return View(doctorInform);
         }
 
+        public ActionResult EditGeneralInfoPatient(int id)
+        {
+            User user = db.Users.Find(id);
+            string[] bloodgroups = new[] { "0+ (Перша резус позитивний)", "0- (Перша резус негативний)", "0- (Перша резус негативний)" };
+            ViewBag.Bloodgroups = new SelectList(bloodgroups);
+            return View(user.PatientInform);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditGeneralInfoPatient(PatientInform patientInform)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = db.Users.Find(patientInform.PatientInfoId);
+                PatientInform newPatient = db.PatientInforms.Find(user.PatientInform);
+                newPatient.Activity = patientInform.Activity;
+                newPatient.Adress = patientInform.Adress;
+                newPatient.Allergy = patientInform.Allergy;
+                newPatient.BankCard = patientInform.BankCard;
+                newPatient.BloodGroup = patientInform.BloodGroup;
+                newPatient.Diabetes = patientInform.Diabetes;
+                newPatient.Infectious_diseases = patientInform.Infectious_diseases;
+                newPatient.Operations = patientInform.Operations;
+                db.SaveChanges();
+                return RedirectToAction("MyAccount");
+            }
+            return View(patientInform);
+        }
+
         public ActionResult EditUserInfoDoctor(int id)
         {
             User user = db.Users.Find(id);
@@ -240,7 +270,7 @@ namespace eLifeApi.Controllers.WEBControllers
                 newUser.Email = user.Email;
                 newUser.PhoneNumber = user.PhoneNumber;
                 db.SaveChanges();
-                return RedirectToAction("AccountDoctor");
+                return RedirectToAction("MyAccount");
             }
             return View(user);
         }
@@ -250,7 +280,29 @@ namespace eLifeApi.Controllers.WEBControllers
             ChangePasswordModel model = new ChangePasswordModel();
             User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
             model.OldPassword = user.Password; 
-            return View();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
+
+                if (String.Compare(user.Password, model.OldPassword) == 0)
+                {
+                    user.Password = model.Password;
+                    db.SaveChanges();
+                    return RedirectToAction("MyAccount", "Account");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Пароль не співпадає з попереднім");
+                }
+            }
+            return View(model);
         }
 
         [Authorize]

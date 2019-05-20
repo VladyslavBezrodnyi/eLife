@@ -60,8 +60,9 @@
             @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
 
-
-        @Html.ActionLink("Редагувати загальну інфу", "EditUserInfoDoctor", new { id = Model.Id })
+        <dt>
+            @Html.ActionLink("Редагувати загальну інфу", "EditUserInfoDoctor", new { id = Model.Id })
+        </dt>
 
         <dt>
             @Html.DisplayNameFor(model => model.DoctorInform.Specialization)
@@ -112,6 +113,7 @@
         </dd>
 
         @Html.ActionLink("Редагувати", "EditGeneralInfoDoctor", new { id = Model.Id })
+        @Html.ActionLink("Змінити пароль", "ChangePassword", new { id = Model.Id })
 
     </dl>
 </div>

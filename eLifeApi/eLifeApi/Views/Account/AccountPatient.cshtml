@@ -4,73 +4,120 @@
     <h4>PatientInform</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.Adress)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Adress)
+            @Html.DisplayFor(model => model.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Activity)
+            @Html.DisplayNameFor(model => model.Bithday)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Activity)
+            @Html.DisplayFor(model => model.Bithday)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BloodGroup)
+            @Html.DisplayNameFor(model => model.Gender)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BloodGroup)
+            @Html.DisplayFor(model => model.Gender)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Allergy)
+            @Html.DisplayNameFor(model => model.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Allergy)
+            @Html.DisplayFor(model => model.Email)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Operations)
+            @Html.DisplayNameFor(model => model.PhoneNumber)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Operations)
+            @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Infectious_diseases)
+            @Html.ActionLink("Редагувати", "EditUserInfoDoctor", new { id = Model.Id })
+        </dt>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientInform.Adress)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Infectious_diseases)
+            @Html.DisplayFor(model => model.PatientInform.Adress)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Diabetes)
+            @Html.DisplayNameFor(model => model.PatientInform.Activity)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Diabetes)
+            @Html.DisplayFor(model => model.PatientInform.Activity)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BankCard)
+            @Html.DisplayNameFor(model => model.PatientInform.BloodGroup)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BankCard)
+            @Html.DisplayFor(model => model.PatientInform.BloodGroup)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientInform.Allergy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientInform.Allergy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientInform.Operations)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientInform.Operations)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientInform.Infectious_diseases)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientInform.Infectious_diseases)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientInform.Diabetes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientInform.Diabetes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientInform.BankCard)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientInform.BankCard)
+        </dd>
+
+        @Html.ActionLink("Редагувати", "EditGeneralInfoPatient", new { id = Model.Id })
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PatientInfoId }) |
+    @Html.ActionLink("Змінити пароль", "ChangePassword", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
