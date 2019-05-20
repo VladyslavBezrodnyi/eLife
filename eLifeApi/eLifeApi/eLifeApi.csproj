@@ -238,6 +238,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ApplicationUserManager.cs" />
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\Clinic.cs" />
     <Compile Include="Models\ClinicAdmin.cs" />
     <Compile Include="Models\ClinicAdminRegister.cs" />
