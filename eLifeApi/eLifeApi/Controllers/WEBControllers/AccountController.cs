@@ -167,16 +167,57 @@ namespace eLifeApi.Controllers.WEBControllers
         [Authorize]
         public ActionResult MyAccount()
         {
-           
+            User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
+            if (String.Compare(user.Role.Name, "Patient") == 0)
+                return RedirectToAction("AccountPatient");
+            if (String.Compare(user.Role.Name, "Doctor") == 0)
+                return RedirectToAction("AccountDoctor");
+            return RedirectToAction("Login"); ;
+        }
+        [Authorize]
+        public ActionResult AccountDoctor()
+        {
             User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
             return View(user);
         }
 
-        public ActionResult AccountDoctor()
+        public ActionResult EditAccountDoctor()
         {
             User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
-            return View(user.DoctorInform);
+            return View(user);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAccountDoctor(User user, HttpPostedFileBase uploadImage)
+        {
+            if (ModelState.IsValid)
+            {
+                DoctorInform doctorInform = db.DoctorInforms.Find(user.DoctorInform.Id);
+                if (uploadImage != null)
+                {
+                    byte[] imageData = null;
+                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                    {
+                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    }
+                    doctorInform.Photo = imageData;
+                    user.DoctorInform.Photo = imageData;
+                }
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
+
+        [Authorize]
+        public ActionResult AccountPatient()
+        {
+            User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
+            return View(user);
+        }
+
+
 
         public ActionResult Logoff()
         {

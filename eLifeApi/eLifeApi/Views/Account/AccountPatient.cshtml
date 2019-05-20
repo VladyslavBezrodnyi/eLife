@@ -1,0 +1,76 @@
+﻿@model eLifeApi.Models.User
+
+<div>
+    <h4>PatientInform</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Adress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BloodGroup)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BloodGroup)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Allergy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Allergy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Operations)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Operations)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Infectious_diseases)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Infectious_diseases)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diabetes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diabetes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankCard)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankCard)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PatientInfoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

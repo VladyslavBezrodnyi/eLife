@@ -260,6 +260,7 @@
     <Compile Include="Models\TypeOfService.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\CustomRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\eLifeDB.mdf" />
@@ -342,6 +343,8 @@
     <Content Include="Views\Clinics\Details.cshtml" />
     <Content Include="Views\Clinics\Edit.cshtml" />
     <Content Include="Views\Clinics\Index.cshtml" />
+    <Content Include="Views\Account\AccountPatient.cshtml" />
+    <Content Include="Views\Account\EditAccountDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
