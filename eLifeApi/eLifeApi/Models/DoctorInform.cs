@@ -2,6 +2,7 @@ namespace eLifeApi.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -18,23 +19,30 @@ namespace eLifeApi.Models
         public int Id { get; set; }
 
         [Required]
+        [DisplayName("Спеціалізація")]
         public string Specialization { get; set; }
 
         [Column("Category ")]
         [Required]
+        [DisplayName("Категорія")]
         public string Category_ { get; set; }
 
         [Required]
+        [DisplayName("Стаж")]
         public string Guardian { get; set; }
 
+        [DisplayName("Клініка")]
         public int Id_clinic { get; set; }
 
         [Required]
+        [DisplayName("Освіта")]
         public string Education { get; set; }
 
         [Required]
+        [DisplayName("Вміння")]
         public string Skills { get; set; }
 
+        [DisplayName("Практикуючий")]
         public bool Practiced { get; set; }
 
         [Column(TypeName = "image")]

@@ -2,6 +2,7 @@ namespace eLifeApi.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -18,6 +19,7 @@ namespace eLifeApi.Models
         [Key]
         public int Id_clinic_admin { get; set; }
 
+        [DisplayName(" Î≥Ì≥Í‡")]
         public int Id_clinic { get; set; }
 
         public bool ClinicConfimed { get; set; }
