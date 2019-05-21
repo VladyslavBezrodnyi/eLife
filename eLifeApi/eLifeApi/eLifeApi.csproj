@@ -45,13 +45,46 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.2.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="MailKit, Version=2.1.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
+      <HintPath>..\packages\MailKit.2.1.5.1\lib\net45\MailKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeKit, Version=2.1.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.2.1.5.1\lib\net45\MimeKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -189,39 +222,57 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\ClinicAdminsController.cs" />
-    <Compile Include="Controllers\ClinicsController.cs" />
-    <Compile Include="Controllers\ConversationRepliesController.cs" />
-    <Compile Include="Controllers\ConversationsController.cs" />
-    <Compile Include="Controllers\DoctorInformsController.cs" />
-    <Compile Include="Controllers\FeedbacksController.cs" />
+    <Compile Include="Controllers\APIControllers\AccountController.cs" />
+    <Compile Include="Controllers\APIControllers\ClinicAdminsController.cs" />
+    <Compile Include="Controllers\APIControllers\ClinicsController.cs" />
+    <Compile Include="Controllers\APIControllers\ConversationRepliesController.cs" />
+    <Compile Include="Controllers\APIControllers\ConversationsController.cs" />
+    <Compile Include="Controllers\APIControllers\DoctorInformsController.cs" />
+    <Compile Include="Controllers\APIControllers\FeedbacksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PatientInformsController.cs" />
-    <Compile Include="Controllers\PaymentsController.cs" />
-    <Compile Include="Controllers\RecordsController.cs" />
-    <Compile Include="Controllers\RolesController.cs" />
-    <Compile Include="Controllers\TypeOfServicesController.cs" />
-    <Compile Include="Controllers\TypesController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\APIControllers\LogInController.cs" />
+    <Compile Include="Controllers\APIControllers\PatientInformsController.cs" />
+    <Compile Include="Controllers\APIControllers\PaymentsController.cs" />
+    <Compile Include="Controllers\APIControllers\RecordsController.cs" />
+    <Compile Include="Controllers\APIControllers\RegisterController.cs" />
+    <Compile Include="Controllers\APIControllers\RolesController.cs" />
+    <Compile Include="Controllers\APIControllers\TypeOfServicesController.cs" />
+    <Compile Include="Controllers\APIControllers\TypesController.cs" />
+    <Compile Include="Controllers\APIControllers\UsersController.cs" />
+    <Compile Include="Controllers\APIControllers\ValuesController.cs" />
+    <Compile Include="Controllers\WEBControllers\AccountController.cs" />
+    <Compile Include="Controllers\WEBControllers\ClinicsController.cs" />
+    <Compile Include="Controllers\WEBControllers\DoctorInformsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApplicationUserManager.cs" />
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\Clinic.cs" />
     <Compile Include="Models\ClinicAdmin.cs" />
+    <Compile Include="Models\ClinicAdminRegister.cs" />
     <Compile Include="Models\Conversation.cs" />
     <Compile Include="Models\ConversationReply.cs" />
     <Compile Include="Models\DoctorInform.cs" />
     <Compile Include="Models\eLifeDB.cs" />
+    <Compile Include="Models\EmailService.cs" />
     <Compile Include="Models\Feedback.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PatientInform.cs" />
+    <Compile Include="Models\PatientRegister.cs" />
     <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Record.cs" />
+    <Compile Include="Models\RegisterDoctorModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\RegisterPatientModel.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Specializations.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\TypeOfService.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\CustomRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\eLifeDB.mdf" />
@@ -266,7 +317,9 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -280,6 +333,33 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Create.cshtml" />
+    <Content Include="Views\Account\Delete.cshtml" />
+    <Content Include="Views\Account\Details.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ChoiceRoleRegister.cshtml" />
+    <Content Include="Views\Account\RegisterPatient.cshtml" />
+    <Content Include="Views\Account\MyAccount.cshtml" />
+    <Content Include="Views\Account\RegisterDoctor.cshtml" />
+    <Content Include="Views\Account\AccountDoctor.cshtml" />
+    <Content Include="Views\DoctorInforms\Create.cshtml" />
+    <Content Include="Views\DoctorInforms\Delete.cshtml" />
+    <Content Include="Views\DoctorInforms\Details.cshtml" />
+    <Content Include="Views\DoctorInforms\Edit.cshtml" />
+    <Content Include="Views\DoctorInforms\Index.cshtml" />
+    <Content Include="Views\Clinics\Create.cshtml" />
+    <Content Include="Views\Clinics\Details.cshtml" />
+    <Content Include="Views\Clinics\Edit.cshtml" />
+    <Content Include="Views\Clinics\Index.cshtml" />
+    <Content Include="Views\Account\AccountPatient.cshtml" />
+    <Content Include="Views\Account\EditAccountDoctor.cshtml" />
+    <Content Include="Views\Account\EditGeneralInfoDoctor.cshtml" />
+    <Content Include="Views\Account\EditUserInfoDoctor.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\EditGeneralInfoPatient.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<eLifeApi.Models.Role>
+
+@{
+    /**/
+
+    ViewBag.Title = "ChoiceRoleRegister";
+}
+
+<h2>ChoiceRoleRegister</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    foreach (var item in Model)
+    {
+        <div class="form-group">
+            @Html.DisplayFor(modelItem => item.Name)
+            <div class="col-md-10">
+                @Html.RadioButton("role", item.Id)
+            </div>
+
+        </div>
+    }
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Choice" class="btn btn-default" />
+        </div>
+    </div>
+}
+

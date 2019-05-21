@@ -5,8 +5,10 @@ namespace eLifeApi.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
-    public partial class Role
+    [Serializable]
+    public partial class Role 
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Role()
@@ -18,6 +20,7 @@ namespace eLifeApi.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }

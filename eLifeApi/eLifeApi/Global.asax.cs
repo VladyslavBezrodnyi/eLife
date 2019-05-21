@@ -18,6 +18,14 @@ namespace eLifeApi
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            JsonBlocker();
+        }
+
+        private void JsonBlocker()
+        {
+            var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            json.SerializerSettings.PreserveReferencesHandling =
+                Newtonsoft.Json.PreserveReferencesHandling.All;
         }
     }
 }

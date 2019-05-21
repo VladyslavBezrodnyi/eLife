@@ -1,0 +1,122 @@
+﻿@model eLifeApi.Models.User
+
+@{
+    ViewBag.Title = "AccountDoctor";
+}
+
+<h2>AccountDoctor</h2>
+
+<div>
+    <h4>DoctorInform</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorInform.Photo)
+        </dt>
+
+        <dd>
+            @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
+                                + Convert.ToBase64String(Model.DoctorInform.Photo) + "\" />")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bithday)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bithday)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.ActionLink("Редагувати загальну інфу", "EditUserInfoDoctor", new { id = Model.Id })
+        </dt>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorInform.Specialization)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoctorInform.Specialization)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorInform.Category_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoctorInform.Category_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorInform.Guardian)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoctorInform.Guardian)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorInform.Education)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoctorInform.Education)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorInform.Skills)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoctorInform.Skills)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorInform.Practiced)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoctorInform.Practiced)
+        </dd>
+
+        @Html.ActionLink("Редагувати", "EditGeneralInfoDoctor", new { id = Model.Id })
+        @Html.ActionLink("Змінити пароль", "ChangePassword", new { id = Model.Id })
+
+    </dl>
+</div>
+<p> |
+    @Html.ActionLink("Back to List", "Index")
+</p>
