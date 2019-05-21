@@ -14,6 +14,9 @@ using Newtonsoft.Json;
 using AuthorizeAttribute = System.Web.Mvc.AuthorizeAttribute;
 using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
 
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+
 namespace eLifeApi.Controllers.WEBControllers
 {
     public class AccountController : Controller
@@ -53,7 +56,7 @@ namespace eLifeApi.Controllers.WEBControllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public async  Task<ActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
@@ -66,6 +69,16 @@ namespace eLifeApi.Controllers.WEBControllers
                     user = db.Users.Where(u => u.Email == model.Email && u.Password == model.Password).FirstOrDefault();
                     if (user != null)
                     {
+                        // генерация токена для пользователя
+                       // var code = await _userManager.GenerateEmailConfirmationTokenAsync(user.ToString());
+                        var callbackUrl = Url.Action(
+                            "ConfirmEmail",
+                            "Account",
+                             new { userId = user.Id, code = user.Id},
+                             protocol: Request.Url.Scheme);
+                        EmailService emailService = new EmailService();
+                        await emailService.SendEmailAsync(model.Email, "Confirm your account",
+                            $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
                         FormsAuthentication.SetAuthCookie(user.Email, true);
                         return RedirectToAction("ChoiceRoleRegister", "Account", new { id = user.Id });
                     }
@@ -74,6 +87,31 @@ namespace eLifeApi.Controllers.WEBControllers
                     ModelState.AddModelError("", "Пользователь с таким логином уже существует");
             }
             return View(model);
+        }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+            var user = await db.Users.FindAsync(Convert.ToInt32(userId));
+            if (user == null)
+            {
+                return View("Error");
+            }
+            if (userId == code)
+            {
+                user.EmailConfimed = true;
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            } else
+            {
+                return View("Error");
+            }
         }
 
         public ActionResult ChoiceRoleRegister(int id)

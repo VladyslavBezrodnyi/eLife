@@ -510,3 +510,8 @@ C:\Users\Yulia\Desktop\eLife.API\eLifeApi\eLifeApi\obj\Debug\eLifeApi.csproj.Cor
 C:\Users\Yulia\Desktop\eLife.API\eLifeApi\eLifeApi\obj\Debug\eLifeApi.csproj.CopyComplete
 C:\Users\Yulia\Desktop\eLife.API\eLifeApi\eLifeApi\obj\Debug\eLifeApi.dll
 C:\Users\Yulia\Desktop\eLife.API\eLifeApi\eLifeApi\obj\Debug\eLifeApi.pdb
+E:\eLife\eLife.API\eLifeApi\eLifeApi\bin\BouncyCastle.Crypto.dll
+E:\eLife\eLife.API\eLifeApi\eLifeApi\bin\MailKit.dll
+E:\eLife\eLife.API\eLifeApi\eLifeApi\bin\MimeKit.dll
+E:\eLife\eLife.API\eLifeApi\eLifeApi\bin\MailKit.xml
+E:\eLife\eLife.API\eLifeApi\eLifeApi\bin\MimeKit.xml

@@ -9,7 +9,7 @@ namespace eLifeApi.Models
     using Microsoft.AspNet.Identity.EntityFramework;
 
     [Serializable]
-    public partial class User /*: IdentityUser*/
+    public partial class User // : IdentityUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
