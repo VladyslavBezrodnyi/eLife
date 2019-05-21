@@ -146,7 +146,17 @@ namespace eLifeApi.Controllers.WEBControllers
 
         public ActionResult RegisterPatient(int id)
         {
-
+            string[] bloodgroups = new[] {
+                "0+ (Перша резус позитивний)",
+                "0- (Перша резус негативний)",
+                "A- (Друга резус негативний)",
+                "A+ (Друга резус позитивний)",
+                "B- (Третя резус негативний)",
+                "B+ (Третя резус позитивний)",
+                "AB- (Четверта резус негативний)",
+                "AB+ (Четверта резус позитивний)"
+            };
+            ViewBag.Bloodgroups = new SelectList(bloodgroups);
             return View();
         }
 
@@ -178,9 +188,13 @@ namespace eLifeApi.Controllers.WEBControllers
             if (ModelState.IsValid )
             {
                 byte[] imageData = null;
-                using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                if (uploadImage != null)
                 {
-                     imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+             
+                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                    {
+                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    }
                 }
                 User user = db.Users.Find(id);
                 DoctorInform doctorInform = new DoctorInform {
@@ -260,7 +274,16 @@ namespace eLifeApi.Controllers.WEBControllers
         public ActionResult EditGeneralInfoPatient(int id)
         {
             User user = db.Users.Find(id);
-            string[] bloodgroups = new[] { "0+ (Перша резус позитивний)", "0- (Перша резус негативний)", "0- (Перша резус негативний)" };
+            string[] bloodgroups = new[] {
+                "0+ (Перша резус позитивний)",
+                "0- (Перша резус негативний)",
+                "A- (Друга резус негативний)",
+                "A+ (Друга резус позитивний)",
+                "B- (Третя резус негативний)",
+                "B+ (Третя резус позитивний)",
+                "AB- (Четверта резус негативний)",
+                "AB+ (Четверта резус позитивний)"
+            };
             ViewBag.Bloodgroups = new SelectList(bloodgroups);
             return View(user.PatientInform);
         }
@@ -271,8 +294,8 @@ namespace eLifeApi.Controllers.WEBControllers
         {
             if (ModelState.IsValid)
             {
-                User user = db.Users.Find(patientInform.PatientInfoId);
-                PatientInform newPatient = db.PatientInforms.Find(user.PatientInform);
+                User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
+                PatientInform newPatient = db.PatientInforms.Find(user.PatientInform.PatientInfoId);
                 newPatient.Activity = patientInform.Activity;
                 newPatient.Adress = patientInform.Adress;
                 newPatient.Allergy = patientInform.Allergy;

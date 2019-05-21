@@ -21,9 +21,6 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BankCard)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Image)
         </th>
         <th></th>
@@ -41,10 +38,12 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BankCard)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Image)
+            @if (item.Image != null)
+            {
+                @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
+                                         + Convert.ToBase64String(item.Image) + "\" />")
+            }
+
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id_clinic }) |

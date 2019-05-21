@@ -1,4 +1,5 @@
 ﻿@model eLifeApi.Models.DoctorInform
+@using eLifeApi.Models
 
 @{
     ViewBag.Title = "Details";
@@ -10,6 +11,21 @@
     <h4>DoctorInform</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Photo)
+        </dt>
+
+        <dd>
+            @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
+                   + Convert.ToBase64String(Model.Photo) + "\" />")
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model..Users.FirstOrDefault().Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Users.FirstOrDefault().Name)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Clinic.Name)
         </dt>
@@ -58,25 +74,42 @@
             @Html.DisplayFor(model => model.Skills)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Practiced)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Practiced)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Photo)
-        </dt>
-
-        <dd>
-            @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
-                   + Convert.ToBase64String(Model.Photo) + "\" />")
-        </dd>
-
     </dl>
 </div>
+@if (Model.Users.FirstOrDefault().Feedbacks.Count != 0)
+{
+    <h3>
+        @Html.DisplayName("Рейтинг")
+    </h3>
+    <br />
+    <dd>
+        @Model.Users.FirstOrDefault().Feedbacks.Average(s => s.Stars)
+
+    </dd>
+}
+<div>
+    <h3>Усі відгуки</h3>
+    <table class="table">
+        @foreach (Feedback feedback in Model.Users.FirstOrDefault().Feedbacks)
+        {
+            <tr>
+                <td>
+                    @feedback.Patient.Name
+                </td>
+                <td>
+                    @feedback.Date
+                </td>
+                <td>
+                    @feedback.Comment
+                </td>
+                <td>
+                    @feedback.Stars
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
