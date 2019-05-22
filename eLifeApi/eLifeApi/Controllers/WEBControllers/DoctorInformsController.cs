@@ -15,13 +15,19 @@ namespace eLifeApi.Controllers.WEBControllers
         private eLifeDB db = new eLifeDB();
 
         // GET: DoctorInforms
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string specializations)
         {
             var doctorInforms = db.DoctorInforms.Include(d => d.Clinic).Where(q =>q.Practiced);
+            SelectList specialiation = new SelectList(new Specializations().specializations);
+            ViewBag.Specialization = specialiation;
             if (!String.IsNullOrEmpty(searchString))
             {
                 doctorInforms = doctorInforms.Where(s => s.Users.FirstOrDefault().Name.ToUpper().Contains(searchString.ToUpper())
                                        || s.Clinic.Name.ToUpper().Contains(searchString.ToUpper()));
+            }
+            if (!String.IsNullOrEmpty(specializations))
+            {
+                doctorInforms = doctorInforms.Where(s => s.Specialization == specializations);
             }
             return View(doctorInforms.ToList());
         }

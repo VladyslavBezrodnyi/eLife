@@ -156,7 +156,7 @@ namespace eLifeApi.Controllers.WEBControllers
                 "AB- (Четверта резус негативний)",
                 "AB+ (Четверта резус позитивний)"
             };
-            ViewBag.Bloodgroups = new SelectList(bloodgroups);
+            ViewBag.Bloodgroup = new SelectList(bloodgroups);
             return View();
         }
 
@@ -178,7 +178,8 @@ namespace eLifeApi.Controllers.WEBControllers
 
         public ActionResult RegisterDoctor(int id)
         {
-
+            SelectList specialiation = new SelectList(new Specializations().specializations);
+            ViewBag.Specialization = specialiation;
             return View();
         }
 

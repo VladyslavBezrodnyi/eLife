@@ -7,7 +7,7 @@ namespace eLifeApi.Models
 {
     public class Specializations
     {
-        List<String> specializations = new List<string>{
+        public List<String> specializations = new List<string>{
             "Акушерство та гінекологія",
             "Анестезіологія та інтенсивна терапія",
             "Дерматовенерологія",
