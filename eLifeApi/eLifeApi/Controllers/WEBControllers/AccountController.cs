@@ -373,7 +373,12 @@ namespace eLifeApi.Controllers.WEBControllers
             return View(user);
         }
 
-
+        public ActionResult Google()
+        {
+            GoogleAuth auth = new GoogleAuth();
+            auth.CreateGoooleClient();
+            return RedirectToAction("Index", "Home");
+        }
 
         public ActionResult Logoff()
         {

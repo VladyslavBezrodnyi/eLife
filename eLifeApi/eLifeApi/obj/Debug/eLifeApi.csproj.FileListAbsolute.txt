@@ -515,3 +515,8 @@ E:\eLife\eLife.API\eLifeApi\eLifeApi\bin\MailKit.dll
 E:\eLife\eLife.API\eLifeApi\eLifeApi\bin\MimeKit.dll
 E:\eLife\eLife.API\eLifeApi\eLifeApi\bin\MailKit.xml
 E:\eLife\eLife.API\eLifeApi\eLifeApi\bin\MimeKit.xml
+D:\Project\eLife.API\eLifeApi\eLifeApi\bin\BouncyCastle.Crypto.dll
+D:\Project\eLife.API\eLifeApi\eLifeApi\bin\MailKit.dll
+D:\Project\eLife.API\eLifeApi\eLifeApi\bin\MimeKit.dll
+D:\Project\eLife.API\eLifeApi\eLifeApi\bin\MailKit.xml
+D:\Project\eLife.API\eLifeApi\eLifeApi\bin\MimeKit.xml

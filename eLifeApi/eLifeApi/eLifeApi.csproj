@@ -257,6 +257,9 @@
     <Compile Include="Models\eLifeDB.cs" />
     <Compile Include="Models\EmailService.cs" />
     <Compile Include="Models\Feedback.cs" />
+    <Compile Include="Models\GoogleAuth.cs" />
+    <Compile Include="Models\GooglePlusAccessToken.cs" />
+    <Compile Include="Models\GoogleUserOutputData.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PatientInform.cs" />
     <Compile Include="Models\PatientRegister.cs" />
