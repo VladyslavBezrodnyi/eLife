@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using eLifeApi.Classes;
 using eLifeApi.Models;
 
 namespace eLifeApi.Controllers.WEBControllers

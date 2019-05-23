@@ -39,6 +39,13 @@
                     }
                 </ul>
             </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Клініки", "Index", "Clinics", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Лікарі", "Index", "DoctorInforms", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Мій аккаунт", "MyAccount", "Account", new { area = "" }, null)</li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="container body-content">

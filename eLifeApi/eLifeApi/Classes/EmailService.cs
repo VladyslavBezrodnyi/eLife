@@ -6,7 +6,7 @@ using MimeKit;
 using MailKit.Net.Smtp;
 using System.Threading.Tasks;
 
-namespace eLifeApi.Models
+namespace eLifeApi.Classes
 {
     public class EmailService
     {

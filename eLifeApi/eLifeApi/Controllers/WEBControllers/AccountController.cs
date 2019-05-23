@@ -13,9 +13,9 @@ using eLifeApi.Models;
 using Newtonsoft.Json;
 using AuthorizeAttribute = System.Web.Mvc.AuthorizeAttribute;
 using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
-
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using eLifeApi.Classes;
 
 namespace eLifeApi.Controllers.WEBControllers
 {
