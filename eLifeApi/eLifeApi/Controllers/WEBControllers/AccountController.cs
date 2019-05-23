@@ -39,7 +39,8 @@ namespace eLifeApi.Controllers.WEBControllers
                 
                 if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(user.Name, true);
+                    FormsAuthentication.SetAuthCookie(user.Email, true);
+                    Session["Email"] = user.Email;
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -70,16 +71,15 @@ namespace eLifeApi.Controllers.WEBControllers
                     if (user != null)
                     {
                         // генерация токена для пользователя
-                       // var code = await _userManager.GenerateEmailConfirmationTokenAsync(user.ToString());
-                        var callbackUrl = Url.Action(
+                        // var code = await _userManager.GenerateEmailConfirmationTokenAsync(user.ToString());
+                        var code = user.Id.ToString();
+                        string callbackUrl = Url.Action(
                             "ConfirmEmail",
                             "Account",
-                             new { userId = user.Id, code = user.Id},
-                             protocol: Request.Url.Scheme);
-                        EmailService emailService = new EmailService();
-                        await emailService.SendEmailAsync(model.Email, "Confirm your account",
-                            $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
-                        FormsAuthentication.SetAuthCookie(user.Email, true);
+                            new { userId = user.Id, code = code },
+                            protocol: Request.Url.Scheme
+                            );
+                        await new EmailService().SendConfirmation(user.Id, code, user.Email, callbackUrl);
                         return RedirectToAction("ChoiceRoleRegister", "Account", new { id = user.Id });
                     }
                 }
@@ -220,6 +220,7 @@ namespace eLifeApi.Controllers.WEBControllers
         [Authorize]
         public ActionResult MyAccount()
         {
+            //string Email = Session["Email"].ToString();
             User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
             if (String.Compare(user.Role.Name, "Patient") == 0)
                 return RedirectToAction("AccountPatient");
@@ -230,6 +231,7 @@ namespace eLifeApi.Controllers.WEBControllers
         [Authorize]
         public ActionResult AccountDoctor()
         {
+            //string Email = Session["Email"].ToString();
             User user = db.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
             return View(user);
         }
@@ -321,7 +323,7 @@ namespace eLifeApi.Controllers.WEBControllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUserInfoDoctor(User user)
+        public async Task<ActionResult> EditUserInfoDoctor(User user)
         {
             if (ModelState.IsValid)
             {
@@ -329,7 +331,19 @@ namespace eLifeApi.Controllers.WEBControllers
                 newUser.Name = user.Name;
                 newUser.Gender = user.Gender;
                 newUser.Bithday = newUser.Bithday;
+                if (String.Compare(newUser.Email, user.Email) != 0)
+                {
+                    var code = user.Id.ToString();
+                    string callbackUrl = Url.Action(
+                        "ConfirmEmail",
+                        "Account",
+                        new { userId = user.Id, code = code },
+                        protocol: Request.Url.Scheme
+                        );
+                    await new EmailService().SendConfirmation(user.Id, code, user.Email, callbackUrl);
+                }
                 newUser.Email = user.Email;
+                FormsAuthentication.SetAuthCookie(newUser.Email, true);
                 newUser.PhoneNumber = user.PhoneNumber;
                 db.SaveChanges();
                 return RedirectToAction("MyAccount");

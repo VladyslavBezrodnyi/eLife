@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using MimeKit;
 using MailKit.Net.Smtp;
 using System.Threading.Tasks;
 
 namespace eLifeApi.Classes
 {
-    public class EmailService
+    public class EmailService : Controller
     {
-        public async Task SendEmailAsync(string email, string subject, string message)
+        public string callbackUrl;
+
+        private async Task SendEmailAsync(string email, string subject, string message)
         {
             var emailMessage = new MimeMessage();
 
@@ -29,6 +32,15 @@ namespace eLifeApi.Classes
                 await client.SendAsync(emailMessage);
                 await client.DisconnectAsync(true);
             }
+        }
+        
+        public async Task SendConfirmation(int userId, string code, string email, string callbackUrl)
+        {
+            await SendEmailAsync(
+                email, 
+                "Confirm your account",
+                $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>"
+                );
         }
     }
 }
