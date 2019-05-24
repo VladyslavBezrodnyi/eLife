@@ -23,7 +23,7 @@ namespace eLifeWEB.Controllers
             ViewBag.Specialization = specialiation;
             if (!String.IsNullOrEmpty(searchString))
             {
-                doctorInforms = doctorInforms.Where(s => s.Users.FirstOrDefault().Name.ToUpper().Contains(searchString.ToUpper())
+                doctorInforms = doctorInforms.Where(s => s.ApplicationUsers.FirstOrDefault().Name.ToUpper().Contains(searchString.ToUpper())
                                        || s.Clinic.Name.ToUpper().Contains(searchString.ToUpper()));
             }
             if (!String.IsNullOrEmpty(specializations))
@@ -69,7 +69,7 @@ namespace eLifeWEB.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.Id_clinic);
+            ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.ClinicId);
             return View(doctorInform);
         }
 
@@ -85,7 +85,7 @@ namespace eLifeWEB.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.Id_clinic);
+            ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.ClinicId);
             return View(doctorInform);
         }
 
@@ -102,7 +102,7 @@ namespace eLifeWEB.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.Id_clinic);
+            ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.ClinicId);
             return View(doctorInform);
         }
 
