@@ -1,0 +1,102 @@
+﻿@model eLifeWEB.Models.Clinic
+@using eLifeWEB.Models
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h4>Clinic</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
+                                + Convert.ToBase64String(Model.Image) + "\" />")
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankCard)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankCard)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @foreach (DoctorInform doctor in Model.DoctorInforms)
+    {
+        <dt>
+            @Html.DisplayNameFor(model => doctor.Photo)
+        </dt>
+
+        <dd>
+            @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
+                                + Convert.ToBase64String(doctor.Photo) + "\" />")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => doctor.Users.FirstOrDefault().Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => doctor.Users.FirstOrDefault().Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => doctor.Specialization)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => doctor.Specialization)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => doctor.Category_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => doctor.Category_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => doctor.Guardian)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => doctor.Guardian)
+        </dd>
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_clinic }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
