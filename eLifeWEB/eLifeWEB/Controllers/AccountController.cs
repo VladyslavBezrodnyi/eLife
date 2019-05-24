@@ -15,6 +15,7 @@ namespace eLifeWEB.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -167,12 +168,40 @@ namespace eLifeWEB.Controllers
                     //           "Для завершения регистрации перейдите по ссылке:: <a href=\""
                     //                                           + callbackUrl + "\">завершить регистрацию</a>");
                     //return View("DisplayEmail");
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ChoiceRoleRegister", "Account");
                 }
                 AddErrors(result);
             }
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
+        }
+
+        public ActionResult ChoiceRoleRegister()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChoiceRoleRegister(string role)
+        {
+            if (!String.IsNullOrEmpty(role))
+            {
+                ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    UserManager.AddToRole(user.Id, role);
+                    db.SaveChanges();
+                    if (role == "patient")
+                        return RedirectToAction("RegisterPatient", "Account", new { id = user.Id });
+                    if (role == "doctor")
+                        return RedirectToAction("RegisterDoctor", "Account", new { id = user.Id });
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Выберите роль");
+            }
+            return View();
         }
 
         //
