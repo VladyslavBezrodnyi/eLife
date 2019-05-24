@@ -12,34 +12,42 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using eLifeWEB.Models;
 using System.Net.Mail;
+using MimeKit;
+using MailKit.Net.Smtp;
+using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace eLifeWEB
 {
     public class EmailService : IIdentityMessageService
     {
-            public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
+        {
+            // настройка логина, пароля отправителя
+            var from = "elifeprojectnure@gmail.com";
+            var pass = "eLifeProject";
+
+            // создаем письмо: message.Destination - адрес получателя
+            var emailMessage = new MimeMessage()
             {
-                // настройка логина, пароля отправителя
-                var from = "elifeprojectnure@gmail.com";
-                var pass = "eLifeProject";
+                Subject = message.Subject,
+                Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                {
+                    Text = message.Body
+                }
+            };
+            emailMessage.From.Add(new MailboxAddress("Администрация сайта", from));
+            emailMessage.To.Add(new MailboxAddress("", message.Destination));
 
-                // адрес и порт smtp-сервера, с которого мы и будем отправлять письмо
-                SmtpClient client = new SmtpClient("smtp.gmail.com", 465);
-
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential(from, pass);
-                client.EnableSsl = true;
-
-                // создаем письмо: message.Destination - адрес получателя
-                var mail = new MailMessage(from, message.Destination);
-                mail.Subject = message.Subject;
-                mail.Body = message.Body;
-                mail.IsBodyHtml = true;
-
-                return client.SendMailAsync(mail);
+            // адрес и порт smtp-сервера, с которого мы и будем отправлять письмо
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync("smtp.gmail.com", 465);
+                await client.AuthenticateAsync(from, pass);
+                await client.SendAsync(emailMessage);
+                await client.DisconnectAsync(true);
             }
-        
+        }
+
     }
 
     public class SmsService : IIdentityMessageService

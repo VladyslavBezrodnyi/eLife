@@ -156,19 +156,25 @@ namespace eLifeWEB.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    //// генерируем токен для подтверждения регистрации
-                    //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    //// создаем ссылку для подтверждения
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
-                    //           protocol: Request.Url.Scheme);
-                    //// отправка письма
-                    //await UserManager.SendEmailAsync(user.Id, "Подтверждение электронной почты",
-                    //           "Для завершения регистрации перейдите по ссылке:: <a href=\""
-                    //                                           + callbackUrl + "\">завершить регистрацию</a>");
+                    // генерируем токен для подтверждения регистрации
+                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // создаем ссылку для подтверждения
+                    var callbackUrl = Url.Action
+                        (
+                        "ConfirmEmail",
+                        "Account",
+                        new { userId = user.Id, code = code },
+                        protocol: Request.Url.Scheme
+                        );
+                    // отправка письма
+                    await UserManager.SendEmailAsync(
+                        user.Id,
+                        "Подтверждение электронной почты",
+                        "Для завершения регистрации перейдите по ссылке:: <a href=\"" + callbackUrl + "\">завершить регистрацию</a>");
                     //return View("DisplayEmail");
-                    return RedirectToAction("ChoiceRoleRegister", "Account");
+                    return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
