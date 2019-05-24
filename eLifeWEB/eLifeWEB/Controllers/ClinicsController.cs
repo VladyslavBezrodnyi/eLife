@@ -7,13 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using eLifeApi.Models;
+using eLifeWEB.Models;
 
 namespace eLifeApi.Controllers.WEBControllers
 {
     public class ClinicsController : Controller
     {
-        private eLifeDB db = new eLifeDB();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Clinics
         public ActionResult Index()

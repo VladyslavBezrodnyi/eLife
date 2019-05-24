@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace eLifeApi.Classes
+namespace eLifeWEB.Utils
 {
     public class Specializations
     {

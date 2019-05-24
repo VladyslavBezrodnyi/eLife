@@ -6,14 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using eLifeApi.Classes;
-using eLifeApi.Models;
+using eLifeWEB.Utils;
+using eLifeWEB.Models;
 
 namespace eLifeApi.Controllers.WEBControllers
 {
     public class DoctorInformsController : Controller
     {
-        private eLifeDB db = new eLifeDB();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: DoctorInforms
         public ActionResult Index(string searchString, string specializations)
@@ -23,7 +23,7 @@ namespace eLifeApi.Controllers.WEBControllers
             ViewBag.Specialization = specialiation;
             if (!String.IsNullOrEmpty(searchString))
             {
-                doctorInforms = doctorInforms.Where(s => s.Users.FirstOrDefault().Name.ToUpper().Contains(searchString.ToUpper())
+                doctorInforms = doctorInforms.Where(s => s.ApplicationUsers.FirstOrDefault().Name.ToUpper().Contains(searchString.ToUpper())
                                        || s.Clinic.Name.ToUpper().Contains(searchString.ToUpper()));
             }
             if (!String.IsNullOrEmpty(specializations))
@@ -69,7 +69,7 @@ namespace eLifeApi.Controllers.WEBControllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.Id_clinic);
+            ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.ClinicId);
             return View(doctorInform);
         }
 
@@ -85,7 +85,7 @@ namespace eLifeApi.Controllers.WEBControllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.Id_clinic);
+            ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.ClinicId);
             return View(doctorInform);
         }
 
@@ -102,7 +102,7 @@ namespace eLifeApi.Controllers.WEBControllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.Id_clinic);
+            ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.ClinicId);
             return View(doctorInform);
         }
 
