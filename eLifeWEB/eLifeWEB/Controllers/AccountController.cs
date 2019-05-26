@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using eLifeWEB.Models;
+using eLifeWEB.Utils;
+using System.IO;
 
 namespace eLifeWEB.Controllers
 {
@@ -198,9 +200,11 @@ namespace eLifeWEB.Controllers
                     UserManager.AddToRole(user.Id, role);
                     db.SaveChanges();
                     if (role == "patient")
-                        return RedirectToAction("RegisterPatient", "Account", new { id = user.Id });
+                        return RedirectToAction("RegisterPatient", "Account");
                     if (role == "doctor")
-                        return RedirectToAction("RegisterDoctor", "Account", new { id = user.Id });
+                        return RedirectToAction("RegisterDoctor", "Account");
+                    if (role == "clinicAdmin")
+                        return RedirectToAction("RegisterClinicAdmin", "Account");
                 }
             }
             else
@@ -415,7 +419,8 @@ namespace eLifeWEB.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+                        //return RedirectToLocal(returnUrl);
+                        return RedirectToAction("ChoiceRoleRegister", "Account");
                     }
                 }
                 AddErrors(result);
@@ -441,6 +446,145 @@ namespace eLifeWEB.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        public ActionResult RegisterPatient()
+        {
+            string[] bloodgroups = new[] {
+                "0+ (Перша резус позитивний)",
+                "0- (Перша резус негативний)",
+                "A- (Друга резус негативний)",
+                "A+ (Друга резус позитивний)",
+                "B- (Третя резус негативний)",
+                "B+ (Третя резус позитивний)",
+                "AB- (Четверта резус негативний)",
+                "AB+ (Четверта резус позитивний)"
+            };
+            string[] genders = new[]
+            {
+                "Жіночий",
+                "Чоловічий"
+            };
+            ViewBag.Genders = new SelectList(genders);
+            ViewBag.Bloodgroup = new SelectList(bloodgroups);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterPatient(RegisterPatientModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = db.Users.Find(User.Identity.GetUserId()); ;
+                PatientInform patientInform = new PatientInform { Allergy = model.Allergy, BloodGroup = model.BloodGroup, Diabetes = model.Diabetes, Activity = model.Activity, Adress = model.Adress, Infectious_diseases = model.Infectious_diseases, BankCard = model.BankCard, Operations = model.Operations };
+                db.PatientInforms.Add(patientInform);
+                db.SaveChanges();
+                user.PatientInformId = patientInform.Id;
+                user.Name = model.Name;
+                user.Gender = model.Gender;
+                user.Bithday = model.Birthday;
+                
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return View(model);
+        }
+
+        public ActionResult RegisterDoctor()
+        {
+            SelectList specialiation = new SelectList(new Specializations().specializations);
+            ViewBag.Specialization = specialiation;
+            string[] genders = new[]
+            {
+                "Жіночий",
+                "Чоловічий"
+            };
+            ViewBag.Genders = new SelectList(genders);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterDoctor(RegisterDoctorModel model, HttpPostedFileBase uploadImage)
+        {
+            if (ModelState.IsValid)
+            {
+                if (uploadImage != null)
+                {
+                    byte[] imageData = null;
+                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                    {
+                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    }
+                    ApplicationUser user = db.Users.Find(User.Identity.GetUserId()); ;
+                    DoctorInform doctorInform = new DoctorInform
+                    {
+                        Category = model.Category,
+                        Education = model.Education,
+                        Guardian = model.Guardian,
+                        Practiced = false,
+                        Specialization = model.Specialization,
+                        ClinicId = model.СlinicId,
+                        Skills = model.Skills,
+                        Image = imageData
+                    };
+                    db.DoctorInforms.Add(doctorInform);
+                    db.SaveChanges();
+                    user.DoctorInformId = doctorInform.Id;
+                    user.DoctorInform = doctorInform;
+                    user.Name = model.Name;
+                    user.Gender = model.Gender;
+                    user.Bithday = model.Birthday;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Выберите изображение");
+                }
+            }
+            return View(model);
+        }
+
+        public ActionResult RegisterClinicAdmin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterClinicAdmin([Bind(Include = "Id_clinic,Name,Adress,Description,BankCard,Image")] Clinic clinic, HttpPostedFileBase uploadImage)
+        {
+            if (ModelState.IsValid)
+            {
+                if (uploadImage == null)
+                {
+                    ApplicationUser user = db.Users.Find(User.Identity.GetUserId()); ;
+                    byte[] imageData = null;
+                    if (uploadImage != null)
+                    {
+                        using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                        {
+                            imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                        }
+                    }
+                    clinic.Image = imageData;
+                    db.Clinics.Add(clinic);
+                    db.SaveChanges();
+                    ClinicAdmin clinicAdmin = new ClinicAdmin()
+                    {
+                        ClinicId = clinic.Id,
+                        ClinicConfirmed = true,
+                    };
+                    db.SaveChanges();
+                    user.ClinicAdminId = clinicAdmin.Id;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Выберите изображение");
+                }
+            }
+            return View(clinic);
         }
 
         protected override void Dispose(bool disposing)

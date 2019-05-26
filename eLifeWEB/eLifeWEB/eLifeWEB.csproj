@@ -246,6 +246,8 @@
     <Compile Include="Models\PatientInform.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Record.cs" />
+    <Compile Include="Models\RegisterDoctorModel.cs" />
+    <Compile Include="Models\RegisterPatientModel.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\TypeOfService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -313,6 +315,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\DisplayEmail.cshtml" />
     <Content Include="Views\Account\ChoiceRoleRegister.cshtml" />
+    <Content Include="Views\Account\RegisterPatient.cshtml" />
+    <Content Include="Views\Account\RegisterDoctor.cshtml" />
+    <Content Include="Views\Account\RegisterClinicAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
