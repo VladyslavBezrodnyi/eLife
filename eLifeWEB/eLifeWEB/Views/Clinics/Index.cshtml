@@ -46,9 +46,24 @@
 
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id}) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id})
+            @foreach (var itemService in item.DoctorInforms)
+            {
+                <span class="badge badge-pill badge-success">@itemService.Specialization</span>
+            }
+        </td>
+        <td>
+            @foreach (var itemPrice in item.DoctorInforms)
+            {
+                @foreach (var itemService in itemPrice.ApplicationUsers.FirstOrDefault().TypeOfServices)
+                {
+                    <span class="badge badge-pill badge-success">@itemService.Price</span>
+                }
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }
