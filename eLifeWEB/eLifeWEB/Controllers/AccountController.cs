@@ -173,8 +173,8 @@ namespace eLifeWEB.Controllers
                         user.Id,
                         "Подтверждение электронной почты",
                         "Для завершения регистрации перейдите по ссылке:: <a href=\"" + callbackUrl + "\">завершить регистрацию</a>");
-                    //return View("DisplayEmail");
-                    return RedirectToAction("Index", "Home");
+                    return View("DisplayEmail");
+                    //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
@@ -220,6 +220,8 @@ namespace eLifeWEB.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
+            ApplicationUser user = UserManager.FindById(userId);
+            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
