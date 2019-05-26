@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 namespace eLifeWEB.Utils
 {
     public class Specializations
@@ -28,6 +29,6 @@ namespace eLifeWEB.Utils
             "Урологія",
             "Хірургія"
         };
-
+        
     }
 }
