@@ -1,0 +1,24 @@
+﻿@model eLifeWEB.Models.ApplicationUser
+@{
+    ViewBag.Title = "Моя сторінка";
+}
+
+<h2>Моя сторінка</h2>
+
+@Html.Partial("_AccountInfo", Model)
+@if (Model.PasswordHash != null)
+{
+    @Html.ActionLink("Змінити пароль", "ChangePassword", "Manage")
+}
+@if (ViewBag.Role == "patient")
+{
+    @Html.Partial("_PatientInfo", Model.PatientInform)
+}
+@if (ViewBag.Role == "doctor")
+{
+    @Html.Partial("_DoctorInfo", Model.DoctorInform)
+}
+@if (ViewBag.Role == "clinicAdmin")
+{
+    @Html.Partial("_ClinicAdminInfo", Model.ClinicAdmin.Clinic)
+}

@@ -1,0 +1,53 @@
+﻿@model eLifeWEB.Models.ApplicationUser
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        @if (Model.Name != null && Model.Gender != null && Model.Bithday != null)
+        {
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bithday)
+        </dt>
+
+        <dd>
+            @Model.Bithday.Value.ToShortDateString()
+        </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+
+    </dl>
+</div>
+

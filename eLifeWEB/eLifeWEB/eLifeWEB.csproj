@@ -318,11 +318,26 @@
     <Content Include="Views\Account\RegisterPatient.cshtml" />
     <Content Include="Views\Account\RegisterDoctor.cshtml" />
     <Content Include="Views\Account\RegisterClinicAdmin.cshtml" />
+    <Content Include="Views\Clinics\Create.cshtml" />
+    <Content Include="Views\Clinics\Details.cshtml" />
+    <Content Include="Views\Clinics\Edit.cshtml" />
+    <Content Include="Views\Clinics\Index.cshtml" />
+    <Content Include="Views\DoctorInforms\Create.cshtml" />
+    <Content Include="Views\DoctorInforms\Delete.cshtml" />
+    <Content Include="Views\DoctorInforms\Details.cshtml" />
+    <Content Include="Views\DoctorInforms\Edit.cshtml" />
+    <Content Include="Views\DoctorInforms\Index.cshtml" />
+    <Content Include="Views\Account\MyAccount.cshtml" />
+    <Content Include="Views\Account\_AccountInfo.cshtml" />
+    <Content Include="Views\Account\_PatientInfo.cshtml" />
+    <Content Include="Views\Account\_DoctorInfo.cshtml" />
+    <Content Include="Views\Account\EditGeneralInfoPatient.cshtml" />
+    <Content Include="Views\Account\EditGeneralInfoDoctor.cshtml" />
+    <Content Include="Views\Account\_ClinicAdminInfo.cshtml" />
+    <Content Include="Views\Account\EditClinic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Clinics\" />
-    <Folder Include="Views\DoctorInforms\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

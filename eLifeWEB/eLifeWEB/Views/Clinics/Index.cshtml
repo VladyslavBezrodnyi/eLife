@@ -54,7 +54,7 @@
         <td>
             @foreach (var itemPrice in item.DoctorInforms)
             {
-                @foreach (var itemService in itemPrice.ApplicationUsers.FirstOrDefault().TypeOfServices)
+                foreach (var itemService in itemPrice.ApplicationUsers.FirstOrDefault().TypeOfServices)
                 {
                     <span class="badge badge-pill badge-success">@itemService.Price</span>
                 }

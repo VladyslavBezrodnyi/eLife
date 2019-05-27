@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using eLifeWEB.Models;
 using eLifeWEB.Utils;
 using System.IO;
+using System.Data.Entity;
 
 namespace eLifeWEB.Controllers
 {
@@ -23,6 +24,13 @@ namespace eLifeWEB.Controllers
 
         public AccountController()
         {
+        }
+
+        public ActionResult MyAccount()
+        {
+            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+            ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
+            return View(user);
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -183,12 +191,13 @@ namespace eLifeWEB.Controllers
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
         }
-
+        [Authorize]
         public ActionResult ChoiceRoleRegister()
         {
 
             return View();
         }
+        [Authorize(Roles = "clinicAdmin")]
         [HttpPost]
         public ActionResult ChoiceRoleRegister(string role)
         {
@@ -447,7 +456,7 @@ namespace eLifeWEB.Controllers
         {
             return View();
         }
-
+        [Authorize(Roles = "patient")]
         public ActionResult RegisterPatient()
         {
             string[] bloodgroups = new[] {
@@ -469,7 +478,7 @@ namespace eLifeWEB.Controllers
             ViewBag.Bloodgroup = new SelectList(bloodgroups);
             return View();
         }
-
+        [Authorize(Roles = "patient")]
         [HttpPost]
         public ActionResult RegisterPatient(RegisterPatientModel model)
         {
@@ -489,7 +498,7 @@ namespace eLifeWEB.Controllers
             }
             return View(model);
         }
-
+        [Authorize(Roles = "doctor")]
         public ActionResult RegisterDoctor()
         {
             SelectList specialiation = new SelectList(new Specializations().specializations);
@@ -499,10 +508,12 @@ namespace eLifeWEB.Controllers
                 "Жіночий",
                 "Чоловічий"
             };
+            ViewBag.ClinicId = new SelectList(db.Clinics, "Id", "Name");
+
             ViewBag.Genders = new SelectList(genders);
             return View();
         }
-
+        [Authorize(Roles = "doctor")]
         [HttpPost]
         public ActionResult RegisterDoctor(RegisterDoctorModel model, HttpPostedFileBase uploadImage)
         {
@@ -515,7 +526,7 @@ namespace eLifeWEB.Controllers
                     {
                         imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
                     }
-                    ApplicationUser user = db.Users.Find(User.Identity.GetUserId()); ;
+                    ApplicationUser user = db.Users.Find(User.Identity.GetUserId()); 
                     DoctorInform doctorInform = new DoctorInform
                     {
                         Category = model.Category,
@@ -545,11 +556,123 @@ namespace eLifeWEB.Controllers
             return View(model);
         }
 
+        public ActionResult EditGeneralInfoPatient()
+        {
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            string[] bloodgroups = new[] {
+                "0+ (Перша резус позитивний)",
+                "0- (Перша резус негативний)",
+                "A- (Друга резус негативний)",
+                "A+ (Друга резус позитивний)",
+                "B- (Третя резус негативний)",
+                "B+ (Третя резус позитивний)",
+                "AB- (Четверта резус негативний)",
+                "AB+ (Четверта резус позитивний)"
+            };
+            ViewBag.Bloodgroups = new SelectList(bloodgroups);
+            return View(user.PatientInform);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditGeneralInfoPatient(PatientInform patientInform)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+                PatientInform newPatient = db.PatientInforms.Find(user.PatientInform.Id);
+                newPatient.Activity = patientInform.Activity;
+                newPatient.Adress = patientInform.Adress;
+                newPatient.Allergy = patientInform.Allergy;
+                newPatient.BankCard = patientInform.BankCard;
+                newPatient.BloodGroup = patientInform.BloodGroup;
+                newPatient.Diabetes = patientInform.Diabetes;
+                newPatient.Infectious_diseases = patientInform.Infectious_diseases;
+                newPatient.Operations = patientInform.Operations;
+                db.SaveChanges();
+                return RedirectToAction("MyAccount");
+            }
+            return View(patientInform);
+        }
+
+        public ActionResult EditGeneralInfoDoctor()
+        {
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            SelectList clinics = new SelectList(db.Clinics, "Id", "Name");
+            ViewBag.Clinics = clinics;
+            return View(user.DoctorInform);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditGeneralInfoDoctor(DoctorInform doctorInform, HttpPostedFileBase uploadImage)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+                DoctorInform newDoctor = db.DoctorInforms.Find(user.DoctorInformId);
+                if (uploadImage != null)
+                {
+                    byte[] imageData = null;
+                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                    {
+                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    }
+                    newDoctor.Image = imageData;
+                }
+                newDoctor.ClinicId = doctorInform.ClinicId;
+                newDoctor.Practiced = doctorInform.Practiced;
+                newDoctor.Skills = doctorInform.Skills;
+                newDoctor.Specialization = doctorInform.Specialization;
+                newDoctor.Education = doctorInform.Education;
+                newDoctor.Category = doctorInform.Category;
+                newDoctor.Guardian = doctorInform.Guardian;
+                db.SaveChanges();
+                return RedirectToAction("MyAccount");
+            }
+            return View(doctorInform);
+        }
+
+        public ActionResult EditClinic()
+        {
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            return View(user.ClinicAdmin.Clinic);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditClinic([Bind(Include = "Id,Name,Adress,Description,BankCard")] Clinic clinic, HttpPostedFileBase uploadImage)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+                Clinic newClinic = db.Clinics.Find(clinic.Id);
+                newClinic.Name = clinic.Name;
+                newClinic.Description = clinic.Description;
+                newClinic.Adress = clinic.Adress;
+                newClinic.BankCard = clinic.BankCard;
+                newClinic.Image = clinic.Image;
+                byte[] imageData = null;
+                if (uploadImage != null)
+                {
+                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                    {
+                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    }
+                    newClinic.Image = imageData;
+                }
+                db.SaveChanges();
+                return RedirectToAction("MyAccount");
+            }
+            return View(clinic);
+        }
+
+        [Authorize(Roles = "clinicAdmin")]
         public ActionResult RegisterClinicAdmin()
         {
             return View();
         }
-
+        [Authorize(Roles = "clinicAdmin")]
         [HttpPost]
         public ActionResult RegisterClinicAdmin([Bind(Include = "Id_clinic,Name,Adress,Description,BankCard,Image")] Clinic clinic, HttpPostedFileBase uploadImage)
         {
@@ -574,6 +697,7 @@ namespace eLifeWEB.Controllers
                         ClinicId = clinic.Id,
                         ClinicConfirmed = true,
                     };
+                    db.ClinicAdmins.Add(clinicAdmin);
                     db.SaveChanges();
                     user.ClinicAdminId = clinicAdmin.Id;
                     db.SaveChanges();

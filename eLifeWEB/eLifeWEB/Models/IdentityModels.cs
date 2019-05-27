@@ -89,5 +89,7 @@ namespace eLifeWEB.Models
         {
             return new ApplicationDbContext();
         }
+
+        //public System.Data.Entity.DbSet<eLifeWEB.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
