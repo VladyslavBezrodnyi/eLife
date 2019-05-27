@@ -1,4 +1,5 @@
 ﻿@model eLifeWEB.Models.PatientInform
+@using eLifeWEB.Models
 
 <div>
     <h4>Медична картка</h4>
@@ -69,5 +70,6 @@
         </dd>
 
     </dl>
-    @Html.ActionLink("Редагувати", "EditGeneralInfoPatient", Model)
+
+    @Html.ActionLink("Медична картка", "MedicalCard", new { id = Model.ApplicationUsers.FirstOrDefault().Id } )
 </div>

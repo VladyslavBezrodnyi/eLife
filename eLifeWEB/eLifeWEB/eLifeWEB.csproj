@@ -335,6 +335,7 @@
     <Content Include="Views\Account\EditGeneralInfoDoctor.cshtml" />
     <Content Include="Views\Account\_ClinicAdminInfo.cshtml" />
     <Content Include="Views\Account\EditClinic.cshtml" />
+    <Content Include="Views\Account\MedicalCard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

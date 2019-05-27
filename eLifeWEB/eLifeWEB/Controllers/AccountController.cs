@@ -33,6 +33,12 @@ namespace eLifeWEB.Controllers
             return View(user);
         }
 
+        public ActionResult MedicalCard(string id)
+        {
+            var records = db.Records.Where(r => r.PatientId == id);
+            return View(records.ToList());
+        }
+
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
@@ -197,7 +203,6 @@ namespace eLifeWEB.Controllers
 
             return View();
         }
-        [Authorize(Roles = "clinicAdmin")]
         [HttpPost]
         public ActionResult ChoiceRoleRegister(string role)
         {
@@ -456,7 +461,7 @@ namespace eLifeWEB.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "patient")]
+        [Authorize]
         public ActionResult RegisterPatient()
         {
             string[] bloodgroups = new[] {
@@ -478,7 +483,7 @@ namespace eLifeWEB.Controllers
             ViewBag.Bloodgroup = new SelectList(bloodgroups);
             return View();
         }
-        [Authorize(Roles = "patient")]
+        [Authorize]
         [HttpPost]
         public ActionResult RegisterPatient(RegisterPatientModel model)
         {
@@ -498,7 +503,7 @@ namespace eLifeWEB.Controllers
             }
             return View(model);
         }
-        [Authorize(Roles = "doctor")]
+        
         public ActionResult RegisterDoctor()
         {
             SelectList specialiation = new SelectList(new Specializations().specializations);
@@ -513,7 +518,7 @@ namespace eLifeWEB.Controllers
             ViewBag.Genders = new SelectList(genders);
             return View();
         }
-        [Authorize(Roles = "doctor")]
+        
         [HttpPost]
         public ActionResult RegisterDoctor(RegisterDoctorModel model, HttpPostedFileBase uploadImage)
         {
@@ -667,12 +672,12 @@ namespace eLifeWEB.Controllers
             return View(clinic);
         }
 
-        [Authorize(Roles = "clinicAdmin")]
+        
         public ActionResult RegisterClinicAdmin()
         {
             return View();
         }
-        [Authorize(Roles = "clinicAdmin")]
+        
         [HttpPost]
         public ActionResult RegisterClinicAdmin([Bind(Include = "Id_clinic,Name,Adress,Description,BankCard,Image")] Clinic clinic, HttpPostedFileBase uploadImage)
         {
