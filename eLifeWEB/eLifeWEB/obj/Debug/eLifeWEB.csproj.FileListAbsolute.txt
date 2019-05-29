@@ -296,3 +296,6 @@ D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.csproj.CoreCompileInpu
 D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.csproj.CopyComplete
 D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.dll
 D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.pdb
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\bin\DHTMLX.dll
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\bin\DHTMLX.pdb
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\bin\DHTMLX.xml
