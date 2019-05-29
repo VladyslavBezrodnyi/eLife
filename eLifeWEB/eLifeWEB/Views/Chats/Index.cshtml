@@ -1,0 +1,30 @@
+﻿@model IEnumerable <eLifeWEB.Models.Conversation>
+@{
+    ViewBag.Title = "Чаты";
+}
+
+<h2>Чаты</h2>
+
+<table class="table">
+    <tr>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Doctor.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { DoctorId = item.Doctor.Id, PatientId = item.Patient.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
