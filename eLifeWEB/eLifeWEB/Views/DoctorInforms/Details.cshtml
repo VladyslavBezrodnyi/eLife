@@ -2,13 +2,13 @@
 @using eLifeWEB.Models
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Лікарь";
 }
 
-<h2>Details</h2>
+
 
 <div>
-    <h4>DoctorInform</h4>
+    <h4>Лікарь</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -129,7 +129,10 @@
     </table>
 </div>
 
+<div style="height:700px;width:900px;margin:0 auto">
+    @Html.Raw(ViewBag.Scheduler.Render())
+</div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Назад", "Index")
 </p>

@@ -1,6 +1,9 @@
 ﻿using DHTMLX.Common;
 using DHTMLX.Scheduler;
+using DHTMLX.Scheduler.Controls;
 using DHTMLX.Scheduler.Data;
+using eLifeWEB.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,18 +18,51 @@ namespace eLifeWEB.Controllers
         public ActionResult Index()
         {
             var sched = new DHXScheduler(this);
-            sched.Skin = DHXScheduler.Skins.Terrace;
+            sched.Skin = DHXScheduler.Skins.Material;
             sched.LoadData = true;
             sched.EnableDataprocessor = true;
-            sched.InitialDate = new DateTime(2019, 5, 28);
+            sched.Config.first_hour = 6;
+            sched.Config.last_hour = 20;
+            //sched.Config.drag_lightbox = true;
+            //sched.Lightbox.Clear();
+            //var select = new LightboxSelect("specialization", "Спеціальність");
+            //var items = new List<object>(){
+            //new { key = "gray", label = "Low" },
+            //new { key = "blue", label = "Medium" },
+            //new { key = "red", label = "High" }
+            //};
+            //select.AddOptions(items);
+            //sched.Lightbox.Add(select);
+            //sched.Config.buttons_left = new LightboxButtonList
+            //{
+            //    new EventButton
+            //    {
+            //        Label = "Записатися на прийом",
+            //        OnClick = "some_function",
+            //        Name = "appointment"
+            //    }, 
+            //    LightboxButtonList.Cancel,
+            //};
+            sched.Localization.Set(SchedulerLocalization.Localizations.Ukrainian);
             return View(sched);
         }
 
         public ContentResult Data()
         {
-            return (new SchedulerAjaxData(
-                new List<Object>()
-                ));
+            var data = new SchedulerAjaxData();
+            List<object> list = new List<object>();
+            ApplicationDbContext db = new ApplicationDbContext();
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            var records = new ApplicationDbContext().Records.Where(d => d.TypeOfService.Doctor.Id == user.Id);
+           
+            foreach (Record record in records)
+            {
+                list.Add(new { id = record.Id, text = "Вільне місце", start_date = record.Date, end_date = record.Date.AddHours(2) });
+               
+            }
+            data.Add(list);
+            return new SchedulerAjaxData(list);
+
         }
 
         public ContentResult Save(int? id, FormCollection actionValues)
