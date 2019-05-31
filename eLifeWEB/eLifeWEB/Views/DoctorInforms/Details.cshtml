@@ -9,6 +9,7 @@
 
 <div>
     <h4>Лікарь</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -136,3 +137,11 @@
 <p>
     @Html.ActionLink("Назад", "Index")
 </p>
+<script>
+    function appointment(event_id){
+        //var event = scheduler.getEvent(event_id);
+        var value = scheduler.formSection('service').getValue();
+        var url = "@Url.Action("AcceptAppointment", "DoctorInforms")" + "?id=" + event_id + "&serviceId=" + value;
+        window.location.href = url;
+    }
+</script>

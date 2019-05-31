@@ -553,6 +553,7 @@
     <Content Include="Views\Account\EditClinic.cshtml" />
     <Content Include="Views\Account\MedicalCard.cshtml" />
     <Content Include="Views\Appoitment\Index.cshtml" />
+    <Content Include="Views\DoctorInforms\AcceptAppointment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

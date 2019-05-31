@@ -18,7 +18,6 @@ namespace eLifeWEB.Controllers.WEBControllers
     public class DoctorInformsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private int? doctorId = null;
 
         // GET: DoctorInforms
         public ActionResult Index(string searchString, string specializations)
@@ -51,41 +50,42 @@ namespace eLifeWEB.Controllers.WEBControllers
             {
                 return HttpNotFound();
             }
-            var sched = new DHXScheduler(this);
-            sched.Skin = DHXScheduler.Skins.Material;
-            sched.LoadData = true;
-            sched.EnableDataprocessor = true;
-            sched.Config.first_hour = 6;
-            sched.Config.last_hour = 20;
-            sched.Data.Loader.AddParameter("id", id);
-            sched.Localization.Set(SchedulerLocalization.Localizations.Ukrainian);
-            sched.Config.drag_lightbox = true;
-            sched.Lightbox.Clear();
+            var scheduler = new DHXScheduler(this);
+            scheduler.Skin = DHXScheduler.Skins.Material;
+            scheduler.LoadData = true;
+            scheduler.EnableDataprocessor = true;
+            scheduler.Config.first_hour = 6;
+            scheduler.Config.last_hour = 20;
+            scheduler.Data.Loader.AddParameter("id", id);
+            scheduler.Localization.Set(SchedulerLocalization.Localizations.Ukrainian);
+            scheduler.Config.drag_lightbox = true;
+            scheduler.Lightbox.Clear();
             var select = new LightboxSelect("service", "Послуга");
-            //var items = new List<object>();
             var services = new List<object>();
             foreach (TypeOfService type in doctorInform.ApplicationUsers.FirstOrDefault().TypeOfServices)
             {
                 services.Add(new { key = type.Id, label = type.Type.Type1 });
             }
+            scheduler.Config.icons_select = null;
+            scheduler.Config.drag_create = false;
+            scheduler.Config.drag_lightbox = false;
+            scheduler.Config.drag_resize = false;
+            scheduler.Config.drag_move = false;
             var items = services;
             select.AddOptions(items);
-            sched.Lightbox.Add(select);
-            EventButton button = LightboxButtonList.Save;
-            button.Label = "Записатися на прийом"; 
-            sched.Config.buttons_left = new LightboxButtonList
+            scheduler.Lightbox.Add(select);
+            scheduler.Config.buttons_left = new LightboxButtonList
             {
-                //new EventButton
-                //{
-                //    Label = "Записатися на прийом",
-                //    OnClick = "lightbox.save()",
-                //    Name = "appointment"
-                //},
-                button, 
+                new EventButton
+                {
+                    Label = "Записатися на прийом",
+                    OnClick = "appointment",
+                    Name = "appointment"
+                },
                 LightboxButtonList.Cancel,
             };
-            sched.Config.buttons_right = new LightboxButtonList();
-            ViewBag.Scheduler = sched;
+            scheduler.Config.buttons_right = new LightboxButtonList();
+            ViewBag.Scheduler = scheduler;
             return View(doctorInform);
         }
 
@@ -180,6 +180,17 @@ namespace eLifeWEB.Controllers.WEBControllers
             }
             ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.ClinicId);
             return View(doctorInform);
+        }
+
+        public ActionResult AcceptAppointment(int? id, int? service)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.Service = service;
+            Record record = db.Records.Find(id);
+            return View(record);
         }
 
         protected override void Dispose(bool disposing)
