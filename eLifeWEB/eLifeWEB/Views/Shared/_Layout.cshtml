@@ -32,38 +32,62 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer class="footer">
-            <div class="row m-0 pt-4" style="min-height: 250px; width: 100%">
-                <div class="col-1"></div>
-                <div class="col-4 border-left"></div>
-                <div class="col-3 border-left px-2">
-                    <div class="row footer-title">
-                        <span class="footer_label">
-                            Навігація
-                        </span>
-                    </div>
-                    <a href="#" class="row footer_nav_link py-2">Лікарі</a>
-                    <a href="#" class="row footer_nav_link py-2">Клінінки</a>
-                </div>
-                <div class="col-3 border-left px-2">
-                    <div class="row footer-title">
-                        <span class="footer_label">
-                            Корисні посилання
-                        </span>
-                    </div>
-                    <a href="#" class="row m-0">eLifeOffical_Bot</a>
-                    <a class="row m-0">support@eLife.ua</a>
-                    <a class="row m-0">+38 (095) 2626 288</a>
-                </div>
-                <div class="col-1"></div>
-            </div>
-            <div class="row border-top border-dark mx-auto" style="width: 65%">
-                <p class="text-center col-sm my-2">
-                    2019 TM "eLife". Всі права захищені.
-                </p>
-            </div>
-        </footer> 
+        <div class="row border-top border-dark mx-auto" style="width: 65%">
+            <p class="text-center col-sm my-2">
+                2019 TM "eLife". Всі права захищені.
+            </p>
+        </div>
+        
     </div>
+
+    <footer class="footer">
+        <div class="row m-0 pt-4" style="min-height: 250px; width: 100%">
+            <div class="col-md-1"></div>
+            <div class="col-md-4 footer_about p-0">
+                <div class="footer_rect" align="left">
+                    <img src="resources/elife_logo.png" alt="">
+                    <h2 style="width: 13vw; text-align: center; max-width: 180px;">eLife™</h2>
+                </div>
+                <div class="footer_about_text">
+                    Головна мета сервісу eLife - зробити медицину більш доступною та простою для кожної людини.<br> Будьте здорові!
+                </div>
+            </div>
+            <div class="col-md-3 px-2">
+                <div class="row footer-title">
+                    <span class="footer_label">
+                        Навігація
+                    </span>
+                </div>
+                <a href="#" class="row footer_nav_link py-2">Лікарі</a>
+                <a href="#" class="row footer_nav_link py-2">Клінінки</a>
+            </div>
+            <div class="col-md-3 px-2">
+                <div class="row footer-title">
+                    <span class="footer_label">
+                        Корисні посилання
+                    </span>
+                </div>
+                <a href="#" class="row m-0 footer_label p-2">
+                    <img src="resources/telegram_logo.png" class="footer_logo mr-2" alt="">
+                    eLifeOffical_Bot
+                </a>
+                <a class="row m-0 footer_label p-2">
+                    <img src="resources/e-mail_logo.png" class="footer_logo_mail mr-2" alt="">
+                    support@eLife.ua
+                </a>
+                <a class="row m-0 footer_label p-2">
+                    <img src="resources/phone_logo.png" class="footer_logo mr-2" alt="">
+                    +38 (095) 2626 288
+                </a>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row border-top border-dark mt-3 mx-auto" style="width: 85%">
+            <p class="text-center col-sm my-2">
+                2019 TM "eLife". Всі права захищені.
+            </p>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

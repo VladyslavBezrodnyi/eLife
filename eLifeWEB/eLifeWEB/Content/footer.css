@@ -7,15 +7,15 @@
     margin: 0;
 }
 
-    .footer-title:before {
-        content: '';
-        position: absolute;
-        width: 18vw;
-        height: 1px;
-        background: #343a40 !important;
-        right: 0;
-        top: 1.6vw;
-    }
+.footer-title:before {
+    content: '';
+    position: absolute;
+    width: 18vw;
+    height: 1px;
+    background: #343a40 !important;
+    right: 0;
+    top: 1.6vw;
+}
 
 .footer_label {
     background-color: #5BADD6;
