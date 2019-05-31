@@ -10,10 +10,10 @@ namespace eLifeWEB.Models
         public int Id { get; set; }
 
         [DisplayName("Пацієнт")]
-        public int PatientId { get; set; }
+        public string PatientId { get; set; }
 
         [DisplayName("Лікар")]
-        public int DoctorId { get; set; }
+        public string DoctorId { get; set; }
 
         [DisplayName("Дата")]
         public DateTime Date { get; set; }
