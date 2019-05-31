@@ -1,0 +1,33 @@
+﻿.footer {
+    background-color: #5BADD6;
+    font-size: 18px;
+}
+
+.footer-title {
+    margin: 0;
+}
+
+    .footer-title:before {
+        content: '';
+        position: absolute;
+        width: 18vw;
+        height: 1px;
+        background: #343a40 !important;
+        right: 0;
+        top: 1.6vw;
+    }
+
+.footer_label {
+    background-color: #5BADD6;
+    font-size: 2vw;
+    z-index: 1;
+    padding-right: 1vw;
+    padding-bottom: 1vw;
+}
+
+.footer_nav_link {
+    margin: 0;
+    padding-left: 5%;
+    font-size: 1.8vw;
+    color: black;
+}

@@ -1,5 +1,4 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
@@ -33,8 +32,36 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year – eLife</p>
+        <footer class="footer">
+            <div class="row m-0 pt-4" style="min-height: 250px; width: 100%">
+                <div class="col-1"></div>
+                <div class="col-4 border-left"></div>
+                <div class="col-3 border-left px-2">
+                    <div class="row footer-title">
+                        <span class="footer_label">
+                            Навігація
+                        </span>
+                    </div>
+                    <a href="#" class="row footer_nav_link py-2">Лікарі</a>
+                    <a href="#" class="row footer_nav_link py-2">Клінінки</a>
+                </div>
+                <div class="col-3 border-left px-2">
+                    <div class="row footer-title">
+                        <span class="footer_label">
+                            Корисні посилання
+                        </span>
+                    </div>
+                    <a href="#" class="row m-0">eLifeOffical_Bot</a>
+                    <a class="row m-0">support@eLife.ua</a>
+                    <a class="row m-0">+38 (095) 2626 288</a>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <div class="row border-top border-dark mx-auto" style="width: 65%">
+                <p class="text-center col-sm my-2">
+                    2019 TM "eLife". Всі права захищені.
+                </p>
+            </div>
         </footer> 
     </div>
 
