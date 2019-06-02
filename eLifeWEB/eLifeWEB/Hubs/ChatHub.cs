@@ -4,14 +4,14 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using eLifeWEB.Models;
+using eLifeWEB.Utils;
 
 namespace eLifeWEB.Hubs
 {
     public class ChatHub : Hub
     {
-        ApplicationDbContext db = new ApplicationDbContext();
-        static Conversation conversation;
-        static List<ConversationReply> messages;
+        static ApplicationDbContext db = new ApplicationDbContext();
+        static List<ChatUser> conversations = new List<ChatUser>();
 
         public void Hello()
         {
@@ -19,31 +19,45 @@ namespace eLifeWEB.Hubs
         }
 
         // Отправка сообщений
-        public void Send(string name, string message)
+        public void Send(int conversationId, string senderId, string message)
         {
             ConversationReply mess = new ConversationReply
             {
-                Conversation = conversation,
+                SenderId = senderId,
                 ReplyText = message,
-                Time = DateTime.Now
+                Time = DateTime.Now,
+                ConversationId = conversationId
             };
             db.ConversationReplies.Add(mess);
-            db.SaveChangesAsync();
-            messages.Add(mess);
-            Clients.All.addMessage(name, message);
+            db.SaveChanges();
+            var sender = db.Users.FirstOrDefault(e => e.Id == senderId);
+            Clients.All.addMessage(mess.Time.ToString("dd.MM.yy hh:mm"), sender.Name, message);
         }
 
         // Подключение нового пользователя
         public void Connect(string userPatient, string userDoctor)
         {
             var id = Context.ConnectionId;
-            conversation = db.Conversations.FirstOrDefault(e => e.DoctorId == userDoctor && e.PatientId == userPatient);
-            messages = db.ConversationReplies.Where(e => e.ConversationId == conversation.Id).OrderBy(e => e.Time).ToList();
+
+            if (!conversations.Any(x => x.ConnectionId == id))
+            {
+                conversations.Add(new ChatUser{
+                    ConnectionId = id,
+                    ConversationUser = db.Conversations.FirstOrDefault(e => e.DoctorId == userDoctor && e.PatientId == userPatient)
+                });
+
+                // Посылаем сообщение текущему пользователю
+                //Clients.Caller.onConnected(id, userName, Users);
+
+                // Посылаем сообщение всем пользователям, кроме текущего
+                //Clients.AllExcept(id).onNewUserConnected(id, userName);
+            }
+            
             // Посылаем сообщение текущему пользователю
-            Clients.Caller.onConnected(id,conversation.Patient.Id, conversation.Patient.Name, conversation.Patient);
+           // Clients.Caller.onConnected(id,conversation.Patient.Id, conversation.Patient.Name, conversation.Patient);
 
             // Посылаем сообщение всем пользователям, кроме текущего
-            Clients.AllExcept(id).onNewUserConnected(conversation.Patient.Id, conversation.Patient.Name);
+           // Clients.AllExcept(id).onNewUserConnected(conversation.Patient.Id, conversation.Patient.Name);
         }
 
         //// Отключение пользователя

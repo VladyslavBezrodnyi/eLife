@@ -458,3 +458,4 @@ E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.csproj.CopyComplete
 E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.dll
 E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.pdb
 E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration1.resources
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.MigrateDBchat.resources

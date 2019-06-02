@@ -76,10 +76,10 @@
                 }
             </td>
             <td>
-                @Html.ActionLink("Написати", "Details", new { id = item.Id })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) 
                 @if (Request.IsAuthenticated)
                 {
-                    @Html.ActionLink("| Написати", "ConversationWithDoctor", "Chats", new { DoctorId = item.Id }, null)
+                    @Html.ActionLink("Написати", "Chat", "Chats", new { DoctorId = item.Id }, null)
                 }
             </td>
         </tr>

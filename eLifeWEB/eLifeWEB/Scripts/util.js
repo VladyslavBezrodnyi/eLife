@@ -7,9 +7,9 @@
 
 
     // Объявление функции, которая хаб вызывает при получении сообщений
-    chat.client.addMessage = function (name, message) {
+    chat.client.addMessage = function (time, name, message) {
         // Добавление сообщений на веб-страницу 
-        $('#chatroom').append('<p><b>' + htmlEncode(name)
+        $('#chatroom').append('<p><b>' + time + '</b> <b>' + htmlEncode(name)
             + '</b>: ' + htmlEncode(message) + '</p>');
     };
 
@@ -51,13 +51,14 @@
             // установка в скрытых полях имени и id текущего пользователя
             var patient = $("#patientId").val();
             var doctor = $("#doctorId").val();
+            $("#patient").val(patient);
+            $("#doctor").val(patient);
             chat.server.connect(patient, doctor);
-            var name = $("#txtUserName").val();
         });
 
         $('#sendmessage').click(function () {
             // Вызываем у хаба метод Send
-            chat.server.send($('#patient').val(), $('#message').val());
+            chat.server.send($('#conversationId').val(), $('#sender').val(), $('#message').val());
             $('#message').val('');
         });
 

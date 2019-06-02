@@ -25,11 +25,11 @@ namespace eLifeWEB.Controllers
         {
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
             string role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
-            var conversations = db.Conversations.Where(e => e.Doctor.Id == user.Id || e.Patient.Id == user.Id);
+            var conversations = db.Conversations.Where(e => e.DoctorId == user.Id || e.PatientId == user.Id).OrderBy(e => e.Date);
             return View(conversations);
         }
 
-        public ActionResult ConversationWithDoctor(int? doctorId)
+        public ActionResult Chat(int? doctorId)
         {
             ApplicationUser patient = db.Users.Find(User.Identity.GetUserId());
             ApplicationUser doctor = db.Users.FirstOrDefault(e => e.DoctorInformId == doctorId);
@@ -38,13 +38,15 @@ namespace eLifeWEB.Controllers
             {
                 conversation = new Conversation
                 {
-                    Doctor = doctor,
-                    Patient = patient,
+                    DoctorId = doctor.Id,
+                    PatientId = patient.Id,
                     Date = DateTime.Now
                 };
                 db.Conversations.Add(conversation);
                 db.SaveChanges();
             }
+            ViewBag.Messeges = conversation.ConversationReplies.OrderBy(e => e.Time);
+            ViewBag.Sender = patient.Id;
             return View(conversation);
         }
 

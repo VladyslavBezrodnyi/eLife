@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,6 +7,11 @@ namespace eLifeWEB.Models
 {
     public class Conversation
     {
+        public Conversation()
+        {
+            ConversationReplies = new HashSet<ConversationReply>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -24,5 +30,8 @@ namespace eLifeWEB.Models
         public virtual ApplicationUser Patient { get; set; }
 
         public virtual ApplicationUser Doctor { get; set; }
+
+
+        public virtual ICollection<ConversationReply> ConversationReplies { get; set; }
     }
 }
