@@ -1,31 +1,9 @@
 ﻿.footer {
     background-color: #5BADD6;
     font-size: 18px;
-    position: relative;
-    bottom: 0;
-}
-
-.footer_top {
-    min-height: 250px;
-    width: 100%;
-    padding-top: 1.5rem;
-    margin: 0;
 }
 
 .footer-title {
-    margin: 0;
-}
-
-.footer_desc {
-    border-top: 1px solid #343a40;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1rem;
-}
-
-.footer_desc > p {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
     margin: 0;
 }
 
@@ -35,19 +13,17 @@
     width: 20vw;
     height: 1px;
     background: #343a40 !important;
-    right: 5px;
+    right: 0;
     top: 15px;
 }
 
 .footer_label {
-    position: relative;
     background-color: #5BADD6;
     font-size: 20px;
     z-index: 1;
     padding-right: 10px;
     padding-bottom: 1vw;
     color: black;
-    margin: 0;
 }
 
 .footer_nav_link {
@@ -69,7 +45,6 @@
 
 .footer_about {
     display: flex;
-    padding: 0;
 }
 
 .footer_about_text {

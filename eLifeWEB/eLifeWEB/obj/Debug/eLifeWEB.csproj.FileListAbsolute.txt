@@ -615,3 +615,5 @@ G:\work\eLife_main\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.csproj.CoreCompile
 G:\work\eLife_main\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.csproj.CopyComplete
 G:\work\eLife_main\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.dll
 G:\work\eLife_main\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.pdb
+F:\NURE\2-2\PrP\eLifeWEB\eLife\eLifeWEB\eLifeWEB\bin\ru\Microsoft.AspNet.SignalR.Core.resources.dll
+F:\NURE\2-2\PrP\eLifeWEB\eLife\eLifeWEB\eLifeWEB\bin\ru\Microsoft.AspNet.SignalR.SystemWeb.resources.dll
