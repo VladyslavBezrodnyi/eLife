@@ -4,6 +4,8 @@
     $('#loginBlock').show();
     // Ссылка на автоматически-сгенерированный прокси хаба
     var chat = $.connection.chatHub;
+
+
     // Объявление функции, которая хаб вызывает при получении сообщений
     chat.client.addMessage = function (name, message) {
         // Добавление сообщений на веб-страницу 
@@ -11,22 +13,6 @@
             + '</b>: ' + htmlEncode(message) + '</p>');
     };
 
-    // Функция, вызываемая при подключении нового пользователя
-    chat.client.onConnected = function (id, userName, allUsers) {
-
-        $('#loginBlock').hide();
-        $('#chatBody').show();
-        // установка в скрытых полях имени и id текущего пользователя
-        $('#hdId').val(id);
-        $('#username').val(userName);
-        $('#header').html('<h3>Добро пожаловать, ' + userName + '</h3>');
-
-        // Добавление всех пользователей
-        for (i = 0; i < allUsers.length; i++) {
-
-            AddUser(allUsers[i].ConnectionId, allUsers[i].Name);
-        }
-    }
 
     // Добавляем нового пользователя
     chat.client.onNewUserConnected = function (id, name) {
@@ -40,26 +26,51 @@
         $('#' + id).remove();
     }
 
+    // Функция, вызываемая при подключении нового пользователя
+    chat.client.onConnected = function (id, userName) {
+
+        $('#loginBlock').hide();
+        $('#chatBody').show();
+        // установка в скрытых полях имени и id текущего пользователя
+        $('#patientId').val(id);
+        $('#username').val(userName);
+        $('#header').html('<h3>Добро пожаловать, ' + userName + '</h3>');
+
+        // Добавление всех пользователей
+        //for (i = 0; i < allUsers.length; i++) {
+
+        //    AddUser(allUsers[i].ConnectionId, allUsers[i].Name);
+       // }
+    };
+
     // Открываем соединение
     $.connection.hub.start().done(function () {
+        $("#btnLogin").click(function () {
+            $('#loginBlock').hide();
+            $('#chatBody').show();
+            // установка в скрытых полях имени и id текущего пользователя
+            var patient = $("#patientId").val();
+            var doctor = $("#doctorId").val();
+            chat.server.connect(patient, doctor);
+            var name = $("#txtUserName").val();
+        });
 
         $('#sendmessage').click(function () {
             // Вызываем у хаба метод Send
-            chat.server.send($('#username').val(), $('#message').val());
+            chat.server.send($('#patient').val(), $('#message').val());
             $('#message').val('');
         });
 
         // обработка логина
-        $("#btnLogin").click(function () {
+       // $("#btnLogin").click(function () {
 
-            var name = $("#txtUserName").val();
-            if (name.length > 0) {
-                chat.server.connect(name);
-            }
-            else {
-                alert("Введите имя");
-            }
-        });
+       //     var name = $("#txtUserName").val();
+       //     if (name.length > 0) {
+     //           chat.server.connect(name);
+      //      }
+        //    else {
+       //      alert("Введите имя");
+         //   }
     });
 });
 // Кодирование тегов

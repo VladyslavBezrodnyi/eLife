@@ -571,6 +571,7 @@
     <Content Include="Views\DoctorInforms\AcceptAppointment.cshtml" />
     <Content Include="Views\Chats\Index.cshtml" />
     <Content Include="Views\Chats\Details.cshtml" />
+    <Content Include="Views\Chats\ConversationWithDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

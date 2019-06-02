@@ -29,6 +29,25 @@ namespace eLifeWEB.Controllers
             return View(conversations);
         }
 
+        public ActionResult ConversationWithDoctor(int? doctorId)
+        {
+            ApplicationUser patient = db.Users.Find(User.Identity.GetUserId());
+            ApplicationUser doctor = db.Users.FirstOrDefault(e => e.DoctorInformId == doctorId);
+            var conversation = db.Conversations.FirstOrDefault(e => e.DoctorId == doctor.Id && e.PatientId == patient.Id);
+            if (conversation == null)
+            {
+                conversation = new Conversation
+                {
+                    Doctor = doctor,
+                    Patient = patient,
+                    Date = DateTime.Now
+                };
+                db.Conversations.Add(conversation);
+                db.SaveChanges();
+            }
+            return View(conversation);
+        }
+
         // GET: Chats/Details/5
         public ActionResult Details(string DoctorId, string PatientId)
         {
