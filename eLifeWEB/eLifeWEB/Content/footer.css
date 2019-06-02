@@ -1,6 +1,8 @@
 ﻿.footer {
-    background-color: #5BADD6;
+    background-color: #059a7d;
     font-size: 18px;
+    margin-top: -310px;
+    color: ffffff;
 }
 
 .footer-title {
@@ -12,25 +14,25 @@
     position: absolute;
     width: 20vw;
     height: 1px;
-    background: #343a40 !important;
-    right: 0;
+    background: white !important;
+    right: 10px;
     top: 15px;
 }
 
 .footer_label {
-    background-color: #5BADD6;
+    background-color: #059a7d;
     font-size: 20px;
     z-index: 1;
     padding-right: 10px;
     padding-bottom: 1vw;
-    color: black;
+    color: white;
 }
 
 .footer_nav_link {
     margin: 0;
     padding-left: 5%;
     font-size: 18px;
-    color: black;
+    color: white;
 }
 
 .footer_logo {
@@ -50,7 +52,7 @@
 .footer_about_text {
     padding-top: 2vw;
     padding-left: 1vw;
-    color: black;
+    //color: black;
 }
 
 .footer_rect {

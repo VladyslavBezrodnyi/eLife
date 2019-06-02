@@ -5,7 +5,7 @@
     {
     @Html.AntiForgeryToken()
 
-        @Html.ActionLink("Доброго дня, " + User.Identity.GetUserName(), "MyAccount", "Account", new {@class = "btn btn-primary mr-3 my-auto" })
+        @Html.ActionLink("Доброго дня, " + User.Identity.GetUserName(), "MyAccount", "Account", null, new {@class = "btn btn-primary mr-3 my-auto" })
         <a href="javascript:document.getElementById('logoutForm').submit()", class="btn btn-primary my-auto">Вийти</a>
     }
 }
