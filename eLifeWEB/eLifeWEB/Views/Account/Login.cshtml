@@ -4,7 +4,7 @@
     ViewBag.Title = "Выполнить вход";
 }
 
-
+@Styles.Render("~/Content/font-awesome.css")
 @Styles.Render("~/Content/login.css")
 <div class="card">
     <article class="card-body mx-auto" style="width: 345px; max-width: 500px;">
@@ -45,9 +45,9 @@
             <!-- form-group// -->
 
             @* Включите, когда будет включено подтверждение учетной записи для функции сброса пароля
-            <p class="text-center">
-                @Html.ActionLink("Забули пароль?", "ForgotPassword")
-            </p>*@
+                <p class="text-center">
+                    @Html.ActionLink("Забули пароль?", "ForgotPassword")
+                </p>*@
             <p class="text-center">Немає аккаунту? @Html.ActionLink("Зареєструватися", "Register")</p>
         }
     </article>
