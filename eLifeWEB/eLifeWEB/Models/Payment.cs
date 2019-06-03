@@ -7,34 +7,20 @@ namespace eLifeWEB.Models
     public class Payment
     {
         [Key]
-        public int PaymentId { get; set; }
+        public string order_id { get; set; }
 
         public int RecordId { get; set; }
 
-        public int Id { get; set; }
+        public int payment_id { get; set; }
 
-        [Required]
-        public string Signature { get; set; }
+        public string liqpay_order_id { get; set; }
 
-        public bool State { get; set; }
-
-        [Required]
-        public string Message { get; set; }
-
-        [Required]
-        public string Ref { get; set; }
+        public string currency { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal Amf { get; set; }
-
-        [Required]
-        public string Ccy { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal Comis { get; set; }
-
-        [Required]
-        public string Code { get; set; }
+        public decimal amount { get; set; }
+        
+        public string status { get; set; }
 
         public virtual Record Record { get; set; }
     }
