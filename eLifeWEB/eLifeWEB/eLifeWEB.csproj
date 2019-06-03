@@ -258,6 +258,9 @@
     <Compile Include="Models\DoctorInform.cs" />
     <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LiqPayHelper.cs" />
+    <Compile Include="Models\LiqPayP2P.cs" />
+    <Compile Include="Models\LiqPayP2PFormModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PatientInform.cs" />
     <Compile Include="Models\Payment.cs" />
@@ -571,6 +574,7 @@
     <Content Include="Views\DoctorInforms\AcceptAppointment.cshtml" />
     <Content Include="Views\Chats\Index.cshtml" />
     <Content Include="Views\Chats\Details.cshtml" />
+    <Content Include="Views\DoctorInforms\Payment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

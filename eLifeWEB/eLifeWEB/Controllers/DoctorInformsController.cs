@@ -12,6 +12,7 @@ using DHTMLX.Scheduler;
 using DHTMLX.Scheduler.Data;
 using DHTMLX.Common;
 using DHTMLX.Scheduler.Controls;
+using Microsoft.AspNet.Identity;
 
 namespace eLifeWEB.Controllers.WEBControllers
 {
@@ -182,15 +183,24 @@ namespace eLifeWEB.Controllers.WEBControllers
             return View(doctorInform);
         }
 
-        public ActionResult AcceptAppointment(int? id, int? service)
+        public ActionResult AcceptAppointment(int? id, int? serviceId)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.Service = service;
+            ViewBag.Service = serviceId;
             Record record = db.Records.Find(id);
             return View(record);
+        }
+
+        [HttpPost]
+        public ActionResult AcceptAppointment(int? id, int? serviceId, string card_cvv, int card_exp_month, int card_exp_year)
+        {
+            Record record = db.Records.Find(id);
+            ApplicationUser Patient = db.Users.Find(User.Identity.GetUserId());
+            TypeOfService typeOfService = db.TypeOfServices.Where(u => u.Id == serviceId  && u.DoctorId ==  record.DoctorId).FirstOrDefault(); 
+             return View("Payment", LiqPayHelper.GetLiqPayModel(record, typeOfService, Patient , card_cvv, card_exp_month, card_exp_year));
         }
 
         protected override void Dispose(bool disposing)
