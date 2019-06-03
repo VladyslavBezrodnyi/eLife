@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title eLife</title>
-    <link href="/Content/footer.css" rel="stylesheet">
+    
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -12,8 +12,10 @@
 <body style="padding: 0; background: #e9ecef">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding: .5rem .5rem">
-            <img src="/Content/Resourses/elife_logo.png" alt="" style="width: 40px; height: 40px;">
-            @Html.ActionLink("eLife", "Index", "Home", null, new { @class = "navbar-brand" })
+            <div class="bg-white" style="border-radius: 100px; width: 50px; height: 50px">
+                <img src="/Content/Resourses/elife_logo.png" alt="" style="width: 40px; height: 40px; margin: 5px 0 0 6px">
+            </div>
+            @Html.ActionLink("eLife", "Index", "Home", null, new { @class = "navbar-brand ml-2" })
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -31,19 +33,19 @@
             </div>
         </nav>
     </header>
-    <div class="container body-content" style="padding-bottom: 310px; min-height: calc(100% - 56px)">
-        <div class="col pt-4" style="background: #ffffff">
+    <div class="container body-content" style="padding-bottom: 280px; min-height: calc(100% - 66px)">
+        <div class="col py-4" style="background: #ffffff; min-height: calc(100% - 66px - 280px)">
             @RenderBody()
         </div>
     </div>
-
+    @Styles.Render("~/Content/footer.css")
     <footer class="footer">
-        <div class="row m-0 pt-4" style="min-height: 250px; width: 100%">
+        <div class="row m-0 pt-4" style="min-height: 220px; width: 100%">
             <div class="col-1"></div>
             <div class="col-4 footer_about p-0">
                 <div class="footer_rect" align="left">
                     <img src="/Content/Resourses/elife_logo.png" alt="">
-                    <h2 style="width: 13vw; text-align: center; max-width: 180px;">eLife™</h2>
+                    <h2 style="width: 11vw; text-align: center; max-width: 153px;">eLife™</h2>
                 </div>
                 <div class="footer_about_text">
                     Головна мета сервісу eLife - зробити медицину більш доступною та простою для кожної людини.<br> Будьте здорові!
