@@ -459,3 +459,10 @@ E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.dll
 E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.pdb
 E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration1.resources
 E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.MigrateDBchat.resources
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\bin\Microsoft.AspNet.SignalR.Core.pdb
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration1.resources
