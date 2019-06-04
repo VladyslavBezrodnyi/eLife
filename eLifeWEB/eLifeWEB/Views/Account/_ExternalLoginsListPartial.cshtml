@@ -1,11 +1,11 @@
 ﻿@model eLifeWEB.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
-<h4>Используйте для входа другую службу.</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-    if (loginProviders.Count() == 0) {
+    if (loginProviders.Count() == 0)
+    {
         <div>
             <p>
                 Внешние службы проверки подлинности не настроены. Подробности о настройке входа через внешние службы для этого приложения ASP.NET
@@ -13,16 +13,21 @@
             </p>
         </div>
     }
-    else {
-        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
+    else
+    {
+        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }))
+        {
             @Html.AntiForgeryToken()
-            <div id="socialLoginList">
-                <p>
-                    @foreach (AuthenticationDescription p in loginProviders) {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Войти с помощью учетной записи @p.Caption">@p.AuthenticationType</button>
-                    }
-                </p> 
-            </div>
+            <p class="text-center">Оберіть спосіб авторизації</p>
+            <p>
+                @foreach (AuthenticationDescription p in loginProviders)
+                {
+                    <button type="submit" class="btn btn-block btn-@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Увійти за допомогою аккаунту @p.Caption"> <i class="fa fa-@p.AuthenticationType pr-1"></i>@p.AuthenticationType</button>
+                }
+            </p>
+            <p class="divider-text">
+                <span class="bg-white">АБО</span>
+            </p>
         }
     }
 }

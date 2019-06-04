@@ -1,42 +1,92 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title eLife</title>
+    
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+<body style="padding: 0; background: #e9ecef">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding: .5rem .5rem">
+            <div class="bg-white" style="border-radius: 100px; width: 50px; height: 50px">
+                <img src="/Content/Resourses/elife_logo.png" alt="" style="width: 40px; height: 40px; margin: 5px 0 0 6px">
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Головна", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Клініки", "Index", "Clinics")</li>
-                    <li>@Html.ActionLink("Лікарі", "Index", "DoctorInforms")</li>
+            @Html.ActionLink("eLife", "Index", "Home", null, new { @class = "navbar-brand ml-2" })
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        @Html.ActionLink("Головна", "Index", "Home", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Клініки", "Index", "Clinics", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Лікарі", "Index", "DoctorInforms", null, new { @class = "nav-link" })
+                    </li>
                 </ul>
+                <div class="navbar-brand mr-10">+38 (095) 2626 288</div>
                 @Html.Partial("_LoginPartial")
             </div>
+        </nav>
+    </header>
+    <div class="container body-content" style="padding-bottom: 280px; min-height: calc(100% - 66px)">
+        <div class="col py-4" style="background: #ffffff; min-height: calc(100% - 66px - 280px)">
+            @RenderBody()
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year – eLife</p>
-        </footer> 
-    </div>
+    @Styles.Render("~/Content/footer.css")
+    <footer class="footer">
+        <div class="row m-0 pt-4" style="min-height: 220px; width: 100%">
+            <div class="col-1"></div>
+            <div class="col-4 footer_about p-0">
+                <div class="footer_rect" align="left">
+                    <img src="/Content/Resourses/elife_logo.png" alt="">
+                    <h2 style="width: 11vw; text-align: center; max-width: 153px;">eLife™</h2>
+                </div>
+                <div class="footer_about_text">
+                    Головна мета сервісу eLife - зробити медицину більш доступною та простою для кожної людини.<br> Будьте здорові!
+                </div>
+            </div>
+            <div class="col-3 px-2">
+                <div class="row footer-title">
+                    <span class="footer_label">
+                        Навігація
+                    </span>
+                </div>
+                @Html.ActionLink("Лікарі", "Index", "DoctorInforms", null, new { @class = "row footer_nav_link py-2" })
+                @Html.ActionLink("Клініки", "Index", "Clinics", null, new { @class = "row footer_nav_link py-2" })
+            </div>
+            <div class="col-3 px-2">
+                <div class="row footer-title">
+                    <span class="footer_label">
+                        Корисні посилання
+                    </span>
+                </div>
+                <a href="#" class="row m-0 footer_label p-2">
+                    <img src="/Content/Resourses/telegram_logo.png" class="footer_logo mr-2" alt="">
+                    eLifeOffical_Bot
+                </a>
+                <a class="row m-0 footer_label p-2">
+                    <img src="/Content/Resourses/e-mail_logo.png" class="footer_logo_mail mr-2" alt="">
+                    support@eLife.ua
+                </a>
+                <a class="row m-0 footer_label p-2">
+                    <img src="/Content/Resourses/phone_logo.png" class="footer_logo mr-2" alt="">
+                    +38 (095) 2626 288
+                </a>
+            </div>
+            <div class="col-1"></div>
+        </div>
+        <div class="row border-top border-white mt-3 mx-auto" style="width: 85%">
+            <p class="text-center col my-2">
+                2019 TM "eLife". Всі права захищені.
+            </p>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
