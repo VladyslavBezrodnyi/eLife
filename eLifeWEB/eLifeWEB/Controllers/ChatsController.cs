@@ -25,14 +25,34 @@ namespace eLifeWEB.Controllers
         {
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
             ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
-            var conversations = db.Conversations.Where(e => e.DoctorId == user.Id || e.PatientId == user.Id).OrderBy(e => e.Date);
+            IEnumerable<Conversation> conversations;
+            if (ViewBag.Role == "patient")
+            {
+                conversations = db.Conversations.Where(e => e.PatientId == user.Id).ToList();
+            }
+            else
+            {
+                conversations = db.Conversations.Where(e => e.DoctorId == user.Id).ToList();
+            }
             return View(conversations);
         }
 
-        public ActionResult Chat(int? doctorId)
+        public ActionResult Chat(int? interlocutorId)
         {
-            ApplicationUser patient = db.Users.Find(User.Identity.GetUserId());
-            ApplicationUser doctor = db.Users.FirstOrDefault(e => e.DoctorInformId == doctorId);
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            string role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
+            ApplicationUser patient;
+            ApplicationUser doctor;
+            if (role == "patient")
+            {
+                patient = db.Users.Find(User.Identity.GetUserId());
+                doctor = db.Users.FirstOrDefault(e => e.DoctorInformId == interlocutorId);
+            }
+            else
+            {
+                doctor = db.Users.Find(User.Identity.GetUserId());
+                patient = db.Users.FirstOrDefault(e => e.DoctorInformId == interlocutorId);
+            }
             var conversation = db.Conversations.FirstOrDefault(e => e.DoctorId == doctor.Id && e.PatientId == patient.Id);
             if (conversation == null)
             {
@@ -46,7 +66,7 @@ namespace eLifeWEB.Controllers
                 db.SaveChanges();
             }
             ViewBag.Messeges = conversation.ConversationReplies.OrderBy(e => e.Time);
-            ViewBag.Sender = patient.Id;
+            ViewBag.Sender = (role == "patient")?(patient.Id) :(doctor.Id);
             return View(conversation);
         }
 
