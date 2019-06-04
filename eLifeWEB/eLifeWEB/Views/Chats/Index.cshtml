@@ -1,10 +1,11 @@
 ﻿@model IEnumerable <eLifeWEB.Models.Conversation>
+@using eLifeWEB.Models 
 @{
     ViewBag.Title = "Чаты";
 }
 
 <h2>Чаты</h2>
-
+ 
 <table class="table">
     <tr>
     </tr>
@@ -18,11 +19,11 @@
                 }
                 else
                 {
-                    @Html.DisplayFor(modelItem => item.Patient.Name)
+                    @Html.DisplayFor(modelItem => new ApplicationDbContext().Users.Find( item.PatientId).Name)
                 }
             </td>
             <td>
-                @Html.ActionLink("Написать", "Chat", new { DoctorId = item.Doctor.Id, PatientId = item.Patient.Id })
+                @Html.ActionLink("Написать", "Chat", new { DoctorId = item., PatientId = item.Patient.Id })
             </td>
         </tr>
     }
