@@ -15,6 +15,10 @@ using System.Net.Mail;
 using MimeKit;
 using MailKit.Net.Smtp;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
+using Twilio.Clients;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace eLifeWEB
 {
@@ -54,7 +58,16 @@ namespace eLifeWEB
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Подключите здесь службу SMS, чтобы отправить текстовое сообщение.
+            string AccountSid = "AC647331184842ad483096d50e67c24e87";
+
+            string AuthToken = "bb337c5f3588e0f8b4500eab6c065203";
+
+            string twilioPhoneNumber = "+19717173096";
+
+            TwilioClient.Init(AccountSid,AuthToken);
+
+            var Message = MessageResource.Create(to: new Twilio.Types.PhoneNumber(twilioPhoneNumber),from: new Twilio.Types.PhoneNumber("+380660609996"), body: message.Body);
+
             return Task.FromResult(0);
         }
     }
