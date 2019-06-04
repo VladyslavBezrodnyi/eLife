@@ -13,6 +13,7 @@ using eLifeWEB.Utils;
 using System.IO;
 using System.Data.Entity;
 using System.Collections.Generic;
+using System.Net;
 
 namespace eLifeWEB.Controllers
 {
@@ -39,6 +40,10 @@ namespace eLifeWEB.Controllers
 
         public ActionResult Chat(int? interlocutorId)
         {
+            if (interlocutorId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
             string role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
             ApplicationUser patient;
