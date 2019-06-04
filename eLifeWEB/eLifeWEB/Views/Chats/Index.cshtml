@@ -13,7 +13,7 @@
     {
         <tr>
             <td>
-                @if (ViewBag.Role == "Patient")
+                @if (ViewBag.Role == "patient")
                 {
                     @Html.DisplayFor(modelItem => item.Doctor.Name)
                 }
@@ -23,7 +23,8 @@
                 }
             </td>
             <td>
-                @Html.ActionLink("Написать", "Chat", new { DoctorId = item., PatientId = item.Patient.Id })
+                @Html.ActionLink("Написать", "Chat", new { interlocutorId = (ViewBag.Role == "patient")?(item.Doctor.Id):(item.Patient.Id) })
+
             </td>
         </tr>
     }
