@@ -257,6 +257,14 @@
     <Compile Include="Migrations\201906032041065_DataMigration2.Designer.cs">
       <DependentUpon>201906032041065_DataMigration2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906032128064_DataMigration3.cs" />
+    <Compile Include="Migrations\201906032128064_DataMigration3.Designer.cs">
+      <DependentUpon>201906032128064_DataMigration3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906032136263_DataMigration4.cs" />
+    <Compile Include="Migrations\201906032136263_DataMigration4.Designer.cs">
+      <DependentUpon>201906032136263_DataMigration4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Clinic.cs" />
@@ -586,6 +594,7 @@
     <Content Include="Views\Chats\Chat.cshtml" />
     <Content Include="Views\DoctorInforms\Payment.cshtml" />
     <Content Include="Views\DoctorInforms\AppointentResult.cshtml" />
+    <Content Include="Views\DoctorInforms\AppointmentResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -618,6 +627,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906032041065_DataMigration2.resx">
       <DependentUpon>201906032041065_DataMigration2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906032128064_DataMigration3.resx">
+      <DependentUpon>201906032128064_DataMigration3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906032136263_DataMigration4.resx">
+      <DependentUpon>201906032136263_DataMigration4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -191,18 +191,25 @@ namespace eLifeWEB.Controllers.WEBControllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //ViewBag.Service = serviceId;
-            //Record record = db.Records.Find(id);
-            //return View(record);
+
             Record record = db.Records.Find(id);
-            ApplicationUser Patient = db.Users.Find(User.Identity.GetUserId());
             TypeOfService typeOfService = db.TypeOfServices.Where(u => u.Id == serviceId && u.DoctorId == record.DoctorId).FirstOrDefault();
-            return View("Payment", LiqPayHelper.GetLiqPayModel(record, typeOfService, Patient/*, card_cvv, card_exp_month, card_exp_year*/));
+            ApplicationUser Patient = db.Users.Find(User.Identity.GetUserId());
+            Payment payment = new Payment()
+            {
+                RecordId = record.Id,
+                PatientId = Patient.Id,
+                amount = typeOfService.Price,
+                order_id = Guid.NewGuid().ToString()
+            };
+            db.Payments.Add(payment);
+            db.SaveChanges();
+            return View("Payment", LiqPayHelper.GetLiqPayModel(payment, typeOfService, Patient));
 
         }
 
         [HttpPost]
-        public ActionResult AppointentResult()
+        public ActionResult AppointmentResult()
         {
             var request_dictionary = Request.Form.AllKeys.ToDictionary(key => key, key => Request.Form[key]);
 
@@ -221,9 +228,10 @@ namespace eLifeWEB.Controllers.WEBControllers
             // --- Якщо статус відповіді "Тест" або "Успіх" - все добре
             if (request_data_dictionary["status"] == "sandbox" || request_data_dictionary["status"] == "success")
             {
-                // Тут можна оновити статус замовлення та зробити всі необхідні речі. Id замовлення можна взяти тут: request_data_dictionary[order_id]
-                // ...
-
+                Payment payment = db.Payments.Find(request_data_dictionary["order_id"]);
+                Record record = db.Records.Find(payment.RecordId);
+                record.PatientId = payment.PatientId;
+                db.SaveChanges();
                 return View();
             }
             return View("~/Views/Shared/_Error.cshtml");

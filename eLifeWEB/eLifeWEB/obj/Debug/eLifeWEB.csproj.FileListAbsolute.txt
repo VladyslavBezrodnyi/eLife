@@ -468,3 +468,5 @@ D:\Project\eLife.API\eLifeWEB\eLifeWEB\bin\Microsoft.AspNet.SignalR.SystemWeb.xm
 D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration1.resources
 D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.MigrateDBchat.resources
 D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration2.resources
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration3.resources
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration4.resources

@@ -15,8 +15,8 @@ namespace eLifeWEB.Models
 
         static LiqPayHelper()
         {
-            _public_key = "i43342429875";     // Public Key компанії, який можна знайти в особистому кабінеті на сайті liqpay.ua
-            _private_key = "flbcNuWijYAQb827jepw5C28uZVSwNrSE0eRXobi";    // Private Key компанії, який можна знайти в особистому кабінеті на сайті liqpay.ua
+            _public_key = "sandbox_i34944618324";     // Public Key компанії, який можна знайти в особистому кабінеті на сайті liqpay.ua
+            _private_key = "sandbox_MWpqfhZRpkwWJqE0AuDJbMM7GTQoMoys09NUf6Oc";    // Private Key компанії, який можна знайти в особистому кабінеті на сайті liqpay.ua
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace eLifeWEB.Models
         /// </summary>
         /// <param name="order_id">Номер замовлення</param>
         /// <returns></returns>
-        static public LiqPayP2PFormModel GetLiqPayModel(Record record, TypeOfService typeOfService, ApplicationUser Patient/*,  string card_cvv, int card_exp_month, int card_exp_year*/)
+        static public LiqPayP2PFormModel GetLiqPayModel(Payment payment, TypeOfService typeOfService, ApplicationUser Patient)
         {
             // Заповнюю дані для їх передачі для LiqPay
             var signature_source = new LiqPayP2P()
@@ -33,18 +33,14 @@ namespace eLifeWEB.Models
                 version = 3,
                 action = "p2p",
                 amount = typeOfService.Price,
-                //phone = Patient.PhoneNumber,
-                //card = Patient.PatientInform.BankCard,
-                receiver_card = new ApplicationDbContext().Users.FirstOrDefault(u => u.Id == record.DoctorId).DoctorInform.Clinic.BankCard,
+                receiver_card = new ApplicationDbContext().Users.FirstOrDefault(u => u.Id == payment.Record.DoctorId).DoctorInform.Clinic.BankCard,
                 currency = "UAH",
                 description = "Оплата замовлення",
                 ip = HttpContext.Current.Request.UserHostAddress, 
-                order_id = "151588",//record.Id.ToString(),
-                sandbox = 0,
-                result_url = "http://localhost:44300/AppointentResult"
-                //card_cvv = card_cvv,
-                //card_exp_month = card_exp_month,
-                //card_exp_year = card_exp_year
+                order_id = payment.order_id,
+                sandbox = 1,
+                language = "uk",
+                result_url = "http://localhost:44300/DoctorInforms/AppointmentResult"
             };
             var json_string = JsonConvert.SerializeObject(signature_source);
             var data_hash = Convert.ToBase64String(Encoding.UTF8.GetBytes(json_string));
