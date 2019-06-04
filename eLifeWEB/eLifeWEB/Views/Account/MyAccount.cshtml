@@ -17,6 +17,9 @@
 @if (ViewBag.Role == "doctor")
 {
     @Html.Partial("_DoctorInfo", Model.DoctorInform)
+    <div style="height:700px;width:900px;margin:0 auto">
+       @Html.Raw(ViewBag.Scheduler.Render())
+    </div>
 }
 @if (ViewBag.Role == "clinicAdmin")
 {

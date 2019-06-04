@@ -40,7 +40,7 @@ namespace eLifeWEB.Models
                 order_id = payment.order_id,
                 sandbox = 1,
                 language = "uk",
-                result_url = "http://localhost:44300/DoctorInforms/AppointmentResult"
+                result_url = "www.project.com/DoctorInforms/AppointmentResult"
             };
             var json_string = JsonConvert.SerializeObject(signature_source);
             var data_hash = Convert.ToBase64String(Encoding.UTF8.GetBytes(json_string));

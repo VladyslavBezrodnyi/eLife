@@ -12,6 +12,9 @@ using eLifeWEB.Models;
 using eLifeWEB.Utils;
 using System.IO;
 using System.Data.Entity;
+using DHTMLX.Scheduler;
+using System.Collections.Generic;
+using DHTMLX.Scheduler.Data;
 
 namespace eLifeWEB.Controllers
 {
@@ -30,7 +33,37 @@ namespace eLifeWEB.Controllers
         {
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
             ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
+            var scheduler = new DHXScheduler(this);
+            scheduler.Skin = DHXScheduler.Skins.Material;
+            scheduler.LoadData = true;
+            scheduler.EnableDataprocessor = true;
+            scheduler.Config.first_hour = 6;
+            scheduler.Config.last_hour = 20;
+            scheduler.Data.Loader.AddParameter("id", user.Id);
+            scheduler.Localization.Set(SchedulerLocalization.Localizations.Ukrainian);
+            scheduler.Config.drag_lightbox = true;
+            scheduler.Lightbox.Clear();
+            ViewBag.Scheduler = scheduler;
             return View(user);
+        }
+
+        public ContentResult Data(string id)
+        {
+            List<object> list = new List<object>();
+            ApplicationDbContext db = new ApplicationDbContext();
+            var records = new ApplicationDbContext().Records.Where((d => d.TypeOfService.Doctor.Id == id ));
+
+            foreach (Record record in records)
+            {
+                if(record.PatientId == null)
+                    list.Add(new { id = record.Id, text = "Вільне місце", start_date = record.Date, end_date = record.EndDate });
+                else
+                {
+                    list.Add(new { id = record.Id, text = "Пацієнт: " + record.Patient.Name +"\n" + record.TypeOfService.Type.Type1, start_date = record.Date, end_date = record.EndDate });
+                }
+            }
+            return new SchedulerAjaxData(list);
+
         }
 
         public ActionResult MedicalCard(string id)

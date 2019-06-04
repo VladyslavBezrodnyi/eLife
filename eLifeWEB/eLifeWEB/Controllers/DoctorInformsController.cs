@@ -69,7 +69,10 @@ namespace eLifeWEB.Controllers.WEBControllers
             {
                 services.Add(new { key = type.Id, label = type.Type.Type1 });
             }
-            scheduler.Config.icons_select = null;
+            scheduler.Config.icons_select = new EventButtonList()
+            {
+                EventButtonList.Edit
+            };
             scheduler.Config.drag_create = false;
             scheduler.Config.drag_lightbox = false;
             scheduler.Config.drag_resize = false;

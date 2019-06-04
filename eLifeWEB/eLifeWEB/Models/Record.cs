@@ -27,6 +27,9 @@ namespace eLifeWEB.Models
         [DisplayName("Дата")]
         public DateTime Date { get; set; }
 
+        [DisplayName("Дата")]
+        public DateTime EndDate { get; set; }
+
         [DisplayName("Скарги")]
         public string Complaints { get; set; }
 

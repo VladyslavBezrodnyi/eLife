@@ -795,3 +795,6 @@ E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\ru\Microsoft.AspNet.SignalR.Core.resources.
 E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\ru\Microsoft.AspNet.SignalR.SystemWeb.resources.dll
 E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration3.resources
 E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration4.resources
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\bin\ru\Microsoft.AspNet.SignalR.Core.resources.dll
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\bin\ru\Microsoft.AspNet.SignalR.SystemWeb.resources.dll
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration5.resources
