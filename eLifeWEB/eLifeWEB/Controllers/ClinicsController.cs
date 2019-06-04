@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using eLifeWEB.Models;
+using PagedList;
 
 namespace eLifeWEB.Controllers.WEBControllers
 {
@@ -16,9 +17,12 @@ namespace eLifeWEB.Controllers.WEBControllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Clinics
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Clinics.ToList());
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(db.Clinics.ToList().ToPagedList(pageNumber, pageSize));
+            //return View(db.Clinics.ToList());
         }
 
         // GET: Clinics/Details/5

@@ -15,6 +15,7 @@ using DHTMLX.Scheduler.Controls;
 using Microsoft.AspNet.Identity;
 using System.Text;
 using Newtonsoft.Json;
+using PagedList;
 
 namespace eLifeWEB.Controllers.WEBControllers
 {
@@ -22,22 +23,58 @@ namespace eLifeWEB.Controllers.WEBControllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        List<DoctorInform> doctorInforms;
+        
         // GET: DoctorInforms
-        public ActionResult Index(string searchString, string specializations)
+        public ActionResult Index(string searchString, string specializations, int? page, bool? check)
         {
             var doctorInforms = db.DoctorInforms.Include(d => d.Clinic).Where(q =>q.Practiced);
-            SelectList specialiation = new SelectList(new Specializations().specializations);
+            SelectList specialiation = new SelectList(new Specializations().specializations);          
             ViewBag.Specialization = specialiation;
             if (!String.IsNullOrEmpty(searchString))
             {
                 doctorInforms = doctorInforms.Where(s => s.ApplicationUsers.FirstOrDefault().Name.ToUpper().Contains(searchString.ToUpper())
                                        || s.Clinic.Name.ToUpper().Contains(searchString.ToUpper()));
             }
-            if (!String.IsNullOrEmpty(specializations))
+            if (!String.IsNullOrEmpty(specializations) && !specializations.Equals("Все"))
             {
-                doctorInforms = doctorInforms.Where(s => s.Specialization == specializations);
+                if (check == true)
+                {
+                    doctorInforms = doctorInforms.Where(p => p.Specialization != specializations);
+                }
+                else
+                    doctorInforms = doctorInforms.Where(p => p.Specialization == specializations);
             }
-            return View(doctorInforms.ToList());
+            
+            SelectList types = new SelectList(new List<string>()
+            {
+                "Все",
+                 "Акушерство та гінекологія",
+            "Анестезіологія та інтенсивна терапія",
+            "Дерматовенерологія",
+            "Дитяча хірургія",
+            "Інфекційні хвороби",
+            "Інфекційні хвороби",
+            "Медична психологія",
+            "Неврологія",
+            "Нейрохірургія",
+            "Ортопедія і травматологія",
+            "Отоларингологія",
+            "Офтальмологія",
+            "Патологічна анатомія",
+            "Педіатрія",
+            "Психіатрія",
+            "Пульмонологія та фтизіатрія",
+            "Пульмонологія та фтизіатрія",
+            "Урологія",
+            "Хірургія"
+
+            });
+            ViewBag.Specialization = types;
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(doctorInforms.ToList().ToPagedList(pageNumber, pageSize));
+           // return View(doctorInforms.ToList());
         }
 
         // GET: DoctorInforms/Details/5
