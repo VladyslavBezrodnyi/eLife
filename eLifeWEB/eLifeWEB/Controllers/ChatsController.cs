@@ -24,7 +24,7 @@ namespace eLifeWEB.Controllers
         public ActionResult Index()
         {
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
-            string role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
+            ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
             var conversations = db.Conversations.Where(e => e.DoctorId == user.Id || e.PatientId == user.Id).OrderBy(e => e.Date);
             return View(conversations);
         }
