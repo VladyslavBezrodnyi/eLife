@@ -38,7 +38,7 @@ namespace eLifeWEB.Controllers
             return View(conversations);
         }
 
-        public ActionResult Chat(int? interlocutorId)
+        public ActionResult Chat(string interlocutorId)
         {
             if (interlocutorId == null)
             {
@@ -51,12 +51,12 @@ namespace eLifeWEB.Controllers
             if (role == "patient")
             {
                 patient = db.Users.Find(User.Identity.GetUserId());
-                doctor = db.Users.FirstOrDefault(e => e.DoctorInformId == interlocutorId);
+                doctor = db.Users.FirstOrDefault(e => e.Id == interlocutorId);
             }
             else
             {
                 doctor = db.Users.Find(User.Identity.GetUserId());
-                patient = db.Users.FirstOrDefault(e => e.DoctorInformId == interlocutorId);
+                patient = db.Users.FirstOrDefault(e => e.Id == interlocutorId);
             }
             var conversation = db.Conversations.FirstOrDefault(e => e.DoctorId == doctor.Id && e.PatientId == patient.Id);
             if (conversation == null)

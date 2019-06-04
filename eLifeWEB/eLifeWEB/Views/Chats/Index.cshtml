@@ -23,7 +23,7 @@
                 }
             </td>
             <td>
-                @Html.ActionLink("Написать", "Chat", new { interlocutorId = (ViewBag.Role == "patient")?(item.Doctor.Id):(item.Patient.Id) })
+                @Html.ActionLink("Написать", "Chat", new { interlocutorId = (ViewBag.Role == "patient")?(item.Doctor.Id):(item.PatientId) })
 
             </td>
         </tr>
