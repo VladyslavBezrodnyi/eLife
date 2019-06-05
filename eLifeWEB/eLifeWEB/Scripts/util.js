@@ -52,9 +52,14 @@
         });
 
         $('#sendmessage').click(function () {
+            var conversationId = $('#conversationId').val();
+            var sender = $('#sender').val();
+            var mess = $('#message').val();
             // Вызываем у хаба метод Send
-            chat.server.send($('#conversationId').val(), $('#sender').val(), $('#message').val());
-            $('#message').val('');
+            if (mess.length !== 0) {
+                chat.server.send(conversationId, sender, mess);
+                $('#message').val('');
+            }
         });
 
         //// обработка логина

@@ -10,7 +10,7 @@ namespace eLifeWEB.Hubs
 {
     public class ChatHub : Hub
     {
-        static ApplicationDbContext db = new ApplicationDbContext();
+        ApplicationDbContext db = new ApplicationDbContext();
         static List<ChatUser> conversations = new List<ChatUser>();
 
         public void Hello()
@@ -21,17 +21,20 @@ namespace eLifeWEB.Hubs
         // Отправка сообщений
         public void Send(int conversationId, string senderId, string message)
         {
-            ConversationReply mess = new ConversationReply
+            if (!String.IsNullOrWhiteSpace(message))
             {
-                SenderId = senderId,
-                ReplyText = message,
-                Time = DateTime.Now,
-                ConversationId = conversationId
-            };
-            db.ConversationReplies.Add(mess);
-            db.SaveChanges();
-            var sender = db.Users.FirstOrDefault(e => e.Id == senderId);
-            Clients.Caller.addMessage(mess.Time.ToString("dd.MM.yy hh:mm"), sender.Name, message);
+                ConversationReply mess = new ConversationReply
+                {
+                    SenderId = senderId,
+                    ReplyText = message,
+                    Time = DateTime.Now,
+                    ConversationId = conversationId
+                };
+                db.ConversationReplies.Add(mess);
+                db.SaveChanges();
+                var sender = db.Users.FirstOrDefault(e => e.Id == senderId);
+                Clients.Caller.addMessage(mess.Time.ToString("dd.MM.yy hh:mm"), sender.Name, message);
+            }
         }
 
         // Подключение нового пользователя
