@@ -275,6 +275,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ChoiseRole.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\footer.css" />
@@ -283,6 +284,7 @@
     <Content Include="Content\Resourses\eLife_logo.png" />
     <Content Include="Content\Resourses\phone_logo.png" />
     <Content Include="Content\Resourses\telegram_logo.png" />
+    <Content Include="Content\stepper.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />

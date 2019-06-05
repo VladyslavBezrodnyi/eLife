@@ -1,39 +1,78 @@
 ﻿@{
+    /**/
+
     ViewBag.Title = "Оберіть роль";
 }
 
-<h2>Step 2</h2>
+@Styles.Render("~/Content/stepper.css")
+<div class="col mx-auto mb-4 stepper">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="completed">
+            <a class="persistant-disabled" data-toggle="tab" aria-controls="stepper-step-1" role="tab" title="Step 1">
+                <span class="round-tab">1</span>
+            </a>
+        </li>
+        <li role="presentation" class="active">
+            <a class="persistant-disabled" data-toggle="tab" aria-controls="stepper-step-2" role="tab" title="Step 2">
+                <span class="round-tab">2</span>
+            </a>
+        </li>
+        <li role="presentation" class="disabled">
+            <a class="persistant-disabled" data-toggle="tab" aria-controls="stepper-step-3" role="tab" title="Step 3">
+                <span class="round-tab">3</span>
+            </a>
+        </li>
+    </ul>
+</div>
 
-<h3">Оберіть, хто ви</h3">
+<h2 class="mx-auto mb-4" style="display: table">@ViewBag.Title:</h2>
+
+@Styles.Render("~/Content/ChoiseRole.css")
 
 @using (Html.BeginForm())
 {
-    <div class="form-group">
-         Пацієнт
-        <div class="col-md-10">
-            @Html.RadioButton("role", "patient")
-        </div>
+    <div class="row justify-content-around m-0">
+        <label>
+            @Html.RadioButton("role", "patient", new { @class = "card-input-element" })
+            <div class="card border-success mb-3 card-input" style="max-width: 20rem; min-height: 225px">
+                <div class="card-header">
+                    <h4 class="card-title m-0">Пацієнт</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Пацієнт має змогу записуватися на прийом до лікарів і оплачувати передоплату за прийом. Також, пацієнт отримує власну медичну картку eLife.</p>
+                </div>
+            </div>
+        </label>
+        <label>
+            @Html.RadioButton("role", "doctor", new { @class = "card-input-element" })
+            <div class="card border-success mb-3 card-input" style="max-width: 20rem; min-height: 225px">
+                <div class="card-header">
+                    <h4 class="card-title m-0">Лікар</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Лікар має змогу вести прийом, або консультувати пацієнтів у чаті. Після прийому, лікар робить записи в електронну медичну картку пацієнта eLife.</p>
+                </div>
+            </div>
+        </label>
+        <label>
+            @Html.RadioButton("role", "clinicAdmin", new { @class = "card-input-element" })
+            <div class="card border-success mb-3 card-input" style="max-width: 20rem; min-height: 225px">
+                <div class="card-header">
+                    <h4 class="card-title m-0">Адміністратор клініки</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Адміністратор клініки може зареєструвати свою клініку. Після підтвердження клініки адміністрацією eLife, він матиме змогу виставляти ціни за медичні послуги в клініці, редагувати розклад прийому і т.д.</p>
+                </div>
+            </div>
+        </label>
     </div>
 
-    <div class="form-group">
-        Доктор
-        <div class="col-md-10">
-            @Html.RadioButton("role", "doctor")
-        </div>
-    </div>
-
-    <div class="form-group">
-        Адміністратор клініки
-        <div class="col-md-10">
-            @Html.RadioButton("role", "clinicAdmin")
-        </div>
-    </div>
+   
 
 
-    <div class="form-group">
+    <div class="form-group mx-auto mt-3" style="display: table">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Обрати" class="btn btn-default" />
+            <input type="submit" value="Обрати" class="btn btn-primary btn-lg" />
         </div>
     </div>
 }
-
