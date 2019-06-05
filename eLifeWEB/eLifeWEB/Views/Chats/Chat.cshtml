@@ -11,12 +11,15 @@
 </head>
 <body>
     <h2>Чат-комната</h2>
+    <input id="doctorId" type="hidden" value="@Model.DoctorId" />
+    <input id="patientId" type="hidden" value="@Model.PatientId" />
+    <input id="conversationId" type="hidden" value="@Model.Id" />
+    <input id="sender" type="hidden" value="@ViewBag.Sender" />
 
     <div id="loginBlock">
-        <input id="doctorId" type="hidden" value="@Model.DoctorId" />
-        <input id="patientId" type="hidden" value="@Model.PatientId" />
         <input id="btnLogin" type="button" value="Войти" />
     </div>
+
     <div id="chatBody" style='display:none;'>
         <div id="header"></div>
         <div id="inputForm">
@@ -30,12 +33,6 @@
             }
         </div>
     </div>
-
-    <input id="doctor" type="hidden" />
-    <input id="patient" type="hidden" />
-    <input id="conversationId" type="hidden" value="@Model.Id" />
-    <input id="sender" type="hidden" value="@ViewBag.Sender" />
-
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <!--Ссылка на библиотеку SignalR -->
     <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>

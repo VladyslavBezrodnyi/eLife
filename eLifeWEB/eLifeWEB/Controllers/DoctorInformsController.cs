@@ -71,6 +71,8 @@ namespace eLifeWEB.Controllers.WEBControllers
 
             });
             ViewBag.Specialization = types;
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(doctorInforms.ToList().ToPagedList(pageNumber, pageSize));

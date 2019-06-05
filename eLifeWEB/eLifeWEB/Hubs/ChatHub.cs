@@ -31,7 +31,7 @@ namespace eLifeWEB.Hubs
             db.ConversationReplies.Add(mess);
             db.SaveChanges();
             var sender = db.Users.FirstOrDefault(e => e.Id == senderId);
-            Clients.All.addMessage(mess.Time.ToString("dd.MM.yy hh:mm"), sender.Name, message);
+            Clients.Caller.addMessage(mess.Time.ToString("dd.MM.yy hh:mm"), sender.Name, message);
         }
 
         // Подключение нового пользователя
@@ -60,18 +60,18 @@ namespace eLifeWEB.Hubs
            // Clients.AllExcept(id).onNewUserConnected(conversation.Patient.Id, conversation.Patient.Name);
         }
 
-        //// Отключение пользователя
-        //public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
-        //{
-        //    var item = Users.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-        //    if (item != null)
-        //    {
-        //        Users.Remove(item);
-        //        var id = Context.ConnectionId;
-        //        Clients.All.onUserDisconnected(id, item.Name);
-        //    }
+        // Отключение пользователя
+        public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
+        {
+            var item = conversations.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            if (item != null)
+            {
+                conversations.Remove(item);
+                //var id = Context.ConnectionId;
+                //Clients.All.onUserDisconnected(id, item.);
+            }
 
-        //    return base.OnDisconnected(stopCalled);
-        //}
+            return base.OnDisconnected(stopCalled);
+        }
     }
 }

@@ -14,45 +14,40 @@
     };
 
 
-    // Добавляем нового пользователя
-    chat.client.onNewUserConnected = function (id, name) {
+    //// Добавляем нового пользователя
+    //chat.client.onNewUserConnected = function (id, name) {
+    //    AddUser(id, name);
+    //};
 
-        AddUser(id, name);
-    }
+    //// Удаляем пользователя
+    //chat.client.onUserDisconnected = function (id, userName) {
+    //    $('#' + id).remove();
+    //};
 
-    // Удаляем пользователя
-    chat.client.onUserDisconnected = function (id, userName) {
+    //// Функция, вызываемая при подключении нового пользователя
+    //chat.client.onConnected = function (id, userName) {
 
-        $('#' + id).remove();
-    }
+    //    $('#loginBlock').hide();
+    //    $('#chatBody').show();
+    //    // установка в скрытых полях имени и id текущего пользователя
+    //    $('#patientId').val(id);
+    //    $('#username').val(userName);
+    //    $('#header').html('<h3>Добро пожаловать, ' + userName + '</h3>');
 
-    // Функция, вызываемая при подключении нового пользователя
-    chat.client.onConnected = function (id, userName) {
-
-        $('#loginBlock').hide();
-        $('#chatBody').show();
-        // установка в скрытых полях имени и id текущего пользователя
-        $('#patientId').val(id);
-        $('#username').val(userName);
-        $('#header').html('<h3>Добро пожаловать, ' + userName + '</h3>');
-
-        // Добавление всех пользователей
-        //for (i = 0; i < allUsers.length; i++) {
-
-        //    AddUser(allUsers[i].ConnectionId, allUsers[i].Name);
-       // }
-    };
+    //    // Добавление всех пользователей
+    //    //for (i = 0; i < allUsers.length; i++) {
+    //    //    AddUser(allUsers[i].ConnectionId, allUsers[i].Name);
+    //    //}
+    //};
 
     // Открываем соединение
     $.connection.hub.start().done(function () {
+
         $("#btnLogin").click(function () {
             $('#loginBlock').hide();
             $('#chatBody').show();
-            // установка в скрытых полях имени и id текущего пользователя
             var patient = $("#patientId").val();
             var doctor = $("#doctorId").val();
-            $("#patient").val(patient);
-            $("#doctor").val(patient);
             chat.server.connect(patient, doctor);
         });
 
@@ -62,16 +57,16 @@
             $('#message').val('');
         });
 
-        // обработка логина
-       // $("#btnLogin").click(function () {
+        //// обработка логина
+        //$("#btnLogin").click(function () {
 
-       //     var name = $("#txtUserName").val();
-       //     if (name.length > 0) {
-     //           chat.server.connect(name);
-      //      }
+        //    var name = $("#txtUserName").val();
+        //    if (name.length > 0) {
+        //        chat.server.connect(name);
+        //    }
         //    else {
-       //      alert("Введите имя");
-         //   }
+        //     alert("Введите имя");
+        //    }
     });
 });
 // Кодирование тегов
@@ -79,13 +74,13 @@ function htmlEncode(value) {
     var encodedValue = $('<div />').text(value).html();
     return encodedValue;
 }
-//Добавление нового пользователя
-function AddUser(id, name) {
+////Добавление нового пользователя
+//function AddUser(id, name) {
 
-    var userId = $('#hdId').val();
+//    var userId = $('#hdId').val();
 
-    if (userId !== id) {
+//    if (userId !== id) {
 
-        $("#chatusers").append('<p id="' + id + '"><b>' + name + '</b></p>');
-    }
-}
+//        $("#chatusers").append('<p id="' + id + '"><b>' + name + '</b></p>');
+//    }
+//}

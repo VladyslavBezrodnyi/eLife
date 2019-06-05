@@ -38,7 +38,7 @@ namespace eLifeWEB.Controllers
             return View(conversations);
         }
 
-        public ActionResult Chat(string interlocutorId)
+        public ActionResult Chat(int? interlocutorId)
         {
             if (interlocutorId == null)
             {
@@ -50,13 +50,13 @@ namespace eLifeWEB.Controllers
             ApplicationUser doctor;
             if (role == "patient")
             {
-                patient = db.Users.Find(User.Identity.GetUserId());
-                doctor = db.Users.FirstOrDefault(e => e.Id == interlocutorId);
+                patient = user;
+                doctor = db.Users.FirstOrDefault(e => e.DoctorInformId == interlocutorId);
             }
             else
             {
-                doctor = db.Users.Find(User.Identity.GetUserId());
-                patient = db.Users.FirstOrDefault(e => e.Id == interlocutorId);
+                doctor = user;
+                patient = db.Users.FirstOrDefault(e => e.PatientInformId == interlocutorId);
             }
             var conversation = db.Conversations.FirstOrDefault(e => e.DoctorId == doctor.Id && e.PatientId == patient.Id);
             if (conversation == null)
@@ -71,7 +71,7 @@ namespace eLifeWEB.Controllers
                 db.SaveChanges();
             }
             ViewBag.Messeges = conversation.ConversationReplies.OrderBy(e => e.Time);
-            ViewBag.Sender = (role == "patient")?(patient.Id) :(doctor.Id);
+            ViewBag.Sender = (role == "patient")?(patient.Id):(doctor.Id);
             return View(conversation);
         }
 

@@ -967,3 +967,15 @@ C:\Users\Yulia\Desktop\eLife.API\eLifeWEB\eLifeWEB\bin\PagedList.dll
 C:\Users\Yulia\Desktop\eLife.API\eLifeWEB\eLifeWEB\bin\PagedList.Mvc.dll
 C:\Users\Yulia\Desktop\eLife.API\eLifeWEB\eLifeWEB\bin\PagedList.xml
 C:\Users\Yulia\Desktop\eLife.API\eLifeWEB\eLifeWEB\bin\PagedList.Mvc.xml
+E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\Microsoft.IdentityModel.Logging.dll
+E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\Microsoft.IdentityModel.Tokens.dll
+E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\PagedList.dll
+E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\PagedList.Mvc.dll
+E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\System.IdentityModel.Tokens.Jwt.dll
+E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\Twilio.dll
+E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\Microsoft.IdentityModel.Tokens.xml
+E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\PagedList.xml
+E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\PagedList.Mvc.xml
+E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\System.IdentityModel.Tokens.Jwt.xml
+E:\eLife\eLife\eLifeWEB\eLifeWEB\bin\Twilio.xml
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration5.resources
