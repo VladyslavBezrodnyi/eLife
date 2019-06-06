@@ -15,6 +15,7 @@ using System.Data.Entity;
 using DHTMLX.Scheduler;
 using System.Collections.Generic;
 using DHTMLX.Scheduler.Data;
+using static eLifeWEB.Controllers.ManageController;
 
 namespace eLifeWEB.Controllers
 {
@@ -29,7 +30,7 @@ namespace eLifeWEB.Controllers
         {
         }
 
-        public ActionResult MyAccount()
+        public ActionResult MyAccount(ManageMessageId? message)
         {
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
             ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;

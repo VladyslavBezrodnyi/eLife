@@ -64,9 +64,9 @@ namespace eLifeWEB
 
             string twilioPhoneNumber = "+19717173096";
 
-            TwilioClient.Init(AccountSid,AuthToken);
+            TwilioClient.Init(AccountSid, AuthToken);
 
-            var Message = MessageResource.Create(to: new Twilio.Types.PhoneNumber(twilioPhoneNumber),from: new Twilio.Types.PhoneNumber("+380660609996"), body: message.Body);
+            var Message = MessageResource.Create(to: new Twilio.Types.PhoneNumber(message.Destination), from: new Twilio.Types.PhoneNumber(twilioPhoneNumber), body: message.Body);
 
             return Task.FromResult(0);
         }
