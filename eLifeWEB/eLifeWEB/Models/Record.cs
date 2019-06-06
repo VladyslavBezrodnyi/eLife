@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eLifeWEB.Models
 {
@@ -12,17 +13,20 @@ namespace eLifeWEB.Models
             Payments = new HashSet<Payment>();
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id{ get; set; }
 
         [DisplayName("Пацієнт")]
         public string PatientId { get; set; }
 
+        public string AttendingDoctorId { get; set; }
+
         [DisplayName("Лікар")]
         public string DoctorId { get; set; }
 
         [DisplayName("Назва послуги")]
-        public int TypeId { get; set; }
+        public int? TypeId { get; set; }
 
         [DisplayName("Дата")]
         public DateTime Date { get; set; }
@@ -50,5 +54,7 @@ namespace eLifeWEB.Models
         public virtual TypeOfService TypeOfService { get; set; }
 
         public virtual ApplicationUser Patient { get; set; }
+
+        public virtual ApplicationUser AttendingDoctor { get; set; }
     }
 }

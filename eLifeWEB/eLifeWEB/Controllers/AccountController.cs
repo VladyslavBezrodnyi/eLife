@@ -15,6 +15,7 @@ using System.Data.Entity;
 using DHTMLX.Scheduler;
 using System.Collections.Generic;
 using DHTMLX.Scheduler.Data;
+using DHTMLX.Common;
 
 namespace eLifeWEB.Controllers
 {
@@ -34,6 +35,7 @@ namespace eLifeWEB.Controllers
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
             ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
             var scheduler = new DHXScheduler(this);
+            scheduler.Extensions.Add(SchedulerExtensions.Extension.Readonly);
             scheduler.Skin = DHXScheduler.Skins.Material;
             scheduler.LoadData = true;
             scheduler.EnableDataprocessor = true;
@@ -43,27 +45,68 @@ namespace eLifeWEB.Controllers
             scheduler.Localization.Set(SchedulerLocalization.Localizations.Ukrainian);
             scheduler.Config.drag_lightbox = true;
             scheduler.Lightbox.Clear();
+            
             ViewBag.Scheduler = scheduler;
             return View(user);
         }
 
         public ContentResult Data(string id)
         {
-            List<object> list = new List<object>();
+            List<Appointment> list = new List<Appointment>();
             ApplicationDbContext db = new ApplicationDbContext();
-            var records = new ApplicationDbContext().Records.Where((d => d.TypeOfService.Doctor.Id == id ));
+            var records = new ApplicationDbContext().Records.Where((d => d.TypeOfService.Doctor.Id == id || d.AttendingDoctorId == id));
 
             foreach (Record record in records)
             {
                 if(record.PatientId == null)
-                    list.Add(new { id = record.Id, text = "Вільне місце", start_date = record.Date, end_date = record.EndDate });
+                    list.Add(new Appointment{ id = record.Id, text = "Вільне місце", start_date = record.Date, end_date = record.EndDate, @readonly = false });
                 else
                 {
-                    list.Add(new { id = record.Id, text = "Пацієнт: " + record.Patient.Name +"\n" + record.TypeOfService.Type.Type1, start_date = record.Date, end_date = record.EndDate });
+                    list.Add(new Appointment { id = record.Id, text = "Пацієнт: " + record.Patient.Name +"\n" + record.TypeOfService.Type.Type1, start_date = record.Date, end_date = record.EndDate, @readonly = false });
                 }
             }
             return new SchedulerAjaxData(list);
 
+        }
+
+        public ContentResult Save(int? id, FormCollection actionValues)
+        {
+            var action = new DataAction(actionValues);
+            //try
+            //{
+                var changedEvent = DHXEventsHelper.Bind<Appointment>(actionValues);
+                Record record = db.Records.Find(id);
+                switch (action.Type)
+                {
+                    case DataActionTypes.Insert:
+                        ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+
+                        record = new Record() {
+                        Date = changedEvent.start_date,
+                        EndDate = changedEvent.end_date,
+                        AttendingDoctorId = user.Id
+                        
+                        };
+                        db.Records.Add(record);
+                        
+                        break;
+                    case DataActionTypes.Delete:
+                        db.Entry(record).State = EntityState.Deleted;
+                        break;
+                    default:// "update" 
+                        record = db.Records.Find(id);
+                        record.Date = changedEvent.start_date;
+                        record.EndDate = changedEvent.end_date;
+                        break;
+                }
+                db.SaveChanges();
+            //}
+            //catch (Exception a)
+            //{
+            //    action.Type = DataActionTypes.Error;
+            //}
+
+            return (new AjaxSaveResponse(action));
         }
 
         public ActionResult MedicalCard(string id)

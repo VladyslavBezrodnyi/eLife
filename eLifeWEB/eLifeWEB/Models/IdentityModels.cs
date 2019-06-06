@@ -50,6 +50,8 @@ namespace eLifeWEB.Models
 
         public virtual ICollection<Record> Records { get; set; }
 
+        public virtual ICollection<Record> Records1 { get; set; }
+
         public virtual ICollection<Payment> Payments { get; set; }
 
         public virtual ICollection<TypeOfService> TypeOfServices { get; set; }

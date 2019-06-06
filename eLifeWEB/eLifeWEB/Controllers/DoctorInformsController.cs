@@ -141,11 +141,11 @@ namespace eLifeWEB.Controllers.WEBControllers
         {
             List<object> list = new List<object>();
             ApplicationDbContext db = new ApplicationDbContext();
-            var records = new ApplicationDbContext().Records.Where((d => d.TypeOfService.Doctor.DoctorInform.Id == id && d.Patient == null));
+            var records = new ApplicationDbContext().Records.Where((d => (d.TypeOfService.Doctor.DoctorInform.Id == id || d.AttendingDoctor.DoctorInform.Id == id ) && d.Patient == null));
 
             foreach (Record record in records)
             {
-                list.Add(new { id = record.Id, text = "Вільне місце", start_date = record.Date, end_date = record.Date.AddHours(2) });
+                list.Add(new { id = record.Id, text = "Вільне місце", start_date = record.Date, end_date = record.EndDate });
 
             }
             return new SchedulerAjaxData(list);
