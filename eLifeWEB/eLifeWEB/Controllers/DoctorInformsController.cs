@@ -16,6 +16,10 @@ using Microsoft.AspNet.Identity;
 using System.Text;
 using Newtonsoft.Json;
 using PagedList;
+using System.Threading.Tasks;
+using MimeKit;
+using MailKit.Net.Smtp;
+using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace eLifeWEB.Controllers.WEBControllers
 {
@@ -101,6 +105,7 @@ namespace eLifeWEB.Controllers.WEBControllers
             scheduler.EnableDataprocessor = true;
             scheduler.Config.first_hour = 6;
             scheduler.Config.last_hour = 20;
+
             scheduler.Data.Loader.AddParameter("id", id);
             scheduler.Localization.Set(SchedulerLocalization.Localizations.Ukrainian);
             scheduler.Config.drag_lightbox = true;
@@ -113,7 +118,7 @@ namespace eLifeWEB.Controllers.WEBControllers
             }
             scheduler.Config.icons_select = new EventButtonList()
             {
-                EventButtonList.Edit
+                EventButtonList.Details
             };
             scheduler.Config.drag_create = false;
             scheduler.Config.drag_lightbox = false;
@@ -133,6 +138,10 @@ namespace eLifeWEB.Controllers.WEBControllers
                 LightboxButtonList.Cancel,
             };
             scheduler.Config.buttons_right = new LightboxButtonList();
+            if(!User.Identity.IsAuthenticated)
+            {
+                scheduler.Config.isReadonly = true;
+            }
             ViewBag.Scheduler = scheduler;
             return View(doctorInform);
         }
@@ -254,7 +263,7 @@ namespace eLifeWEB.Controllers.WEBControllers
         }
 
         [HttpPost]
-        public ActionResult AppointmentResult()
+        public async Task<ActionResult> AppointmentResult()
         {
             var request_dictionary = Request.Form.AllKeys.ToDictionary(key => key, key => Request.Form[key]);
 
@@ -277,7 +286,36 @@ namespace eLifeWEB.Controllers.WEBControllers
                 Record record = db.Records.Find(payment.RecordId);
                 record.PatientId = payment.PatientId;
                 db.SaveChanges();
-                return View();
+                // настройка логина, пароля отправителя
+                var from = "elifeprojectnure@gmail.com";
+                var pass = "eLifeProject";
+
+                // создаем письмо: message.Destination - адрес получателя
+                var emailMessage = new MimeMessage()
+                {
+                    Subject = "eLife підтвердження запису",
+                    Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                    {
+                        Text = "<h2> " + record.Patient.Name + " , ви успішно записались на прийом" +" </h2> <br>" 
+                        + "<h3> Лікар:" + record.AttendingDoctor.Name +" </h3><br>" +
+                        "< h3 > Клініка:" + record.AttendingDoctor.DoctorInform.Clinic.Name +" </ h3 >< br > " +
+                        "< h3 > Дата та час:" + record.Date + " </ h3 >< br > " +
+                         "< h3 > Вид прийому:" + db.Types.Find(record.TypeId).Type1 + " </ h3 >< br > "
+                    }
+                };
+                emailMessage.From.Add(new MailboxAddress("Администрация сайта", from));
+                emailMessage.To.Add(new MailboxAddress("", record.Patient.Email));
+
+                // адрес и порт smtp-сервера, с которого мы и будем отправлять письмо
+                using (var client = new SmtpClient())
+                {
+                    await client.ConnectAsync("smtp.gmail.com", 465);
+                    await client.AuthenticateAsync(from, pass);
+                    await client.SendAsync(emailMessage);
+                    await client.DisconnectAsync(true);
+                }
+                ViewBag.Type = db.Types.Find(record.TypeId).Type1;
+                return View(record);
             }
             return View("~/Views/Shared/_Error.cshtml");
         }

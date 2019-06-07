@@ -1,7 +1,63 @@
-﻿
+﻿@model eLifeWEB.Models.Record
+
 @{
-    ViewBag.Title = "AppointmentResult";
+    ViewBag.Title = "Підтверження запису";
 }
 
-<h2>AppointmentResult</h2>
+<h2>Підтверження запису</h2>
 
+<div>
+    <h4>Ви успішно записались</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AttendingDoctor.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttendingDoctor.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Лікар")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttendingDoctor.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Клініка")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttendingDoctor.DoctorInform.Clinic.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Тип прийому")
+        </dt>
+
+        <dd>
+            @ViewBag.Type
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+    </dl>
+</div>
+@Html.ActionLink("Повернутися до аккаунту", "MyAccount", "Account", new { @class = "btn btn-primary" })

@@ -10,6 +10,33 @@
 {
     @Html.ActionLink("Змінити пароль", "ChangePassword", "Manage")
 }
+else
+{
+    @Html.ActionLink("Додати пароль", "SetPassword", "Manage")
+}
+<dt>Двухфакторна перевірка подлиности:</dt>
+<dd>
+    @if (Model.TwoFactorEnabled)
+    {
+        using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <text>Включено
+                <input type="submit" value="Вимкнути" class="btn btn-link" />
+            </text>
+        }
+    }
+    else
+    {
+        using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <text>Отключено
+                <input type="submit" value="Увімкнути" class="btn btn-link" />
+            </text>
+        }
+    }
+</dd>
 @if (ViewBag.Role == "patient")
 {
     @Html.Partial("_PatientInfo", Model.PatientInform)
@@ -18,7 +45,7 @@
 {
     @Html.Partial("_DoctorInfo", Model.DoctorInform)
     <div style="height:700px;width:900px;margin:0 auto">
-       @Html.Raw(ViewBag.Scheduler.Render())
+        @Html.Raw(ViewBag.Scheduler.Render())
     </div>
 }
 @if (ViewBag.Role == "clinicAdmin")
