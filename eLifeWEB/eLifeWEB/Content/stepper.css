@@ -32,12 +32,8 @@
     background: transparent;
 }
 
-.stepper .nav-tabs > li.active:last-child .round-tab {
-    background: #34bc9b;
-}
 
 .stepper .nav-tabs > li.active:last-child .round-tab::after {
-    //content: "✔";
     color: #ffffff;
     position: absolute;
     left: 0;
