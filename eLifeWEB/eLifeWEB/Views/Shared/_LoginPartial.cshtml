@@ -3,17 +3,10 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "nav navbar m-0 p-0" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Здравствуйте, " + User.Identity.Name + "!", "MyAccount", "Account")
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
-    </ul>
-        @Html.ActionLink("Доброго дня, " + User.Identity.GetUserName(), "MyAccount", "Account", null, new {@class = "btn btn-primary mr-3 my-auto" })
-        <a href="javascript:document.getElementById('logoutForm').submit()", class="btn btn-primary my-auto">Вийти</a>
-
+        @Html.ActionLink("Доброго дня, " + User.Identity.GetUserName(), "MyAccount", "Account", null, new { @class = "btn btn-primary mr-3 my-auto" })
+        <a href="javascript:document.getElementById('logoutForm').submit()" , class="btn btn-primary my-auto">Вийти</a>
     }
 }
 else
