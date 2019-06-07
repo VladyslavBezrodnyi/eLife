@@ -544,8 +544,8 @@ namespace eLifeWEB.Controllers
             ViewBag.Specialization = specialiation;
             string[] genders = new[]
             {
-                "Жіночий",
-                "Чоловічий"
+                "Жіноча",
+                "Чоловіча"
             };
             ViewBag.ClinicId = new SelectList(db.Clinics, "Id", "Name");
 
@@ -556,6 +556,7 @@ namespace eLifeWEB.Controllers
         [HttpPost]
         public ActionResult RegisterDoctor(RegisterDoctorModel model, HttpPostedFileBase uploadImage)
         {
+            ViewBag.ClinicId = new SelectList(db.Clinics, "Id", "Name");
             if (ModelState.IsValid)
             {
                 if (uploadImage != null)
@@ -589,7 +590,7 @@ namespace eLifeWEB.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Выберите изображение");
+                    ModelState.AddModelError("", "Оберіть зображення");
                 }
             }
             return View(model);
