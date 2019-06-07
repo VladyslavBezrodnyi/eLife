@@ -142,7 +142,7 @@ namespace eLifeWEB.Controllers
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("MyAccount", "Account");
         }
 
         //
@@ -157,7 +157,7 @@ namespace eLifeWEB.Controllers
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("MyAccount", "Account");
         }
 
         //
@@ -187,7 +187,7 @@ namespace eLifeWEB.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
+                return RedirectToAction("MyAccount", "Account");
             }
             // Это сообщение означает наличие ошибки; повторное отображение формы
             ModelState.AddModelError("", "Не удалось проверить телефон");
@@ -267,7 +267,7 @@ namespace eLifeWEB.Controllers
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     }
-                    return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
+                    return RedirectToAction("MyAccount", "Account");
                 }
                 AddErrors(result);
             }

@@ -291,8 +291,17 @@
     <Compile Include="Migrations\201906042250336_DataMigration5.Designer.cs">
       <DependentUpon>201906042250336_DataMigration5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906071854421_DataMigration6.cs" />
+    <Compile Include="Migrations\201906071854421_DataMigration6.Designer.cs">
+      <DependentUpon>201906071854421_DataMigration6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906071924508_DataMigration7.cs" />
+    <Compile Include="Migrations\201906071924508_DataMigration7.Designer.cs">
+      <DependentUpon>201906071924508_DataMigration7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Clinic.cs" />
     <Compile Include="Models\ClinicAdmin.cs" />
     <Compile Include="Models\Conversation.cs" />
@@ -331,6 +340,7 @@
     <Content Include="Content\footer.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\RegisterClinicAdmin.css" />
     <Content Include="Content\Resourses\e-mail_logo.png" />
     <Content Include="Content\Resourses\eLife_logo.png" />
     <Content Include="Content\Resourses\phone_logo.png" />
@@ -719,6 +729,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906042250336_DataMigration5.resx">
       <DependentUpon>201906042250336_DataMigration5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906071854421_DataMigration6.resx">
+      <DependentUpon>201906071854421_DataMigration6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906071924508_DataMigration7.resx">
+      <DependentUpon>201906071924508_DataMigration7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

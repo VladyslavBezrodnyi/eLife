@@ -15,6 +15,8 @@ using System.Data.Entity;
 using DHTMLX.Scheduler;
 using System.Collections.Generic;
 using DHTMLX.Scheduler.Data;
+using static eLifeWEB.Controllers.ManageController;
+using DHTMLX.Common;
 
 namespace eLifeWEB.Controllers
 {
@@ -29,41 +31,84 @@ namespace eLifeWEB.Controllers
         {
         }
 
-        public ActionResult MyAccount()
+        public ActionResult MyAccount(ManageMessageId? message)
         {
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
             ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
             var scheduler = new DHXScheduler(this);
+            
             scheduler.Skin = DHXScheduler.Skins.Material;
             scheduler.LoadData = true;
             scheduler.EnableDataprocessor = true;
+            scheduler.Config.show_loading = true;
             scheduler.Config.first_hour = 6;
             scheduler.Config.last_hour = 20;
             scheduler.Data.Loader.AddParameter("id", user.Id);
             scheduler.Localization.Set(SchedulerLocalization.Localizations.Ukrainian);
             scheduler.Config.drag_lightbox = true;
-            scheduler.Lightbox.Clear();
+            scheduler.Extensions.Add(SchedulerExtensions.Extension.Readonly);
             ViewBag.Scheduler = scheduler;
             return View(user);
         }
 
         public ContentResult Data(string id)
         {
-            List<object> list = new List<object>();
+            List<Appointment> list = new List<Appointment>();
             ApplicationDbContext db = new ApplicationDbContext();
-            var records = new ApplicationDbContext().Records.Where((d => d.TypeOfService.Doctor.Id == id ));
+            var records = new ApplicationDbContext().Records.Where((d => d.TypeOfService.Doctor.Id == id || d.AttendingDoctorId == id)).ToList();
 
             foreach (Record record in records)
             {
                 if(record.PatientId == null)
-                    list.Add(new { id = record.Id, text = "Вільне місце", start_date = record.Date, end_date = record.EndDate });
+                    list.Add(new Appointment{ id = record.Id, text = "Вільне місце", start_date = record.Date, end_date = record.EndDate, @readonly = false });
                 else
                 {
-                    list.Add(new { id = record.Id, text = "Пацієнт: " + record.Patient.Name +"\n" + record.TypeOfService.Type.Type1, start_date = record.Date, end_date = record.EndDate });
+                    list.Add(new Appointment { id = record.Id, text = "Запис" + "\n"+ "Пацієнт: " + record.Patient.Name +"\n" + db.Types.Find(record.TypeId).Type1, start_date = record.Date, end_date = record.EndDate, @readonly = true });
                 }
             }
             return new SchedulerAjaxData(list);
 
+        }
+
+        public ContentResult Save(int? id, FormCollection actionValues)
+        {
+            var action = new DataAction(actionValues);
+            try
+            {
+                var changedEvent = DHXEventsHelper.Bind<Appointment>(actionValues);
+                Record record = db.Records.Find(id);
+                switch (action.Type)
+                {
+                    case DataActionTypes.Insert:
+                        ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+
+                        record = new Record() {
+                        Date = changedEvent.start_date,
+                        EndDate = changedEvent.end_date,
+                        AttendingDoctorId = user.Id
+                        
+                        };
+                        db.Records.Add(record);
+                        
+                        break;
+                    case DataActionTypes.Delete:
+                        db.Entry(record).State = EntityState.Deleted;
+                        break;
+                    default:// "update" 
+                        record = db.Records.Find(id);
+                        record.Date = changedEvent.start_date;
+                        record.EndDate = changedEvent.end_date;
+                        break;
+                }
+                db.SaveChanges();
+                action.TargetId = changedEvent.id;
+        }
+            catch (Exception a)
+            {
+                action.Type = DataActionTypes.Error;
+            }
+
+            return (new AjaxSaveResponse(action));
         }
 
         public ActionResult MedicalCard(string id)
@@ -523,7 +568,7 @@ namespace eLifeWEB.Controllers
             if (ModelState.IsValid)
             {
                 ApplicationUser user = db.Users.Find(User.Identity.GetUserId()); ;
-                PatientInform patientInform = new PatientInform { Allergy = model.Allergy, BloodGroup = model.BloodGroup, Diabetes = model.Diabetes, Activity = model.Activity, Adress = model.Adress, Infectious_diseases = model.Infectious_diseases, BankCard = model.BankCard, Operations = model.Operations };
+                PatientInform patientInform = new PatientInform { Allergy = model.Allergy, BloodGroup = model.BloodGroup, Diabetes = model.Diabetes, Activity = model.Activity, Adress = model.Adress, Infectious_diseases = model.Infectious_diseases, Operations = model.Operations };
                 db.PatientInforms.Add(patientInform);
                 db.SaveChanges();
                 user.PatientInformId = patientInform.Id;
@@ -543,8 +588,8 @@ namespace eLifeWEB.Controllers
             ViewBag.Specialization = specialiation;
             string[] genders = new[]
             {
-                "Жіночий",
-                "Чоловічий"
+                "Жіноча",
+                "Чоловіча"
             };
             ViewBag.ClinicId = new SelectList(db.Clinics, "Id", "Name");
 
@@ -555,6 +600,7 @@ namespace eLifeWEB.Controllers
         [HttpPost]
         public ActionResult RegisterDoctor(RegisterDoctorModel model, HttpPostedFileBase uploadImage)
         {
+            ViewBag.ClinicId = new SelectList(db.Clinics, "Id", "Name");
             if (ModelState.IsValid)
             {
                 if (uploadImage != null)
@@ -588,7 +634,7 @@ namespace eLifeWEB.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Выберите изображение");
+                    ModelState.AddModelError("", "Оберіть зображення");
                 }
             }
             return View(model);
@@ -621,8 +667,7 @@ namespace eLifeWEB.Controllers
                 PatientInform newPatient = db.PatientInforms.Find(user.PatientInform.Id);
                 newPatient.Activity = patientInform.Activity;
                 newPatient.Adress = patientInform.Adress;
-                newPatient.Allergy = patientInform.Allergy;
-                newPatient.BankCard = patientInform.BankCard;
+                newPatient.Allergy = patientInform.Allergy;                
                 newPatient.BloodGroup = patientInform.BloodGroup;
                 newPatient.Diabetes = patientInform.Diabetes;
                 newPatient.Infectious_diseases = patientInform.Infectious_diseases;

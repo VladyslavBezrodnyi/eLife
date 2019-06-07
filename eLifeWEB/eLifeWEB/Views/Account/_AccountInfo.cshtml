@@ -5,29 +5,29 @@
     <dl class="dl-horizontal">
         @if (Model.Name != null && Model.Gender != null && Model.Bithday != null)
         {
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Bithday)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Bithday)
+            </dt>
 
-        <dd>
-            @Model.Bithday.Value.ToShortDateString()
-        </dd>
+            <dd>
+                @Model.Bithday.Value.ToShortDateString()
+            </dd>
         }
 
         <dt>
@@ -38,14 +38,22 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
 
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
+        @if (Model.PhoneNumber != null)
+        {
+            <dd>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
+        }
+        else
+        {
+            <dd>
+                @Html.ActionLink("Додати номер телефону", "AddPhoneNumber", "Manage")
+            </dd>
+        }
 
 
     </dl>
