@@ -290,17 +290,13 @@
     <Compile Include="Migrations\201906042250336_DataMigration5.Designer.cs">
       <DependentUpon>201906042250336_DataMigration5.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201906052046332_DataMigration6.cs" />
-    <Compile Include="Migrations\201906052046332_DataMigration6.Designer.cs">
-      <DependentUpon>201906052046332_DataMigration6.cs</DependentUpon>
+    <Compile Include="Migrations\201906071854421_DataMigration6.cs" />
+    <Compile Include="Migrations\201906071854421_DataMigration6.Designer.cs">
+      <DependentUpon>201906071854421_DataMigration6.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201906052241282_DataMigration7.cs" />
-    <Compile Include="Migrations\201906052241282_DataMigration7.Designer.cs">
-      <DependentUpon>201906052241282_DataMigration7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906060000375_DataMigration8.cs" />
-    <Compile Include="Migrations\201906060000375_DataMigration8.Designer.cs">
-      <DependentUpon>201906060000375_DataMigration8.cs</DependentUpon>
+    <Compile Include="Migrations\201906071924508_DataMigration7.cs" />
+    <Compile Include="Migrations\201906071924508_DataMigration7.Designer.cs">
+      <DependentUpon>201906071924508_DataMigration7.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -730,14 +726,11 @@
     <EmbeddedResource Include="Migrations\201906042250336_DataMigration5.resx">
       <DependentUpon>201906042250336_DataMigration5.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906052046332_DataMigration6.resx">
-      <DependentUpon>201906052046332_DataMigration6.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906071854421_DataMigration6.resx">
+      <DependentUpon>201906071854421_DataMigration6.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906052241282_DataMigration7.resx">
-      <DependentUpon>201906052241282_DataMigration7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906060000375_DataMigration8.resx">
-      <DependentUpon>201906060000375_DataMigration8.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906071924508_DataMigration7.resx">
+      <DependentUpon>201906071924508_DataMigration7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

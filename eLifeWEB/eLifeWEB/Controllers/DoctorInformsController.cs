@@ -40,7 +40,7 @@ namespace eLifeWEB.Controllers.WEBControllers
                 doctorInforms = doctorInforms.Where(s => s.ApplicationUsers.FirstOrDefault().Name.ToUpper().Contains(searchString.ToUpper())
                                        || s.Clinic.Name.ToUpper().Contains(searchString.ToUpper()));
             }
-            if (!String.IsNullOrEmpty(specializations) && !specializations.Equals("Все"))
+            if (!String.IsNullOrEmpty(specializations) && !specializations.Equals("Усі"))
             {
                 if (check == true)
                 {
@@ -52,12 +52,11 @@ namespace eLifeWEB.Controllers.WEBControllers
             
             SelectList types = new SelectList(new List<string>()
             {
-                "Все",
-                 "Акушерство та гінекологія",
+            "Усі",
+            "Акушерство та гінекологія",
             "Анестезіологія та інтенсивна терапія",
             "Дерматовенерологія",
             "Дитяча хірургія",
-            "Інфекційні хвороби",
             "Інфекційні хвороби",
             "Медична психологія",
             "Неврологія",
@@ -68,7 +67,6 @@ namespace eLifeWEB.Controllers.WEBControllers
             "Патологічна анатомія",
             "Педіатрія",
             "Психіатрія",
-            "Пульмонологія та фтизіатрія",
             "Пульмонологія та фтизіатрія",
             "Урологія",
             "Хірургія"
