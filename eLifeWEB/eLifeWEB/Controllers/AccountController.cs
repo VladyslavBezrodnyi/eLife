@@ -524,7 +524,7 @@ namespace eLifeWEB.Controllers
             if (ModelState.IsValid)
             {
                 ApplicationUser user = db.Users.Find(User.Identity.GetUserId()); ;
-                PatientInform patientInform = new PatientInform { Allergy = model.Allergy, BloodGroup = model.BloodGroup, Diabetes = model.Diabetes, Activity = model.Activity, Adress = model.Adress, Infectious_diseases = model.Infectious_diseases, BankCard = model.BankCard, Operations = model.Operations };
+                PatientInform patientInform = new PatientInform { Allergy = model.Allergy, BloodGroup = model.BloodGroup, Diabetes = model.Diabetes, Activity = model.Activity, Adress = model.Adress, Infectious_diseases = model.Infectious_diseases, Operations = model.Operations };
                 db.PatientInforms.Add(patientInform);
                 db.SaveChanges();
                 user.PatientInformId = patientInform.Id;
@@ -622,8 +622,7 @@ namespace eLifeWEB.Controllers
                 PatientInform newPatient = db.PatientInforms.Find(user.PatientInform.Id);
                 newPatient.Activity = patientInform.Activity;
                 newPatient.Adress = patientInform.Adress;
-                newPatient.Allergy = patientInform.Allergy;
-                newPatient.BankCard = patientInform.BankCard;
+                newPatient.Allergy = patientInform.Allergy;                
                 newPatient.BloodGroup = patientInform.BloodGroup;
                 newPatient.Diabetes = patientInform.Diabetes;
                 newPatient.Infectious_diseases = patientInform.Infectious_diseases;

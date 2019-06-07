@@ -40,10 +40,7 @@ namespace eLifeWEB.Models
         [DisplayName("Цукровий діабет")]
         public string Diabetes { get; set; }
 
-        [Required]
-        [DisplayName("Банківська картка")]
-        public string BankCard { get; set; }
-
+        
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
     }
 }
