@@ -7,7 +7,7 @@
 @Styles.Render("~/Content/font-awesome.css")
 @Styles.Render("~/Content/login.css")
 <div class="card">
-    <article class="card-body mx-auto" style="width: 345px; max-width: 500px;">
+    <article class="card-body mx-auto" style="width: 100%; max-width: 350px;">
         <h4 class="card-title mt-3 text-center">Авторизація</h4>
         @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
