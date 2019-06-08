@@ -28,10 +28,17 @@
     background-image: url(/Content/Resourses/stars.png);
 }
 .rating__stars-overlay {
-    height: 100%;
+    height: calc(100% - 2px);
     position: absolute;
     background-color: sandybrown;
-    top: 0;
+    top: 1px;
     left: 0;
     z-index: 1;
+}
+.shadw{
+    transition: .5s;
+}
+.shadw:hover {
+    transition: .3s;
+    box-shadow: 0 0 12px rgba(0,0,0,0.5);
 }
