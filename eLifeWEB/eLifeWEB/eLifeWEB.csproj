@@ -254,6 +254,7 @@
     <Compile Include="Controllers\DoctorInformsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TelegramController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -329,6 +330,8 @@
     <Compile Include="Models\Record.cs" />
     <Compile Include="Models\RegisterDoctorModel.cs" />
     <Compile Include="Models\RegisterPatientModel.cs" />
+    <Compile Include="Models\TransferData\LoginData.cs" />
+    <Compile Include="Models\TransferData\RecordsData.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\TypeOfService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
