@@ -17,49 +17,68 @@
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     }
+
 </head>
 <body>
     <input id="doctorId" type="hidden" value="@ViewBag.Conversation.DoctorId" />
     <input id="patientId" type="hidden" value="@ViewBag.Conversation.PatientId" />
     <input id="conversationId" type="hidden" value="@ViewBag.Conversation.Id" />
     <input id="sender" type="hidden" value="@ViewBag.Sender" />
+    <input id="lastDate" type="hidden"/>
 
-    <div id="chatBody">
-        <div id="header"></div>
-        <div id="chat">
+    <div class="chat">
+        <div class="chat-header clearfix">
+            @if (@ViewBag.Conversation.Doctor.DoctorInform.Image != null)
+            {
+                @Html.Raw("<img style= \"height:100px;width:100px;\" src=\"data:image/jpeg;base64,"
+                                 + Convert.ToBase64String(ViewBag.Conversation.Doctor.DoctorInform.Image) + "\" alt=\"avatar\"/>")
+            }
+            <div class="chat-about">
+                <div class="chat-with">@((ViewBag.Sender == ViewBag.Conversation.PatientId) ? (ViewBag.Conversation.Doctor.Name) : (ViewBag.Conversation.Patient.Name))</div>
+            </div>
+        </div> <!-- end chat-header -->
+
+        <div id="chat-history" class="chat-history">
             @foreach (var item in Model)
             {
-                <div class="groupTimeDate text-center">@(item.Date)</div>
+                <p class="groupTimeDate text-center">@(item.Date)</p>
                 foreach (var it in item.Messages)
                 {
-                    <div class="@((it.SenderId == ViewBag.Sender)?("mine"):("yours")) messages">
-                        <div class="message">@it.Text</div>
-                        <p class="timeMessage">@it.Time</p>
-                    </div>
+                    if (it.SenderId == ViewBag.Sender)
+                    {
+                        <div class="clearfix">
+                            <div class="message-data align-right">
+                                <span class="message-data-time">@it.Time</span> &nbsp; &nbsp;
+                                <span class="message-data-name">@it.Name</span>
+                            </div>
+                            <div class="message other-message float-right">
+                                <p>@it.Text</p>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <div class="message-data">
+                                <span class="message-data-name">@it.Name</span>
+                                <span class="message-data-time">@it.Time</span>
+                            </div>
+                            <div class="message my-message">
+                                <p>@it.Text</p>
+                            </div>
+                        </div>
+                    }
                 }
             }
-        </div>
-    </div>
+        </div> <!-- end chat-history -->
 
-    <div id="inputForm">
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">mode_edit</i>
-                        <textarea id="message" class="materialize-textarea" style="float:left"></textarea>
-                        <label for="icon_prefix2">Введіть повідомлення</label>
-                    </div>
-                    <div class="prefix">
-                        <button type="button" id="sendmessage" class="btn-floating btn-large waves-effect waves-light hoverable">
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+        <div class="chat-message clearfix" style="background:#18BC9C">
+            <textarea id="message-to-send" name="message-to-send" placeholder="Введіть повідомлення..." maxlength="180" ></textarea>
+            <button id="sendmessage">Send</button>
+
+        </div> <!-- end chat-message -->
+
+    </div> <!-- end chat -->
+    <!-- end container -->
 </body>
 </html>
-
-

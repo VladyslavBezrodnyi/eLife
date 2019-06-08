@@ -24,6 +24,10 @@ namespace eLifeWEB.Controllers
         // GET: Chats
         public ActionResult Index()
         {
+            if (!Request.IsAuthenticated)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
             ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
             IEnumerable<Conversation> conversations;
