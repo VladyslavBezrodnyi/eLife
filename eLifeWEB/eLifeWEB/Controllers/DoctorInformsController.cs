@@ -30,9 +30,9 @@ namespace eLifeWEB.Controllers.WEBControllers
         List<DoctorInform> doctorInforms;
         
         // GET: DoctorInforms
-        public ActionResult Index(string searchString, string specializations, int? page, bool? check)
+        public ActionResult Index(string searchString, string specializations, int? page, bool? check, string SortingString)
         {
-            var doctorInforms = db.DoctorInforms.Include(d => d.Clinic).Where(q =>q.Practiced);
+            var doctorInforms = db.DoctorInforms.Include(d => d.Clinic).Where(q =>q.Practiced); 
             SelectList specialiation = new SelectList(new Specializations().specializations);          
             ViewBag.Specialization = specialiation;
             if (!String.IsNullOrEmpty(searchString))
@@ -49,7 +49,16 @@ namespace eLifeWEB.Controllers.WEBControllers
                 else
                     doctorInforms = doctorInforms.Where(p => p.Specialization == specializations);
             }
-            
+
+            if (SortingString == "Asc")
+            {
+                doctorInforms = db.DoctorInforms.OrderByDescending(u => db.Feedbacks.Where(d => d.DoctorId == u.ApplicationUsers.FirstOrDefault().Id).Average(t => t.Stars));
+            }
+            else
+            {
+                doctorInforms = db.DoctorInforms.OrderBy(u => db.Feedbacks.Where(d => d.DoctorId == u.ApplicationUsers.FirstOrDefault().Id).Average(t => t.Stars));
+            }
+
             SelectList types = new SelectList(new List<string>()
             {
             "Усі",
@@ -80,7 +89,8 @@ namespace eLifeWEB.Controllers.WEBControllers
             }
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            return View(doctorInforms.ToList().ToPagedList(pageNumber, pageSize));
+            doctorInforms = db.DoctorInforms.OrderByDescending(u => db.Feedbacks.Where(d => d.DoctorId == u.ApplicationUsers.FirstOrDefault().Id).Average(t => t.Stars));
+            return View(doctorInforms.ToList().ToPagedList(pageNumber, pageSize));            
            // return View(doctorInforms.ToList());
         }
 
