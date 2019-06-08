@@ -1,6 +1,5 @@
 ﻿@model eLifeWEB.Models.RegisterDoctorModel
 
-@Styles.Render("~/Content/font-awesome.css")
 @Styles.Render("~/Content/RegisterClinicAdmin.css")
 
 @{
@@ -67,7 +66,7 @@
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-venus-mars fa-2x"></i></div>
-                    @Html.DropDownListFor(model => model.Gender, new SelectList(new List<String>() { "Жіноча", "Чоловіча" }), new { @class = "form-control input_fix аааа custom-select" })
+                    @Html.DropDownListFor(model => model.Gender, new SelectList(new List<String>() { "Жіноча", "Чоловіча" }), new { @class = "form-control input_fix custom-select" })
                 </div>
             </div>
         </div>
