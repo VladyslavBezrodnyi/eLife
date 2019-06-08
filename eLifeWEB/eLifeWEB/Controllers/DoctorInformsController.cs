@@ -245,6 +245,7 @@ namespace eLifeWEB.Controllers.WEBControllers
             }
 
             Record record = db.Records.Find(id);
+            record.TypeOfServiceId = serviceId;
             TypeOfService typeOfService = db.TypeOfServices.Where(u => u.Id == serviceId).FirstOrDefault();
             ApplicationUser Patient = db.Users.Find(User.Identity.GetUserId());
             Payment payment = new Payment()
@@ -254,6 +255,9 @@ namespace eLifeWEB.Controllers.WEBControllers
                 amount = typeOfService.Price,
                 order_id = Guid.NewGuid().ToString()
             };
+            ViewBag.Patient = Patient;
+            ViewBag.Payment = payment;
+            ViewBag.Record = record;
             db.Payments.Add(payment);
             db.SaveChanges();
             return View("Payment", LiqPayHelper.GetLiqPayModel(payment, typeOfService, Patient));
@@ -295,10 +299,10 @@ namespace eLifeWEB.Controllers.WEBControllers
                     Body = new TextPart(MimeKit.Text.TextFormat.Html)
                     {
                         Text = "<h2> " + record.Patient.Name + " , ви успішно записались на прийом" +" </h2> <br>" 
-                        + "<h3> Лікар:" + record.AttendingDoctor.Name +" </h3><br>" +
-                        "< h3 > Клініка:" + record.AttendingDoctor.DoctorInform.Clinic.Name +" </ h3 >< br > " +
-                        "< h3 > Дата та час:" + record.Date + " </ h3 >< br > " +
-                         "< h3 > Вид прийому:" + record.TypeOfService.Name + " </ h3 >< br > "
+                        + "Лікар:" + record.AttendingDoctor.Name +" <br>" +
+                        " Клініка:" + record.AttendingDoctor.DoctorInform.Clinic.Name +" < br > " +
+                        " Дата та час:" + record.Date + " < br > " +
+                         " Вид прийому:" + record.TypeOfService.Name + " < br > "
                     }
                 };
                 emailMessage.From.Add(new MailboxAddress("Администрация сайта", from));

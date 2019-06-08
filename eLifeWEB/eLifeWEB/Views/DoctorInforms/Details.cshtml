@@ -138,8 +138,8 @@
     function appointment(event_id){
         //var event = scheduler.getEvent(event_id);
         var value = scheduler.formSection('service').getValue();
-        var url = "@Url.Action("AppointmentResultTest", "DoctorInforms")" + "?id=" + event_id + "&serviceId=" + value;
-        //var url = "@Url.Action("AcceptAppointment", "DoctorInforms")" + "?id=" + event_id + "&serviceId=" + value;
+        //var url = "@Url.Action("AppointmentResultTest", "DoctorInforms")" + "?id=" + event_id + "&serviceId=" + value;
+        var url = "@Url.Action("AcceptAppointment", "DoctorInforms")" + "?id=" + event_id + "&serviceId=" + value;
         window.location.href = url;
     }
 </script>
