@@ -86,7 +86,6 @@ namespace eLifeWEB.Controllers
                         Date = changedEvent.start_date,
                         EndDate = changedEvent.end_date,
                         AttendingDoctorId = user.Id
-                        
                         };
                         db.Records.Add(record);
                         
@@ -101,7 +100,7 @@ namespace eLifeWEB.Controllers
                         break;
                 }
                 db.SaveChanges();
-                action.TargetId = changedEvent.id;
+                action.TargetId = record.Id;
         }
             catch (Exception a)
             {

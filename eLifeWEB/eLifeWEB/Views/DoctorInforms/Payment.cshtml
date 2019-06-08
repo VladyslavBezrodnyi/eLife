@@ -1,7 +1,9 @@
 ﻿@model eLifeWEB.Models.LiqPayP2PFormModel
 @{
-    ViewBag.Title = "Liqpay Test";
+    ViewBag.Title = "Підтвердження оплати";
 }
+
+
 
 <form method="POST" accept-charset="utf-8" action="https://www.liqpay.ua/api/3/checkout"">
     <input type="hidden" name="data" value="@Model.Data" />
@@ -11,7 +13,7 @@
                                     background: rgb(122,183,43) !important;" onmouseover="this.style.opacity='0.5';" onmouseout="this.style.opacity='1';">
         <img src="https://static.liqpay.ua/buttons/logo-small.png" name="btn_text"
              style="margin-right: 7px !important; vertical-align: middle !important;" />
-        <span style="vertical-align:middle !important">Pay</span>
+        <span style="vertical-align:middle !important">Оплатити через LiqPay</span>
     </button>
 </form>
 
