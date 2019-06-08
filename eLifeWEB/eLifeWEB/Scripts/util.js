@@ -1,77 +1,79 @@
 ﻿$(function () {
 
-    $('#chatBody').hide();
-    $('#loginBlock').show();
+    var connection = 1;
+    var patient = $("#patientId").val();
+    var doctor = $("#doctorId").val();
+    var conversationId = $('#conversationId').val();
+    var sender = $('#sender').val();
+
     // Ссылка на автоматически-сгенерированный прокси хаба
     var chat = $.connection.chatHub;
 
+    //оформление чата
+    // $(".footer").hide();
 
+    $(".container").css("padding-top", "50px").css("visibility", "hidden;");
+    $(".col").css("background-color", "transparent");
     // Объявление функции, которая хаб вызывает при получении сообщений
-    chat.client.addMessage = function (time, name, message) {
+    chat.client.addMessage = function (senderId, time, name, message) {
         // Добавление сообщений на веб-страницу 
-        $('#chatroom').append('<p><b>' + time + '</b> <b>' + htmlEncode(name)
-            + '</b>: ' + htmlEncode(message) + '</p>');
+        if (senderId === sender) {
+            $('#chat-history')
+                .append(
+                    '<div class="clearfix">' +
+                    '<div class="message-data align-right">' +
+                    '<span class="message-data-time">' +
+                    htmlEncode(time) +
+                    '</span >  &nbsp; &nbsp;' +
+                    '<span class="message-data-name">' +
+                    htmlEncode(name) +
+                    '</span> <i class="fa fa-circle me"></i>' +
+                    '</div>' +
+                    '<div class="message other-message float-right">' +
+                    htmlEncode(message) +
+                    '</div>' +
+                    '</div>');
+        }
+        else {
+            $('#chat-history')
+                .append(
+                    '<div>' +
+                    '<div class="message-data">' +
+                    '<span class="message-data-name"><i class="fa fa-circle online"></i>' +
+                    htmlEncode(name) +
+                    '</span>' +
+                    '<span class="message-data-time">' +
+                    htmlEncode(time) +
+                    '</span>' +
+                    '</div>' +
+                    '<div class="message my-message">' +
+                    htmlEncode(message) +
+                    '</div>' +
+                    '</div>');
+        }
+        var objDiv = document.getElementById("chat-history");
+        objDiv.scrollTop = objDiv.scrollHeight;
     };
-
-
-    //// Добавляем нового пользователя
-    //chat.client.onNewUserConnected = function (id, name) {
-    //    AddUser(id, name);
-    //};
-
-    //// Удаляем пользователя
-    //chat.client.onUserDisconnected = function (id, userName) {
-    //    $('#' + id).remove();
-    //};
-
-    //// Функция, вызываемая при подключении нового пользователя
-    //chat.client.onConnected = function (id, userName) {
-
-    //    $('#loginBlock').hide();
-    //    $('#chatBody').show();
-    //    // установка в скрытых полях имени и id текущего пользователя
-    //    $('#patientId').val(id);
-    //    $('#username').val(userName);
-    //    $('#header').html('<h3>Добро пожаловать, ' + userName + '</h3>');
-
-    //    // Добавление всех пользователей
-    //    //for (i = 0; i < allUsers.length; i++) {
-    //    //    AddUser(allUsers[i].ConnectionId, allUsers[i].Name);
-    //    //}
-    //};
 
     // Открываем соединение
     $.connection.hub.start().done(function () {
 
-        $("#btnLogin").click(function () {
-            $('#loginBlock').hide();
+        if (connection) {
             $('#chatBody').show();
-            var patient = $("#patientId").val();
-            var doctor = $("#doctorId").val();
+            $('#inputForm').show();
             chat.server.connect(patient, doctor);
-        });
+        }
+
+        connection = 0;
 
         $('#sendmessage').click(function () {
-            var conversationId = $('#conversationId').val();
-            var sender = $('#sender').val();
-            var mess = $('#message').val();
+            var mess = $('#message-to-send').val();
             // Вызываем у хаба метод Send
             if (mess.length !== 0) {
                 chat.server.send(conversationId, sender, mess);
-                $('#message').val('');
+                $('#message-to-send').val('');
             }
         });
-
-        //// обработка логина
-        //$("#btnLogin").click(function () {
-
-        //    var name = $("#txtUserName").val();
-        //    if (name.length > 0) {
-        //        chat.server.connect(name);
-        //    }
-        //    else {
-        //     alert("Введите имя");
-        //    }
     });
 });
 // Кодирование тегов
@@ -79,13 +81,6 @@ function htmlEncode(value) {
     var encodedValue = $('<div />').text(value).html();
     return encodedValue;
 }
-////Добавление нового пользователя
-//function AddUser(id, name) {
 
-//    var userId = $('#hdId').val();
-
-//    if (userId !== id) {
-
-//        $("#chatusers").append('<p id="' + id + '"><b>' + name + '</b></p>');
-//    }
-//}
+var objDiv = document.getElementById("chat-history");
+objDiv.scrollTop = objDiv.scrollHeight;
