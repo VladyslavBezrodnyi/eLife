@@ -19,14 +19,11 @@ namespace eLifeWEB.Models
 
         [DisplayName("Пацієнт")]
         public string PatientId { get; set; }
-
+        [DisplayName("Лікар")]
         public string AttendingDoctorId { get; set; }
 
-        [DisplayName("Лікар")]
-        public string DoctorId { get; set; }
-
         [DisplayName("Назва послуги")]
-        public int? TypeId { get; set; }
+        public int? TypeOfServiceId { get; set; }
 
         [DisplayName("Дата")]
         public DateTime Date { get; set; }

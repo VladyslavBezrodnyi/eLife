@@ -76,7 +76,6 @@ namespace eLifeWEB.Models
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Record> Records { get; set; }
         public virtual DbSet<TypeOfService> TypeOfServices { get; set; }
-        public virtual DbSet<Type> Types { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

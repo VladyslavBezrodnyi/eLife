@@ -63,7 +63,7 @@ namespace eLifeWEB.Controllers
                     list.Add(new Appointment{ id = record.Id, text = "Вільне місце", start_date = record.Date, end_date = record.EndDate, @readonly = false });
                 else
                 {
-                    list.Add(new Appointment { id = record.Id, text = "Запис" + "\n"+ "Пацієнт: " + record.Patient.Name +"\n" + db.Types.Find(record.TypeId).Type1, start_date = record.Date, end_date = record.EndDate, @readonly = true });
+                    list.Add(new Appointment { id = record.Id, text = "Запис" + "\n"+ "Пацієнт: " + record.Patient.Name +"\n" + record.TypeOfService.Name, start_date = record.Date, end_date = record.EndDate, @readonly = true });
                 }
             }
             return new SchedulerAjaxData(list);

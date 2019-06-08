@@ -110,17 +110,14 @@
         }
     </table>
 </div>
-<h3>
-    @Html.DisplayName("Всі послуги")
-</h3>
 <div>
-    <h3>Усі відгуки</h3>
+    @Html.DisplayName("Всі послуги")
     <table class="table">
         @foreach (TypeOfService typeOfService in Model.ApplicationUsers.FirstOrDefault().TypeOfServices)
         {
             <tr>
                 <td>
-                    @typeOfService.Type.Type1
+                    @typeOfService.Name
                 </td>
                 <td>
                     @typeOfService.Price
@@ -141,7 +138,8 @@
     function appointment(event_id){
         //var event = scheduler.getEvent(event_id);
         var value = scheduler.formSection('service').getValue();
-        var url = "@Url.Action("AcceptAppointment", "DoctorInforms")" + "?id=" + event_id + "&serviceId=" + value;
+        var url = "@Url.Action("AppointmentResultTest", "DoctorInforms")" + "?id=" + event_id + "&serviceId=" + value;
+        //var url = "@Url.Action("AcceptAppointment", "DoctorInforms")" + "?id=" + event_id + "&serviceId=" + value;
         window.location.href = url;
     }
 </script>
