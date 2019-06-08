@@ -328,11 +328,11 @@
     <Content Include="Content\footer.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\rating.css" />
     <Content Include="Content\RegisterClinicAdmin.css" />
-    <Content Include="Content\Resourses\e-mail_logo.png" />
     <Content Include="Content\Resourses\eLife_logo.png" />
-    <Content Include="Content\Resourses\phone_logo.png" />
-    <Content Include="Content\Resourses\telegram_logo.png" />
+    <Content Include="Content\Resourses\stars.png" />
+    <Content Include="Content\searchField.css" />
     <Content Include="Content\stepper.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />

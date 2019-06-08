@@ -6,10 +6,11 @@
     <title>@ViewBag.Title eLife</title>
     @Styles.Render("~/Content/font-awesome.css")
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/footer.css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body style="padding: 0; background: #e9ecef">
+<body style="background: #e9ecef">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding: .5rem .5rem">
             <div class="bg-white" style="border-radius: 100px; width: 50px; height: 50px">
@@ -33,12 +34,12 @@
             </div>
         </nav>
     </header>
-    <div class="container body-content" style="padding-bottom: 280px; min-height: calc(100% - 66px)">
-        <div class="col py-4" style="background: #ffffff; min-height: calc(100% - 66px - 280px)">
+    <div class="container body-content">
+        <div class="col py-4" style="background: #ffffff; min-height: calc(100% - 66px - 291px)">
             @RenderBody()
         </div>
     </div>
-    @Styles.Render("~/Content/footer.css")
+    
     <footer class="footer">
         <div class="row m-0 pt-4" style="min-height: 220px; width: 100%">
             <div class="col-1"></div>
@@ -57,8 +58,8 @@
                         Навігація
                     </span>
                 </div>
-                @Html.ActionLink("Лікарі", "Index", "DoctorInforms", null, new { @class = "row footer_nav_link py-2" })
-                @Html.ActionLink("Клініки", "Index", "Clinics", null, new { @class = "row footer_nav_link py-2" })
+                @Html.ActionLink("Лікарі", "Index", "DoctorInforms", null, new { @class = "row footer_nav_link py-2 nav-link" })
+                @Html.ActionLink("Клініки", "Index", "Clinics", null, new { @class = "row footer_nav_link py-2 nav-link" })
             </div>
             <div class="col-3 px-2">
                 <div class="row footer-title">
@@ -66,7 +67,7 @@
                         Корисні посилання
                     </span>
                 </div>
-                <a href="#" class="row m-0 footer_label p-2">
+                <a href="#" class="row m-0 footer_label p-2 nav-link">
                     <i class="fa fa-telegram fa-2x mr-2 footer_logo"></i>
                     eLifeOffical_Bot
                 </a>
