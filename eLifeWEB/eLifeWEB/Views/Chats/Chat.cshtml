@@ -1,70 +1,64 @@
-﻿@model eLifeWEB.Models.Conversation
-@using eLifeWEB.Models
-@{
-    ViewBag.Title = "Chat";
-    Layout = null;
-}
+﻿@model IEnumerable<eLifeWEB.Utils.ChatView>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <!--Ссылка на библиотеку SignalR -->
-    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
-    <!--Ссылка на автоматически сгенерированный скрипт хаба SignalR -->
-    <script src="~/signalr/hubs"></script>
-    <script src="~/Scripts/util.js"></script>
-
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="~/materialize/css/materialize.min.css" media="screen,projection" />
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Бутылка</title>
+    @section scripts{
+        <link href="~/Content/chat.css" rel="stylesheet">
+        <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+        <!--Ссылка на библиотеку SignalR -->
+        <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+        <!--Ссылка на автоматически сгенерированный скрипт хаба SignalR -->
+        <script src="~/signalr/hubs"></script>
+        <script src="~/Scripts/util.js"></script>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    }
 </head>
 <body>
-    <h2>Чат-комната</h2>
-    <input id="doctorId" type="hidden" value="@Model.DoctorId" />
-    <input id="patientId" type="hidden" value="@Model.PatientId" />
-    <input id="conversationId" type="hidden" value="@Model.Id" />
+    <input id="doctorId" type="hidden" value="@ViewBag.Conversation.DoctorId" />
+    <input id="patientId" type="hidden" value="@ViewBag.Conversation.PatientId" />
+    <input id="conversationId" type="hidden" value="@ViewBag.Conversation.Id" />
     <input id="sender" type="hidden" value="@ViewBag.Sender" />
 
-    <div id="loginBlock">
-        <button id="btnLogin" class="btn waves-effect waves-light" name="action">
-            Ввійти до чату
-            <i class="material-icons right">send</i>
-        </button>
-    </div>
-
-    <div id="chatBody" style='display:none;'>
+    <div id="chatBody">
         <div id="header"></div>
-        <div id="chatroom">
-            @foreach (var item in ViewBag.Messeges)
+        <div id="chat">
+            @foreach (var item in Model)
             {
-                <p><b>@item.Time.ToString("dd.MM.yy hh:mm")</b> <b>@item.Sender.Name</b>:@item.ReplyText</p>
+                <div class="groupTimeDate text-center">@(item.Date)</div>
+                foreach (var it in item.Messages)
+                {
+                    <div class="@((it.SenderId == ViewBag.Sender)?("mine"):("yours")) messages">
+                        <div class="message">@it.Text</div>
+                        <p class="timeMessage">@it.Time</p>
+                    </div>
+                }
             }
         </div>
-        <div id="inputForm">
-            <div class="row">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">mode_edit</i>
-                            <textarea id="message" class="materialize-textarea" style="float:left"></textarea>
-                            <label for="icon_prefix2">Введіть повідомлення</label>
-                        </div>
-                        <div class="prefix">
-                            <button type="button" id="sendmessage" class="btn-floating btn-large waves-effect waves-light hoverable">
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </div>
+    </div>
+
+    <div id="inputForm">
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <textarea id="message" class="materialize-textarea" style="float:left"></textarea>
+                        <label for="icon_prefix2">Введіть повідомлення</label>
                     </div>
-                </form>
-            </div>
+                    <div class="prefix">
+                        <button type="button" id="sendmessage" class="btn-floating btn-large waves-effect waves-light hoverable">
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="~/materialize/js/materialize.min.js"></script>
 </body>
 </html>
 

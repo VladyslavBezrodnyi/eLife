@@ -313,6 +313,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\ChatUser.cs" />
+    <Compile Include="Utils\ChatView.cs" />
     <Compile Include="Utils\Specializations.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +323,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chat.css" />
     <Content Include="Content\ChoiseRole.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />

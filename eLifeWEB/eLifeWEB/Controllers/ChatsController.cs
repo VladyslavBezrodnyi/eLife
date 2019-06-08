@@ -70,9 +70,26 @@ namespace eLifeWEB.Controllers
                 db.Conversations.Add(conversation);
                 db.SaveChanges();
             }
-            ViewBag.Messeges = conversation.ConversationReplies.OrderBy(e => e.Time);
+            var messages = conversation
+                .ConversationReplies
+                .OrderBy(e => e.Time)
+                .GroupBy(e => e.Time.Date)
+                .Select(
+                e => new ChatView()
+                {
+                    Date = e.Key.ToString("dd.MM.yy"),
+                    Count = e.Count(),
+                    Messages = e.Select(m => new MessageDate
+                    {
+                        Name = m.Sender.Name,
+                        SenderId = m.SenderId,
+                        Text = m.ReplyText,
+                        Time = m.Time.ToString("H:mm")
+                    }).ToList()
+                }).ToList();
             ViewBag.Sender = (role == "patient")?(patient.Id):(doctor.Id);
-            return View(conversation);
+            ViewBag.Conversation = conversation;
+            return View(messages);
         }
 
         // GET: Chats/Details/5
