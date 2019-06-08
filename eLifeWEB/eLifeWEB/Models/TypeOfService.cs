@@ -17,9 +17,10 @@ namespace eLifeWEB.Models
         [Column(Order = 0)]
         public int Id { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
         public string DoctorId { get; set; }
+
+        [DisplayName("Вид прийому")]
+        public string Name { get; set; }
 
         [Column(TypeName = "money")]
         [DisplayName("Ціна")]
@@ -28,7 +29,6 @@ namespace eLifeWEB.Models
         public virtual ICollection<Record> Records { get; set; }
 
         public virtual ApplicationUser Doctor { get; set; }
-
-        public virtual Type Type { get; set; }
+        
     }
 }

@@ -112,7 +112,7 @@ namespace eLifeWEB.Controllers.WEBControllers
             var services = new List<object>();
             foreach (TypeOfService type in doctorInform.ApplicationUsers.FirstOrDefault().TypeOfServices)
             {
-                services.Add(new { key = type.Id, label = type.Type.Type1 });
+                services.Add(new { key = type.Id, label = type.Name });
             }
             scheduler.Config.icons_select = new EventButtonList()
             {
@@ -146,13 +146,13 @@ namespace eLifeWEB.Controllers.WEBControllers
 
         public ContentResult Data(int? id)
         {
-            List<object> list = new List<object>();
+            List<Appointment> list = new List<Appointment>();
             ApplicationDbContext db = new ApplicationDbContext();
             var records = new ApplicationDbContext().Records.Where((d => (d.TypeOfService.Doctor.DoctorInform.Id == id || d.AttendingDoctor.DoctorInform.Id == id ) && d.Patient == null));
 
             foreach (Record record in records)
             {
-                list.Add(new { id = record.Id, text = "Вільне місце", start_date = record.Date, end_date = record.EndDate });
+                list.Add(new Appointment{ id = record.Id, text = "Вільне місце", start_date = record.Date, end_date = record.EndDate });
 
             }
             return new SchedulerAjaxData(list);
@@ -245,7 +245,7 @@ namespace eLifeWEB.Controllers.WEBControllers
             }
 
             Record record = db.Records.Find(id);
-            TypeOfService typeOfService = db.TypeOfServices.Where(u => u.Id == serviceId && u.DoctorId == record.DoctorId).FirstOrDefault();
+            TypeOfService typeOfService = db.TypeOfServices.Where(u => u.Id == serviceId).FirstOrDefault();
             ApplicationUser Patient = db.Users.Find(User.Identity.GetUserId());
             Payment payment = new Payment()
             {
@@ -298,7 +298,7 @@ namespace eLifeWEB.Controllers.WEBControllers
                         + "<h3> Лікар:" + record.AttendingDoctor.Name +" </h3><br>" +
                         "< h3 > Клініка:" + record.AttendingDoctor.DoctorInform.Clinic.Name +" </ h3 >< br > " +
                         "< h3 > Дата та час:" + record.Date + " </ h3 >< br > " +
-                         "< h3 > Вид прийому:" + db.Types.Find(record.TypeId).Type1 + " </ h3 >< br > "
+                         "< h3 > Вид прийому:" + record.TypeOfService.Name + " </ h3 >< br > "
                     }
                 };
                 emailMessage.From.Add(new MailboxAddress("Администрация сайта", from));
@@ -312,8 +312,54 @@ namespace eLifeWEB.Controllers.WEBControllers
                     await client.SendAsync(emailMessage);
                     await client.DisconnectAsync(true);
                 }
-                ViewBag.Type = db.Types.Find(record.TypeId).Type1;
+                ViewBag.Type = record.TypeOfService.Name;
                 return View(record);
+            }
+            return View("~/Views/Shared/_Error.cshtml");
+        }
+
+      
+        public async Task<ActionResult> AppointmentResultTest(int? id, int? serviceId)
+        {
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            if (id != null && user != null)
+            {
+
+                Record record = db.Records.Find(id);
+                TypeOfService typeOfService = db.TypeOfServices.Find(serviceId);
+                record.TypeOfServiceId = serviceId;
+                record.PatientId = user.Id;
+                db.SaveChanges();
+                // настройка логина, пароля отправителя
+                var from = "elifeprojectnure@gmail.com";
+                var pass = "eLifeProject";
+
+                // создаем письмо: message.Destination - адрес получателя
+                var emailMessage = new MimeMessage()
+                {
+                    Subject = "eLife підтвердження запису",
+                    Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                    {
+                        Text = "<h2> " + record.Patient.Name + " , ви успішно записались на прийом" + " </h2> <br>"
+                        + "<h3> Лікар:" + record.AttendingDoctor.Name + " </h3><br>" +
+                        "< h3 > Клініка:" + record.AttendingDoctor.DoctorInform.Clinic.Name + " </ h3 >< br > " +
+                        "< h3 > Дата та час:" + record.Date + " </ h3 >< br > " +
+                         "< h3 > Вид прийому:" + record.TypeOfService.Name + " </ h3 >< br > "
+                    }
+                };
+                emailMessage.From.Add(new MailboxAddress("Администрация сайта", from));
+                emailMessage.To.Add(new MailboxAddress("", record.Patient.Email));
+
+                // адрес и порт smtp-сервера, с которого мы и будем отправлять письмо
+                using (var client = new SmtpClient())
+                {
+                    await client.ConnectAsync("smtp.gmail.com", 465);
+                    await client.AuthenticateAsync(from, pass);
+                    await client.SendAsync(emailMessage);
+                    await client.DisconnectAsync(true);
+                }
+                ViewBag.Type = record.TypeOfService.Name;
+                return View("AppointmentResult", record);
             }
             return View("~/Views/Shared/_Error.cshtml");
         }

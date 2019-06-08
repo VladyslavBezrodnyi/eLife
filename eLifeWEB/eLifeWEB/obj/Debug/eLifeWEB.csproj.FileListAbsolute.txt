@@ -1003,3 +1003,5 @@ C:\Users\Yulia\Desktop\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations
 C:\Users\Yulia\Desktop\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration6.resources
 C:\Users\Yulia\Desktop\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration7.resources
 D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration8.resources
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration9.resources
+D:\Project\eLife.API\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration10.resources
