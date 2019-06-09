@@ -1,4 +1,5 @@
 ﻿@model eLifeWEB.Models.DoctorInform
+@using Microsoft.AspNet.Identity
 @using eLifeWEB.Models
 
 @{
@@ -91,41 +92,48 @@
         @Model.ApplicationUsers.FirstOrDefault().TypeOfServices
     </dd>
 }
-<div>
-    <h3>Усі відгуки</h3>
-    <div class="form-group">
-        <span class="text-warning" >
-            <i class="ratingStar far fa-star" data-value ="1"></i>
-            <i class="ratingStar far fa-star" data-value ="2"></i>
-            <i class="ratingStar far fa-star" data-value ="3"></i>
-            <i class="ratingStar far fa-star" data-value ="4"></i>
-            <i class="ratingStar far fa-star" data-value ="5"></i>
-        </span>
-
-        <input type="hidden" name = "Rating" id="ratingValue"/>
-
-        <textarea placeholder="Напишіть свій відгук"></textarea>
-    </div>
-    <table class="table">
-        @foreach (Feedback feedback in Model.ApplicationUsers.FirstOrDefault().Feedbacks)
+    <div>
+        <h3>Усі відгуки</h3>
+        @using (Html.BeginForm("DoctorFeedback", "DoctorInforms", FormMethod.Post))
         {
-            <tr>
-                <td>
-                    @feedback.Patient.Name
-                </td>
-                <td>
-                    @feedback.Date
-                </td>
-                <td>
-                    @feedback.Comment
-                </td>
-                <td>
-                    @feedback.Stars
-                </td>
-            </tr>
+            <div class="form-group">
+                <input type="hidden" name="DoctorID" value="@Model.ApplicationUsers.FirstOrDefault().Id" />
+                <input type="hidden" name="UserId" value="@User.Identity.GetUserId()" />
+                <span class="text-warning float-right">
+                    <i class="ratingStar far fa-star" data-value="1"></i>
+                    <i class="ratingStar far fa-star" data-value="2"></i>
+                    <i class="ratingStar far fa-star" data-value="3"></i>
+                    <i class="ratingStar far fa-star" data-value="4"></i>
+                    <i class="ratingStar far fa-star" data-value="5"></i>
+                </span>
+
+                <input type="hidden" name="Rating" id="ratingValue" />
+
+                <textarea placeholder="Напишіть свій відгук" name="Text"></textarea>
+            </div>
+
+            <button type="submit">Відправити</button>
         }
-    </table>
-</div>
+        <table class="table">
+            @foreach (Feedback feedback in Model.ApplicationUsers.FirstOrDefault().Feedbacks)
+            {
+                <tr>
+                    <td>
+                        @feedback.Patient.Name
+                    </td>
+                    <td>
+                        @feedback.Date
+                    </td>
+                    <td>
+                        @feedback.Comment
+                    </td>
+                    <td>
+                        @feedback.Stars
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
 <div>
     @Html.DisplayName("Всі послуги")
     <table class="table">

@@ -376,5 +376,15 @@ namespace eLifeWEB.Controllers.WEBControllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpPost]
+        public ActionResult DoctorFeedback(string DoctorID, string UserId, string Text , int Rating)
+        {
+            Feedback feedback = new Feedback() { DoctorId = DoctorID, Comment = Text, Stars = Rating, PatientId = UserId , Date = DateTime.Now};
+            db.Feedbacks.Add(feedback);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "DoctorInforms");
+        }
     }
 }
