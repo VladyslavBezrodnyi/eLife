@@ -6,11 +6,6 @@
     ViewBag.Title = "Лікарь";
 }
 
-<head>
-    <script src="https://kit.fontawesome.com/9f08bb35f2.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-</head>
-
 <div>
     <h4>Лікарь</h4>
 
@@ -94,25 +89,27 @@
 }
     <div>
         <h3>Усі відгуки</h3>
+        @Scripts.Render("~/bundles/jquery")
+        @Styles.Render("~/Content/font-awesome.css")
         @using (Html.BeginForm("DoctorFeedback", "DoctorInforms", FormMethod.Post))
         {
-            <div class="form-group">
+            <div class="form-group col">
                 <input type="hidden" name="DoctorID" value="@Model.ApplicationUsers.FirstOrDefault().Id" />
                 <input type="hidden" name="UserId" value="@User.Identity.GetUserId()" />
-                <span class="text-warning float-right">
-                    <i class="ratingStar far fa-star" data-value="1"></i>
-                    <i class="ratingStar far fa-star" data-value="2"></i>
-                    <i class="ratingStar far fa-star" data-value="3"></i>
-                    <i class="ratingStar far fa-star" data-value="4"></i>
-                    <i class="ratingStar far fa-star" data-value="5"></i>
-                </span>
-
                 <input type="hidden" name="Rating" id="ratingValue" />
 
-                <textarea placeholder="Напишіть свій відгук" name="Text"></textarea>
+                <textarea placeholder="Напишіть свій відгук" class="form-control" rows="6" name="Text" style="width: 100%; resize: none; max-width: unset"></textarea>
             </div>
-
-            <button type="submit">Відправити</button>
+            <div class="row m-0 col">
+                <button type="submit" class="btn btn-primary mx-4">Відправити</button>
+                <span class="text-warning float-right stars my-auto">
+                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="1"></i>
+                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="2"></i>
+                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="3"></i>
+                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="4"></i>
+                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="5"></i>
+                </span>
+            </div>
         }
         <table class="table">
             @foreach (Feedback feedback in Model.ApplicationUsers.FirstOrDefault().Feedbacks)
@@ -160,12 +157,21 @@
 </p>
 <script>
     $(".ratingStar").hover(function () {
-        $(".ratingStar").addClass("far").removeClass("fas")
+        $(".ratingStar").addClass("fa-star-o").removeClass("fa-star")
 
-        $(this).addClass("fas").removeClass("far");
-        $(this).prevAll(".ratingStar").addClass("fas").removeClass("far");
+        $(this).addClass("fa-star").removeClass("fa-star-o");
+        $(this).prevAll(".ratingStar").addClass("fa-star").removeClass("fa-star-o");
     });
-
+    $('.stars').mouseleave(function () {
+        for (i = 1; i < 6; i++) {
+            if (i <= $("#ratingValue").attr("value")) {
+                $(".stars").children('[data-value="' + i + '"]').addClass("fa-star").removeClass("fa-star-o");
+            }
+            else {
+                $(".stars").children('[data-value="' + i + '"]').addClass("fa-star-o").removeClass("fa-star");
+            }
+        }
+    });
     $(".ratingStar").click(function () {
         var starValue = $(this).attr("data-value");
 

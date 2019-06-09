@@ -27,7 +27,7 @@
 </div>
 
 
-@using (Html.BeginForm("Create", "Clinics", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+@using (Html.BeginForm("RegisterClinicAdmin", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
 
