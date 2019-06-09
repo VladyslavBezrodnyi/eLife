@@ -1,67 +1,154 @@
 ﻿@model eLifeWEB.Models.DoctorInform
 
 <div>
-    <h4>Робоча інформація</h4>
-    <hr />
-        @Html.Raw("<img style='height:200px;' src=\"data:image/jpeg;base64,"
-                            + Convert.ToBase64String(Model.Image) + "\" />")
-    
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Clinic.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Clinic.Name)
-            @if (!Model.Practiced)
-            {
-                <div class="alert alert-dismissible alert-danger" style="width=200px;">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    Клініка ще не пітвердила, що ви працюєте у них. Поки що інші коритувачі eLife не можуть перегрядати інформацію про вас, а ви не можете вести прийом!
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h4 class="text-center">Робоча інформація</h4>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваша клініка:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-hospital-o fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Clinic.Name)" readonly="">
                 </div>
-            }
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Specialization)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Specialization)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Guardian)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Guardian)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Education)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Education)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Skills)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Skills)
-        </dd>
-
-        @Html.ActionLink("Редагувати", "EditGeneralInfoDoctor", Model)
-    </dl>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @if (!Model.Practiced)
+                {
+                    <div class="alert alert-dismissible alert-danger" style="width=200px;">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        Клініка ще не пітвердила, що ви працюєте у них. Поки що інші коритувачі eLife не можуть перегрядати інформацію про вас, а ви не можете вести прийом!
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваша спеціалізація:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-users fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Specialization)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>День категорія:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-graduation-cap fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Category)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Стаж роботи:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-hourglass-half fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Guardian)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Стаж роботи:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-hourglass-half fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Guardian)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Освіта:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-book fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Education)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваші уміння:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-lightbulb-o fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Skills)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваше фото:</label>
+        </div>
+        <div class="col-md-6">
+            @Html.Raw("<img style='height:170px;' src=\"data:image/jpeg;base64,"
+                        + Convert.ToBase64String(Model.Image) + "\" />")
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            @Html.ActionLink("Редагувати", "EditGeneralInfoDoctor", Model, new { @class = "btn btn-primary btn-block" })
+        </div>
+    </div>
 </div>
