@@ -81,7 +81,7 @@ namespace eLifeWEB.Controllers
                 .Select(
                 e => new ChatView()
                 {
-                    Date = e.Key.ToString("dd.MM.yy"),
+                    Date = e.Key.ToString("dd.MM.yyyy"),
                     Count = e.Count(),
                     Messages = e.Select(m => new MessageDate
                     {
