@@ -1,123 +1,68 @@
 ﻿@model eLifeWEB.Models.DoctorInform
-@Styles.Render("~/Content/RegisterClinicAdmin.css")
-
-
 
 <div>
-
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <h2 class="text-center">@ViewBag.Title</h2>
-            <hr>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <h4 class="text-center">Робоча інформація</h4>
+            <hr />
         </div>
     </div>
     <div class="row">
         <div class="col-md-3 field-label-responsive">
-            <label>Ваше повне ім'я:</label>
+            <label>Ваша клініка:</label>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 pl-0">
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-user-md fa-2x"></i></div>
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "П. І. Б.", @class = "form-control input_fix" } })
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-hospital-o fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Clinic.Name)" readonly="">
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-control-feedback">
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger align-middle" })
+                @if (!Model.Practiced)
+                {
+                    <div class="alert alert-dismissible alert-danger" style="width=200px;">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        Клініка ще не пітвердила, що ви працюєте у них. Поки що інші коритувачі eLife не можуть перегрядати інформацію про вас, а ви не можете вести прийом!
+                    </div>
+                }
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-3 field-label-responsive">
-            <label>Ваша стать:</label>
+            <label>Ваша спеціалізація:</label>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-venus-mars fa-2x"></i></div>
-                    @Html.DropDownListFor(model => model.Gender, new SelectList(new List<String>() { "Жіноча", "Чоловіча" }), new { @class = "form-control input_fix custom-select" })
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-control-feedback">
-                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger align-middle" })
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 field-label-responsive">
-            <label>День народження:</label>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-calendar fa-2x"></i></div>
-                    @Html.TextBoxFor(model => model.Birthday, new { type = "date", @class = "form-control input_fix" })
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-control-feedback">
-                @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger align-middle" })
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 field-label-responsive">
-            <label>Ваші уміння:</label>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-lightbulb-o fa-2x"></i></div>
-                    @Html.EditorFor(model => model.Skills, new { htmlAttributes = new { placeholder = "Опишіть ваші уміння та навички", @class = "form-control input_fix" } })
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-control-feedback">
-                @Html.ValidationMessageFor(model => model.Skills, "", new { @class = "text-danger align-middle" })
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 field-label-responsive">
-            <label>Спеціалізація:</label>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-6 pl-0">
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-users fa-2x"></i></div>
-                    @Html.DropDownListFor(model => model.Specialization, ViewBag.Specialization as SelectList, new { @class = "form-control input_fix custom-select" })
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Specialization)" readonly="">
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-control-feedback">
-                @Html.ValidationMessageFor(model => model.Specialization, "", new { @class = "text-danger align-middle" })
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-3 field-label-responsive">
-            <label>Ваша категорія:</label>
+            <label>День категорія:</label>
         </div>
-        <div class="col-md-6">
-            <div class="form-group has-danger">
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-graduation-cap fa-2x"></i></div>
-                    @Html.EditorFor(model => model.Category, new { htmlAttributes = new { placeholder = "Ваша кваліфікаційна категорія", @class = "form-control input_fix" } })
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Category)" readonly="">
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-control-feedback">
-                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger align-middle" })
             </div>
         </div>
     </div>
@@ -125,35 +70,33 @@
         <div class="col-md-3 field-label-responsive">
             <label>Стаж роботи:</label>
         </div>
-        <div class="col-md-6">
-            <div class="form-group has-danger">
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-hourglass-half fa-2x"></i></div>
-                    @Html.EditorFor(model => model.Guardian, new { htmlAttributes = new { placeholder = "Ваш стаж роботи", @class = "form-control input_fix" } })
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Guardian)" readonly="">
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-control-feedback">
-                @Html.ValidationMessageFor(model => model.Guardian, "", new { @class = "text-danger align-middle" })
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-3 field-label-responsive">
-            <label>Клініка:</label>
+            <label>Стаж роботи:</label>
         </div>
-        <div class="col-md-6">
-            <div class="form-group has-danger">
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-hospital-o fa-2x"></i></div>
-                    @Html.DropDownListFor(model => model.СlinicId, ViewBag.ClinicId as SelectList, new { @class = "form-control input_fix custom-select" })
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-hourglass-half fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Guardian)" readonly="">
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-control-feedback">
-                @Html.ValidationMessageFor(model => model.СlinicId, "", new { @class = "text-danger align-middle" })
             </div>
         </div>
     </div>
@@ -161,17 +104,33 @@
         <div class="col-md-3 field-label-responsive">
             <label>Освіта:</label>
         </div>
-        <div class="col-md-6">
-            <div class="form-group has-danger">
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-book fa-2x"></i></div>
-                    @Html.EditorFor(model => model.Education, new { htmlAttributes = new { placeholder = "Ваша освіта", @class = "form-control input_fix" } })
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Education)" readonly="">
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-control-feedback">
-                @Html.ValidationMessageFor(model => model.Education, "", new { @class = "text-danger align-middle" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваші уміння:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-lightbulb-o fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Skills)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
             </div>
         </div>
     </div>
@@ -180,82 +139,16 @@
             <label>Ваше фото:</label>
         </div>
         <div class="col-md-6">
-            <div class="form-group files color">
-                <input type="file" class="form-control" multiple="" id="inputFile">
-            </div>
+            @Html.Raw("<img style='height:170px;' src=\"data:image/jpeg;base64,"
+                        + Convert.ToBase64String(Model.Image) + "\" />")
         </div>
         <div class="col-md-3">
-            <img id="image_upload_preview" class="py-2" />
         </div>
     </div>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-user-plus"></i> Зареєструватися  </button>
+            @Html.ActionLink("Редагувати", "EditGeneralInfoDoctor", Model, new { @class = "btn btn-primary btn-block" })
         </div>
     </div>
-
-    <h4>Робоча інформація</h4>
-    <hr />
-    @Html.Raw("<img style='height:200px;' src=\"data:image/jpeg;base64,"
-                        + Convert.ToBase64String(Model.Image) + "\" />")
-
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Clinic.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Clinic.Name)
-            @if (!Model.Practiced)
-            {
-                <div class="alert alert-dismissible alert-danger" style="width=200px;">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    Клініка ще не пітвердила, що ви працюєте у них. Поки що інші коритувачі eLife не можуть перегрядати інформацію про вас, а ви не можете вести прийом!
-                </div>
-            }
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Specialization)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Specialization)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Guardian)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Guardian)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Education)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Education)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Skills)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Skills)
-        </dd>
-
-        @Html.ActionLink("Редагувати", "EditGeneralInfoDoctor", Model)
-    </dl>
 </div>
