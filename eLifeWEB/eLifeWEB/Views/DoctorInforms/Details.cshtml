@@ -4,8 +4,14 @@
 @{
     ViewBag.Title = "Сторінка лікаря";
 }
+
+<ol class="breadcrumb rounded-0 bg-white" style="margin: -24px -15px 0 -15px;">
+    <li class="breadcrumb-item">@Html.ActionLink("Лікарі", "Index")</li>
+    <li class="breadcrumb-item active">Детальніше</li>
+</ol>
+<hr class="mt-0" />
 <h4 class="mx-auto" style="display: table">@ViewBag.Title</h4>
-<hr />
+
 <section>
     <div class="container py-3">
         <div class="card rounded-lg p-1 border-0">
@@ -230,9 +236,16 @@
     @Html.Raw(ViewBag.Scheduler.Render())
 </div>
 
-<p>
-    @Html.ActionLink("Назад", "Index")
+<p class="mx-auto my-2" style="display: table">
+    <a href="" class="scroll-top btn btn-primary">На початок сторінки</a>
 </p>
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(".scroll-top").click(function () {
+        $('body,html').animate({ scrollTop: 0 }, 200);
+        return false;
+    });
+</script>
 <script>
     function appointment(event_id){
         //var event = scheduler.getEvent(event_id);
