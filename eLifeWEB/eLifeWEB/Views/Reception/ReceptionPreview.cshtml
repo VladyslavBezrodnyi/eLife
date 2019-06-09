@@ -31,7 +31,7 @@
         </dl>
 
     }
-    @if (ViewBag.Message == "Current")
+    @if (ViewBag.Message == "Present")
     {
         <h3>Активний запис</h3>
         <dl class="dl-horizontal">
@@ -67,7 +67,7 @@
                 @Html.DisplayFor(model => model.EndDate)
             </dd>
         </dl>
-        @Html.Action("Почати прийом", "StartReception", new { recordId = Model.Id })
+        @Html.ActionLink("Почати прийом", "StartReception", new { recordId = Model.Id })
     }
 
     @if (ViewBag.Message == "Past")
@@ -190,45 +190,7 @@
                 @Html.DisplayFor(model => model.EndDate)
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Complaints)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Complaints)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ObjectiveData)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ObjectiveData)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Diagnoses)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Diagnoses)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.CourseOfTheDisease)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CourseOfTheDisease)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Appointment)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Appointment)
-            </dd>
+            
 
         </dl>
     }

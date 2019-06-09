@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using DHTMLX.Scheduler.Data;
 using static eLifeWEB.Controllers.ManageController;
 using DHTMLX.Common;
+using DHTMLX.Scheduler.Controls;
 
 namespace eLifeWEB.Controllers
 {
@@ -42,17 +43,24 @@ namespace eLifeWEB.Controllers
             scheduler.EnableDataprocessor = true;
             scheduler.Config.show_loading = true;
             scheduler.Config.first_hour = 6;
-            scheduler.Config.last_hour = 20;
+            scheduler.Config.last_hour = 22;
             scheduler.Data.Loader.AddParameter("id", user.Id);
             scheduler.Localization.Set(SchedulerLocalization.Localizations.Ukrainian);
             scheduler.Config.drag_lightbox = true;
+            scheduler.Config.edit_on_create = false;
+            scheduler.Config.event_duration = 2;
+            scheduler.Config.buttons_right = new LightboxButtonList
+            {
+                LightboxButtonList.Save
+            };
             scheduler.Config.buttons_left = new LightboxButtonList
             {
                 new EventButton
                 {
                     Label = "Перейти до прийому",
                     OnClick = "medicalAppointment",
-                    Name = "medicalAppointment"
+                    Name = "Cancel"
+
                 },
                 LightboxButtonList.Cancel,
             };

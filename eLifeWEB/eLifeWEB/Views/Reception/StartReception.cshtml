@@ -14,69 +14,70 @@
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.Patient.Name)
+        @ViewBag.Patient.Name)
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.Patient.Bithday)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.Patient.Bithday)
+        @ViewBag.Patient.Bithday
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.Patient.PatientInform.Activity)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.Patient.PatientInform.Activity)
+        @ViewBag.PatientInfo.Activity
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.Patient.PatientInform.Adress)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.Patient.PatientInform.Adress)
+        @ViewBag.PatientInfo.Adress
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.Patient.PatientInform.Allergy)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.Patient.PatientInform.Allergy)
+        @ViewBag.PatientInfo.Allergy
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.Patient.PatientInform.BloodGroup)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.Patient.PatientInform.BloodGroup)
+        @ViewBag.PatientInfo.BloodGroup
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.Patient.PatientInform.Diabetes)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.Patient.PatientInform.Diabetes)
+        @ViewBag.PatientInfo.Diabetes
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.Patient.PatientInform.Infectious_diseases)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.Patient.PatientInform.Infectious_diseases)
+        @ViewBag.PatientInfo.Infectious_diseases
     </dd>
     <dt>
-        @Html.DisplayNameFor(model => model.Patient.PatientInform.Operations)
+        Перенесенні операції
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.Patient.PatientInform.Operations)
+        @ViewBag.PatientInfo.Operations
     </dd>
 </dl>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
 
 <div class="form-horizontal">
     <h4>DoctorInform</h4>
