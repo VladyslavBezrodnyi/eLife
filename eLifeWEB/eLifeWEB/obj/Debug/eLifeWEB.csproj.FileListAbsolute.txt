@@ -1187,3 +1187,8 @@ C:\Users\Серега\source\repos\prp\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWE
 C:\Users\Серега\source\repos\prp\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.csproj.CopyComplete
 C:\Users\Серега\source\repos\prp\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.dll
 C:\Users\Серега\source\repos\prp\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.pdb
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration6.resources
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration7.resources
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration8.resources
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration9.resources
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration10.resources

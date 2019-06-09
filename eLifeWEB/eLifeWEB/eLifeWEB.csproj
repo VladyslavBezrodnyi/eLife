@@ -248,6 +248,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AppoitmentController.cs" />
     <Compile Include="Controllers\ChatsController.cs" />
     <Compile Include="Controllers\ClinicsController.cs" />
@@ -708,6 +709,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="materialize\LICENSE" />
     <Content Include="materialize\README.md" />
+    <Content Include="Views\Admin\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
