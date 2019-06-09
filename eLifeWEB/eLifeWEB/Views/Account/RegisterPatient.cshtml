@@ -141,14 +141,14 @@
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-building-o fa-2x"></i></div>
-                    @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { placeholder = "Вулиця, номер будинку", @class = "form-control input_fix" } })
+                    @Html.EditorFor(model => model.Activity, new { htmlAttributes = new { placeholder = "Назва компанії", @class = "form-control input_fix" } })
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-control-feedback">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger align-middle" })
+                @Html.ValidationMessageFor(model => model.Activity, "", new { @class = "text-danger align-middle" })
             </div>
         </div>
     </div>

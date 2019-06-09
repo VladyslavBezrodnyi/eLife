@@ -2,6 +2,9 @@
 @using Microsoft.AspNet.Identity
 @using eLifeWEB.Models
 @Styles.Render("~/Content/rating.css")
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/font-awesome.css")
+
 @{
     ViewBag.Title = "Сторінка лікаря";
 }
@@ -60,163 +63,102 @@
         <a class="nav-link" data-toggle="tab" href="#typeofservices">Всі послуги</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#feedback">Всі відгуки</a>
+        <a class="nav-link" data-toggle="tab" href="#feedback">Всі відгуки</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#newfeedback">Залишити відгук</a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" data-toggle="tab" href="#schedule">Записатись на прийом</a>
     </li>
 </ul>
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade" id="typeofservices">
-        <div class="col-7 card rounded-lg my-3 mx-auto">
-            <div class="card-body m-2 p-0">
-                <div class="row">
-                    <div class="col">
-                        <p>
-                            <h3 class="float-left">Огляд:</h3>
-                            <div class="clearfix"></div>
-                            <h4>100 гривень</h4>
-                            <a href="#" class="float-right btn btn-primary ml-2"> Записатись </a>
-                        </p>
+        @foreach (TypeOfService typeOfService in Model.ApplicationUsers.FirstOrDefault().TypeOfServices)
+        {
+            <div class="col-7 card rounded-lg my-3 mx-auto">
+                <div class="card-body m-2 p-0">
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                <h4 class="float-left">@typeOfService.Name:</h4>
+                                <div class="clearfix"></div>
+                                <h4>@typeOfService.Price гривень</h4>
+                                <a href="#" class="float-right btn btn-primary ml-2"> Записатись </a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-7 card rounded-lg my-3 mx-auto">
-            <div class="card-body m-2 p-0">
-                <div class="row">
-                    <div class="col">
-                        <p>
-                            <h3 class="float-left">Огляд:</h3>
+        }
+    </div>
+    <div class="tab-pane fade" id="feedback">
+        @foreach (Feedback feedback in Model.ApplicationUsers.FirstOrDefault().Feedbacks)
+        {
+            <div class="card rounded-lg m-3">
+                <div class="card-body m-2 p-0">
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                            <p class="float-left"><strong class="mr-1"> @feedback.Patient.Name </strong> @feedback.Date</p>
+                            @for (int i = 1; i < 6; i++)
+                            {
+                                if (i <= feedback.Stars)
+                                {
+                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                }
+                                else
+                                {
+                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                }
+                            }
+                            </p>
                             <div class="clearfix"></div>
-                            <h4>100 гривень</h4>
-                            <a href="#" class="float-right btn btn-primary ml-2"> Записатись </a>
-                        </p>
+                            <p>@feedback.Comment</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-7 card rounded-lg my-3 mx-auto">
-            <div class="card-body m-2 p-0">
-                <div class="row">
-                    <div class="col">
-                        <p>
-                            <h3 class="float-left">Огляд:</h3>
-                            <div class="clearfix"></div>
-                            <h4>100 гривень</h4>
-                            <a href="#" class="float-right btn btn-primary ml-2"> Записатись </a>
-                        </p>
-                    </div>
-                </div>
+        }
+    </div>
+    <div class="tab-pane fade" id="newfeedback">
+        @using (Html.BeginForm("DoctorFeedback", "DoctorInforms", FormMethod.Post))
+        {
+            <div class="form-group col">
+                <input type="hidden" name="DoctorID" value="@Model.ApplicationUsers.FirstOrDefault().Id" />
+                <input type="hidden" name="UserId" value="@User.Identity.GetUserId()" />
+                <input type="hidden" name="Rating" id="ratingValue" />
+
+                <textarea placeholder="Напишіть свій відгук" class="form-control" rows="6" name="Text" style="width: 100%; resize: none; max-width: unset"></textarea>
             </div>
-        </div>
-        <div class="col-7 card rounded-lg my-3 mx-auto">
-            <div class="card-body m-2 p-0">
-                <div class="row">
-                    <div class="col">
-                        <p>
-                            <h3 class="float-left">Огляд:</h3>
-                            <div class="clearfix"></div>
-                            <h4>100 гривень</h4>
-                            <a href="#" class="float-right btn btn-primary ml-2"> Записатись </a>
-                        </p>
-                    </div>
-                </div>
+            <div class="row m-0 col">
+                <button type="submit" class="btn btn-primary mx-4">Відправити</button>
+                <span class="text-warning float-right stars my-auto">
+                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="1"></i>
+                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="2"></i>
+                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="3"></i>
+                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="4"></i>
+                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="5"></i>
+                </span>
             </div>
+        }
+    </div>
+    <div class="tab-pane fade active show" id="schedule">
+        <div style="height:700px;width:100%;margin:0 auto">
+            @Html.Raw(ViewBag.Scheduler.Render())
         </div>
     </div>
-    <div class="tab-pane fade active show" id="feedback">
-        <div class="card rounded-lg m-3">
-            <div class="card-body m-2 p-0">
-                <div class="row">
-                    <div class="col">
-                        <p>
-                        <p class="float-left"><strong class="mr-1">Maniruzzaman Akash </strong> 15 Minutes Ago:</p>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        </p>
-                        <div class="clearfix"></div>
-                        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card rounded-lg m-3">
-            <div class="card-body m-2 p-0">
-                <div class="row">
-                    <div class="col">
-                        <p>
-                        <p class="float-left"><strong class="mr-1">Maniruzzaman Akash </strong> 15 Minutes Ago:</p>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        </p>
-                        <div class="clearfix"></div>
-                        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card rounded-lg m-3">
-            <div class="card-body m-2 p-0">
-                <div class="row">
-                    <div class="col">
-                        <p>
-                        <p class="float-left"><strong class="mr-1">Maniruzzaman Akash </strong> 15 Minutes Ago:</p>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        </p>
-                        <div class="clearfix"></div>
-                        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Styles.Render("~/Content/font-awesome.css")
-    @using (Html.BeginForm("DoctorFeedback", "DoctorInforms", FormMethod.Post))
-    {
-        <div class="form-group col">
-            <input type="hidden" name="DoctorID" value="@Model.ApplicationUsers.FirstOrDefault().Id" />
-            <input type="hidden" name="UserId" value="@User.Identity.GetUserId()" />
-            <input type="hidden" name="Rating" id="ratingValue" />
-
-            <textarea placeholder="Напишіть свій відгук" class="form-control" rows="6" name="Text" style="width: 100%; resize: none; max-width: unset"></textarea>
-        </div>
-        <div class="row m-0 col">
-            <button type="submit" class="btn btn-primary mx-4">Відправити</button>
-            <span class="text-warning float-right stars my-auto">
-                <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="1"></i>
-                <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="2"></i>
-                <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="3"></i>
-                <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="4"></i>
-                <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="5"></i>
-            </span>
-        </div>
-    }
-</div>
-
-<div style="height:700px;width:900px;margin:0 auto">
-    @Html.Raw(ViewBag.Scheduler.Render())
 </div>
 
 <p class="mx-auto my-2" style="display: table">
     <a href="" class="scroll-top btn btn-primary">На початок сторінки</a>
 </p>
-@Scripts.Render("~/bundles/jquery")
+
 <script>
     $(".scroll-top").click(function () {
         $('body,html').animate({ scrollTop: 0 }, 200);
         return false;
     });
-</script>
-<script>
     $(".ratingStar").hover(function () {
         $(".ratingStar").addClass("fa-star-o").removeClass("fa-star")
 
@@ -238,7 +180,6 @@
 
         $("#ratingValue").val(starValue);
     });
-
     function appointment(event_id){
         //var event = scheduler.getEvent(event_id);
         var value = scheduler.formSection('service').getValue();

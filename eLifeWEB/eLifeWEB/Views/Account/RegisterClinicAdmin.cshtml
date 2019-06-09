@@ -94,6 +94,24 @@
     </div>
     <div class="row">
         <div class="col-md-3 field-label-responsive">
+            <label>Банківська картка:</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-credit-card fa-2x"></i></div>
+                    @Html.EditorFor(model => model.BankCard, new { htmlAttributes = new { placeholder = "Номер банківської картки", @class = "form-control input_fix" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationMessageFor(model => model.BankCard, "", new { @class = "text-danger align-middle" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
             <label>Логотип Вашої клініки</label>
         </div>
         <div class="col-md-6">

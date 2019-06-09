@@ -778,16 +778,13 @@ namespace eLifeWEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (uploadImage == null)
+                if (uploadImage != null)
                 {
                     ApplicationUser user = db.Users.Find(User.Identity.GetUserId()); ;
                     byte[] imageData = null;
-                    if (uploadImage != null)
+                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
                     {
-                        using (var binaryReader = new BinaryReader(uploadImage.InputStream))
-                        {
-                            imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
-                        }
+                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
                     }
                     clinic.Image = imageData;
                     db.Clinics.Add(clinic);
