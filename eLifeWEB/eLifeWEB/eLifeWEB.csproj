@@ -254,6 +254,7 @@
     <Compile Include="Controllers\DoctorInformsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReceptionController.cs" />
     <Compile Include="Controllers\TelegramController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -708,6 +709,8 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="materialize\LICENSE" />
     <Content Include="materialize\README.md" />
+    <Content Include="Views\Reception\ReceptionPreview.cshtml" />
+    <Content Include="Views\Reception\StartReception.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

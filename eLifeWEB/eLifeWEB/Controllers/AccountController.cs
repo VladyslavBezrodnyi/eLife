@@ -46,6 +46,16 @@ namespace eLifeWEB.Controllers
             scheduler.Data.Loader.AddParameter("id", user.Id);
             scheduler.Localization.Set(SchedulerLocalization.Localizations.Ukrainian);
             scheduler.Config.drag_lightbox = true;
+            scheduler.Config.buttons_left = new LightboxButtonList
+            {
+                new EventButton
+                {
+                    Label = "Перейти до прийому",
+                    OnClick = "medicalAppointment",
+                    Name = "medicalAppointment"
+                },
+                LightboxButtonList.Cancel,
+            };
             scheduler.Extensions.Add(SchedulerExtensions.Extension.Readonly);
             ViewBag.Scheduler = scheduler;
             return View(user);

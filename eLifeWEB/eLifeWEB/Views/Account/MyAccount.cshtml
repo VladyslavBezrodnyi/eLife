@@ -54,3 +54,13 @@ else
 }
 
 @Html.ActionLink("Чати", "Index", "Chats")
+
+    <script>
+        function medicalAppointment(event_id){
+        //var event = scheduler.getEvent(event_id);
+        var value = scheduler.formSection('service').getValue();
+        //var url = "@Url.Action("AppointmentResultTest", "DoctorInforms")" + "?id=" + event_id + "&serviceId=" + value;
+            var url = "@Url.Action("ReceptionPreview", "Reception")" + "?recordId=" + event_id;
+        window.location.href = url;
+    }
+    </script>
