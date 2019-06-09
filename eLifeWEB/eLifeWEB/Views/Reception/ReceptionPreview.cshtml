@@ -1,0 +1,198 @@
+﻿@model eLifeWEB.Models.Record
+
+@{
+    ViewBag.Title = "ReceptionPreview";
+}
+
+<h2>Запис</h2>
+
+<div>
+    <hr />
+    @if (ViewBag.Message == "None")
+    {
+        <h3>Пустий запис</h3>
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EndDate)
+            </dd>
+        </dl>
+
+    }
+    @if (ViewBag.Message == "Present")
+    {
+        <h3>Активний запис</h3>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Patient.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Patient.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TypeOfService.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TypeOfService.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EndDate)
+            </dd>
+        </dl>
+        @Html.ActionLink("Почати прийом", "StartReception", new { recordId = Model.Id })
+    }
+
+    @if (ViewBag.Message == "Past")
+    {
+        <h3>Минулий запис</h3>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Patient.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Patient.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TypeOfService.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TypeOfService.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EndDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Complaints)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Complaints)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ObjectiveData)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ObjectiveData)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Diagnoses)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Diagnoses)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CourseOfTheDisease)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CourseOfTheDisease)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Appointment)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Appointment)
+            </dd>
+        </dl>
+    }
+    @if (ViewBag.Message == "Future")
+    {
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.AttendingDoctor.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AttendingDoctor.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Patient.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Patient.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TypeOfService.DoctorId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TypeOfService.DoctorId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EndDate)
+            </dd>
+
+            
+
+        </dl>
+    }
+    </div>
+   

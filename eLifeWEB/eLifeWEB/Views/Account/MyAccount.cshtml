@@ -54,3 +54,10 @@ else
 }
 
 @Html.ActionLink("Чати", "Index", "Chats")
+
+    <script>
+        function medicalAppointment(event_id){
+        var url = "@Url.Action("ReceptionPreview", "Reception")" + "?recordId=" + event_id;
+        window.location.href = url;
+    }
+    </script>

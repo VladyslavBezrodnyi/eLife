@@ -1,0 +1,193 @@
+﻿@model eLifeWEB.Models.Record
+@using eLifeWEB.Models
+
+@{
+    ViewBag.Title = "Прийом";
+}
+
+<h2>Прийом</h2>
+
+<h3>Данні про пацієта</h3>
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Patient.Name)
+    </dt>
+
+    <dd>
+        @ViewBag.Patient.Name)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Patient.Bithday)
+    </dt>
+
+    <dd>
+        @ViewBag.Patient.Bithday
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Patient.PatientInform.Activity)
+    </dt>
+
+    <dd>
+        @ViewBag.PatientInfo.Activity
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Patient.PatientInform.Adress)
+    </dt>
+
+    <dd>
+        @ViewBag.PatientInfo.Adress
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Patient.PatientInform.Allergy)
+    </dt>
+
+    <dd>
+        @ViewBag.PatientInfo.Allergy
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Patient.PatientInform.BloodGroup)
+    </dt>
+
+    <dd>
+        @ViewBag.PatientInfo.BloodGroup
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Patient.PatientInform.Diabetes)
+    </dt>
+
+    <dd>
+        @ViewBag.PatientInfo.Diabetes
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Patient.PatientInform.Infectious_diseases)
+    </dt>
+
+    <dd>
+        @ViewBag.PatientInfo.Infectious_diseases
+    </dd>
+    <dt>
+        Перенесенні операції
+    </dt>
+
+    <dd>
+        @ViewBag.PatientInfo.Operations
+    </dd>
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+<div class="form-horizontal">
+    <h4>DoctorInform</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Complaints, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Complaints, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Complaints, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ObjectiveData, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ObjectiveData, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ObjectiveData, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Diagnoses, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Diagnoses, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Diagnoses, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CourseOfTheDisease, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CourseOfTheDisease, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CourseOfTheDisease, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Appointment, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Appointment, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Appointment, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Завершити запис" class="btn btn-success" />
+        </div>
+    </div>
+
+</div>
+}
+
+<h2>Медична картка хворого</h2>
+<table class="table"
+    <tr class="table-info">
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AttendingDoctor.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AttendingDoctor.DoctorInform.Clinic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Complaints)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ObjectiveData)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseOfTheDisease)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Diagnoses)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Appointment)
+        </th>
+    </tr>
+    @foreach (Record record in ViewBag.MedicalCard)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.Date.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.AttendingDoctor.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.AttendingDoctor.DoctorInform.Clinic)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Complaints)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.ObjectiveData)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.CourseOfTheDisease)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Diagnoses)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Appointment)
+        </td>
+    </tr>
+    }
+</table>
+
