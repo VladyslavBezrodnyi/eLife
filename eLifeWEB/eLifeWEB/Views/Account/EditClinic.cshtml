@@ -9,6 +9,7 @@
 @using (Html.BeginForm("EditClinic", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Image)
 
     <div class="form-horizontal">
         <h4>Моя клініка</h4>
