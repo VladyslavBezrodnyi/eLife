@@ -98,3 +98,59 @@
     </div>
 </div>
 
+
+
+
+
+
+<!--Врачи клиниики-->
+@using (Html.BeginForm())
+{
+    @foreach (var item in ViewBag.Doctors)
+    {
+        <section>
+            <div class="container py-3">
+                <div class="card rounded-lg p-1 shadw">
+                    <div class="row ">
+                        <div class="col-sm-3 ">
+                            <div class="card-image">
+
+                            </div>
+                            @Html.Raw("<img style='width: 100%; border-radius: 10%' src=\"data:image/jpeg;base64,"
+                                      + Convert.ToBase64String(item.Image) + "\" />")
+                        </div>
+                        <div class="col-sm-9 pl-0">
+
+                            <div class="rating pt-2">
+                                <div class="rating__value value">5.0</div>
+                                <div class="rating__stars">
+                                    <div class="rating__stars-bg"></div>
+                                    <div style="width: 70%;" class="rating__stars-overlay"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-block px-3 pt-2">
+                                <h4 class="card-title">@Html.DisplayFor(model => item.ApplicationUsers.FirstOrDefault().Name)</h4>
+                                <h5 class="text-dark">Клініка "@Html.DisplayFor(modelItem => item.Clinic.Name)"</h5>
+                                <div class="mx-0 mb-1">
+                                    <i class="fa fa-calendar-o  fa-2x" aria-hidden="true"></i>
+                                    <strong>@Html.DisplayFor(modelItem => item.Guardian)</strong> досвіду в
+                                    <span class="badge badge-pill badge-success">@Html.DisplayFor(modelItem => item.Specialization)</span>
+                                </div>
+                                <p class="card-text"><i class="fa fa-drivers-license-o  fa-2x" aria-hidden="true"></i> Категорія: <strong> @Html.DisplayFor(modelItem => item.Category)</strong></p>
+                                <p class="card-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel dignissim nulla, eget mollis erat. Donec sodales sem in metus imperdiet, luctus faucibus tellus vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pellentesque nunc faucibus, venenatis est sed, faucibus ligula. Etiam libero dolor, feugiat ac ante ut, fringilla bibendum velit. Etiam eget odio suscipit, varius nulla vel, condimentum urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut imperdiet nisl nec pretium ultrices. Vestibulum ligula felis, sagittis vitae leo in, facilisis blandit diam. Aliquam neque metus, fermentum in cursus ut, tempor in dolor. Pellentesque luctus iaculis aliquam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                </p>
+                                <input type="checkbox" name="doctorPracticed" value="@item.Id" @(@item.Practiced ? "checked=\"checked\"" : "") />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
+    <button type="submit">Зберегти</button>
+}
+
+

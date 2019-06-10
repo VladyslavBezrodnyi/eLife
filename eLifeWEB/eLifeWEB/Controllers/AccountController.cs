@@ -32,12 +32,12 @@ namespace eLifeWEB.Controllers
         {
         }
 
-        public ActionResult MyAccount(ManageMessageId? message)
+        public ActionResult MyAccount(ManageMessageId? message, List<int> doctorPracticed)
         {
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
             ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
             var scheduler = new DHXScheduler(this);
-            
+
             scheduler.Skin = DHXScheduler.Skins.Material;
             scheduler.LoadData = true;
             scheduler.EnableDataprocessor = true;
@@ -66,6 +66,24 @@ namespace eLifeWEB.Controllers
             };
             scheduler.Extensions.Add(SchedulerExtensions.Extension.Readonly);
             ViewBag.Scheduler = scheduler;
+            if (doctorPracticed != null)
+            {
+                foreach(var item in user.ClinicAdmin.Clinic.DoctorInforms)
+                {
+                    if (doctorPracticed.Contains(item.Id))
+                    {
+                        item.Practiced = true;
+                    } else
+                    {
+                        item.Practiced = false;
+                    }
+                }
+            };
+
+            if (ViewBag.Role == "clinicAdmin")
+            {
+                ViewBag.Doctors = user.ClinicAdmin.Clinic.DoctorInforms.ToList();
+            }
             return View(user);
         }
 

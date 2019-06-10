@@ -16,7 +16,17 @@
     $(".col").css("background-color", "transparent");
     // Объявление функции, которая хаб вызывает при получении сообщений
     chat.client.addMessage = function (senderId, time, name, message) {
-        // Добавление сообщений на веб-страницу 
+        var date = (new Date()).toLocaleString("ru", options);
+        if ($('p.groupTimeDate').length < 1 ||
+            date !== $('#chat-history').children('p.groupTimeDate:last').text()) {
+            $('#chat-history')
+                .append(
+                    '<p class="groupTimeDate text-center">' +
+                    date +
+                    '</p > '
+                );
+        }
+        // Добавление сообщений на веб-страницу
         if (senderId === sender) {
             $('#chat-history')
                 .append(
