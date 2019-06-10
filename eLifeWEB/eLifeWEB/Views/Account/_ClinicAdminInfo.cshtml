@@ -141,7 +141,7 @@
                                 <p class="card-text">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel dignissim nulla, eget mollis erat. Donec sodales sem in metus imperdiet, luctus faucibus tellus vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pellentesque nunc faucibus, venenatis est sed, faucibus ligula. Etiam libero dolor, feugiat ac ante ut, fringilla bibendum velit. Etiam eget odio suscipit, varius nulla vel, condimentum urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut imperdiet nisl nec pretium ultrices. Vestibulum ligula felis, sagittis vitae leo in, facilisis blandit diam. Aliquam neque metus, fermentum in cursus ut, tempor in dolor. Pellentesque luctus iaculis aliquam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </p>
-                                <input type="checkbox" name="doctorPracticed" value="@item.Id" @(@item.Practiced ? "checked=\"checked\"" : "") />
+                                @Html.CheckBox(item.Id.ToString(), item.Practiced)
                             </div>
                         </div>
                     </div>
