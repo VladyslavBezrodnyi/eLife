@@ -39,7 +39,7 @@
                     @Html.DisplayFor(modelItem => item.Clinic.BankCard)
                 </td>
                 <td>
-                    <input type="checkbox" name="clinicConfirm" value="@item.Id" @(@item.ClinicConfirmed ? "checked=\"checked\"" : "") />
+                    @Html.CheckBox(@item.Id.ToString(), @item.ClinicConfirmed)
                 </td>
             </tr>
         }

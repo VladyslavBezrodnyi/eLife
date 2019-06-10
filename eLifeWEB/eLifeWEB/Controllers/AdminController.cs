@@ -19,33 +19,28 @@ namespace eLifeWEB.Controllers
         }
 
         [HttpPost]
-        public ActionResult Admin(List<int> clinicConfirm)
+        public ActionResult Admin(FormCollection collection)
         {
             var clinics = db.ClinicAdmins.ToList();
-            ViewBag.Password = "123456";
-            if (clinicConfirm != null)
+            if (collection != null)
             {
                 foreach (var item in clinics)
                 {
-                    if (clinicConfirm.Contains(item.Id))
+                    if (!string.IsNullOrEmpty(collection[item.Id.ToString()]))
                     {
-                        item.ClinicConfirmed = true;
+                        if (Convert.ToBoolean(collection[item.Id.ToString()].Split(',')[0]))
+                        {
+                            item.ClinicConfirmed = true;
+                        }
+                        else
+                        {
+                            item.ClinicConfirmed = false;
+                        }
                     }
-                    else
-                    {
-                        item.ClinicConfirmed = false;
-                    }
+
                 }
-                db.SaveChanges();
             }
-            else
-            {
-                foreach (var item in clinics)
-                {
-                    item.ClinicConfirmed = false;
-                }
-                db.SaveChanges();
-            };
+            db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
     }
