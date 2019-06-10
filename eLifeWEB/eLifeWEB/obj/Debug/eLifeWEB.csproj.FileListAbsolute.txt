@@ -1,4 +1,4 @@
-﻿D:\ProjecteLife123\eLifeWEB\eLifeWEB\bin\ApplicationInsights.config
+D:\ProjecteLife123\eLifeWEB\eLifeWEB\bin\ApplicationInsights.config
 D:\ProjecteLife123\eLifeWEB\eLifeWEB\bin\eLifeWEB.dll.config
 D:\ProjecteLife123\eLifeWEB\eLifeWEB\bin\eLifeWEB.dll
 D:\ProjecteLife123\eLifeWEB\eLifeWEB\bin\eLifeWEB.pdb
@@ -1209,3 +1209,8 @@ G:\work\eLife_main\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMig
 G:\work\eLife_main\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration8.resources
 G:\work\eLife_main\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration9.resources
 G:\work\eLife_main\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration10.resources
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration6.resources
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration7.resources
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration8.resources
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration9.resources
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Debug\eLifeWEB.Migrations.DataMigration10.resources

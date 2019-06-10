@@ -81,7 +81,7 @@ namespace eLifeWEB.Controllers
                 .Select(
                 e => new ChatView()
                 {
-                    Date = e.Key.ToString("dd.MM.yy"),
+                    Date = e.Key.ToString("dd.MM.yyyy"),
                     Count = e.Count(),
                     Messages = e.Select(m => new MessageDate
                     {
@@ -94,80 +94,6 @@ namespace eLifeWEB.Controllers
             ViewBag.Sender = (role == "patient")?(patient.Id):(doctor.Id);
             ViewBag.Conversation = conversation;
             return View(messages);
-        }
-
-        // GET: Chats/Details/5
-        public ActionResult Details(string DoctorId, string PatientId)
-        {
-            var conversation = db.ConversationReplies.Where(e => e.SenderId == DoctorId || e.SenderId == PatientId).OrderBy(e => e.Time);
-            
-            return View(conversation);
-        }
-
-        // GET: Chats/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Chats/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Chats/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Chats/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Chats/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Chats/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
