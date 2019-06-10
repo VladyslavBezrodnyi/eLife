@@ -3,40 +3,9 @@
     ViewBag.Title = "Моя сторінка";
 }
 
-<h2>Моя сторінка</h2>
-
+<h3 class="d-table mx-auto">Моя сторінка</h3>
 @Html.Partial("_AccountInfo", Model)
-@if (Model.PasswordHash != null)
-{
-    @Html.ActionLink("Змінити пароль", "ChangePassword", "Manage")
-}
-else
-{
-    @Html.ActionLink("Додати пароль", "SetPassword", "Manage")
-}
-<dt>Двухфакторна перевірка подлиности:</dt>
-<dd>
-    @if (Model.TwoFactorEnabled)
-    {
-        using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-            <text>Включено
-                <input type="submit" value="Вимкнути" class="btn btn-link" />
-            </text>
-        }
-    }
-    else
-    {
-        using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-            <text>Отключено
-                <input type="submit" value="Увімкнути" class="btn btn-link" />
-            </text>
-        }
-    }
-</dd>
+
 @if (ViewBag.Role == "patient")
 {
     @Html.Partial("_PatientInfo", Model.PatientInform)
@@ -53,11 +22,42 @@ else
     @Html.Partial("_ClinicAdminInfo", Model.ClinicAdmin.Clinic)
 }
 
-@Html.ActionLink("Чати", "Index", "Chats")
+@if (Model.TwoFactorEnabled)
+{
+    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal mt-3", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <text>Двофакторна перевірка автентичності увімкнена:
+            <input type="submit" value="Вимкнути" class="btn btn-primary" />
+        </text>
+    }
+}
+else
+{
+    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal mt-3", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <text>Двофакторна перевірка автентичності вимкнена:
+            <input type="submit" value="Увімкнути" class="btn btn-primary" />
+        </text>
+    }
+}
 
-    <script>
+<div class="justify-content-around">
+    @if (Model.PasswordHash != null)
+    {
+        @Html.ActionLink("Змінити пароль", "ChangePassword", "Manage", new { @class = "btn btn-primary" })
+    }
+    else
+    {
+        @Html.ActionLink("Додати пароль", "SetPassword", "Manage", new { @class = "btn btn-primary" })
+    }
+    @Html.ActionLink("Чати", "Index", "Chats", new {id ="" },  new { @class = "btn btn-primary" })
+</div>
+
+<script>
         function medicalAppointment(event_id){
         var url = "@Url.Action("ReceptionPreview", "Reception")" + "?recordId=" + event_id;
         window.location.href = url;
     }
-    </script>
+</script>
