@@ -325,6 +325,7 @@
     <Compile Include="Models\LiqPayHelper.cs" />
     <Compile Include="Models\LiqPayP2P.cs" />
     <Compile Include="Models\LiqPayP2PFormModel.cs" />
+    <Compile Include="Models\LiqPayRefund.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PatientInform.cs" />
     <Compile Include="Models\Payment.cs" />
@@ -715,6 +716,7 @@
     <Content Include="materialize\README.md" />
     <Content Include="Views\Reception\ReceptionPreview.cshtml" />
     <Content Include="Views\Reception\StartReception.cshtml" />
+    <Content Include="Views\Reception\CancelReception.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

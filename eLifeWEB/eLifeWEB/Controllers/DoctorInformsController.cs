@@ -97,6 +97,9 @@ namespace eLifeWEB.Controllers.WEBControllers
             {
                 return HttpNotFound();
             }
+            var feedbacks = db.Feedbacks.Where(u => u.DoctorId == doctorInform.ApplicationUsers.FirstOrDefault().Id);
+            ViewBag.Feedbacks = feedbacks.ToList();
+            ViewBag.Average = feedbacks.Average(u => u.Stars);
             var scheduler = new DHXScheduler(this);
             scheduler.Skin = DHXScheduler.Skins.Material;
             scheduler.LoadData = true;
@@ -286,6 +289,7 @@ namespace eLifeWEB.Controllers.WEBControllers
             {
                 Payment payment = db.Payments.Find(request_data_dictionary["order_id"]);
                 Record record = db.Records.Find(payment.RecordId);
+                payment.status = request_data_dictionary["status"];
                 record.PatientId = payment.PatientId;
                 db.SaveChanges();
                 // настройка логина, пароля отправителя
@@ -383,7 +387,6 @@ namespace eLifeWEB.Controllers.WEBControllers
             Feedback feedback = new Feedback() { DoctorId = DoctorID, Comment = Text, Stars = Rating, PatientId = UserId , Date = DateTime.Now};
             db.Feedbacks.Add(feedback);
             db.SaveChanges();
-
             return RedirectToAction("Index", "DoctorInforms");
         }
     }

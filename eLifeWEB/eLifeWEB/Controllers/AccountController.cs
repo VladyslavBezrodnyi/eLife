@@ -49,11 +49,11 @@ namespace eLifeWEB.Controllers
             scheduler.Config.drag_lightbox = true;
             scheduler.Config.edit_on_create = false;
             scheduler.Config.event_duration = 2;
+            scheduler.Lightbox.Add(new LightboxText(""));
             scheduler.Config.buttons_right = new LightboxButtonList
             {
-                LightboxButtonList.Save
             };
-            scheduler.Config.buttons_left = new LightboxButtonList
+                scheduler.Config.buttons_left = new LightboxButtonList
             {
                 new EventButton
                 {
@@ -65,6 +65,7 @@ namespace eLifeWEB.Controllers
                 LightboxButtonList.Cancel,
             };
             scheduler.Extensions.Add(SchedulerExtensions.Extension.Readonly);
+            scheduler.Lightbox.Clear();
             ViewBag.Scheduler = scheduler;
             return View(user);
         }
@@ -81,7 +82,7 @@ namespace eLifeWEB.Controllers
                     list.Add(new Appointment{ id = record.Id, text = "Вільне місце", start_date = record.Date, end_date = record.EndDate, @readonly = false });
                 else
                 {
-                    list.Add(new Appointment { id = record.Id, text = "Запис" + "\n"+ "Пацієнт: " + record.Patient.Name +"\n" + record.TypeOfService.Name, start_date = record.Date, end_date = record.EndDate, @readonly = true });
+                    list.Add(new Appointment { id = record.Id, text = "Запис" + "\n"+ "Пацієнт: " + record.Patient.Name +"\n" + record.TypeOfService.Name, start_date = record.Date, end_date = record.EndDate, @readonly = false });
                 }
             }
             return new SchedulerAjaxData(list);
