@@ -53,11 +53,14 @@ else
     @Html.Partial("_ClinicAdminInfo", Model.ClinicAdmin.Clinic)
 }
 
-@Html.ActionLink("Чати", "Index", "Chats")
+@if (ViewBag.Role == "patient" || ViewBag.Role == "patient")
+{
+    @Html.ActionLink("Чати", "Index", "Chats", new { id = "" }, new { @class = "btn btn-primary" })
+}
 
-    <script>
+<script>
         function medicalAppointment(event_id){
         var url = "@Url.Action("ReceptionPreview", "Reception")" + "?recordId=" + event_id;
         window.location.href = url;
     }
-    </script>
+</script>

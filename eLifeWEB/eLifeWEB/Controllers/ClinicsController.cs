@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using eLifeWEB.Models;
 using PagedList;
+using Microsoft.AspNet.Identity;
+using System.Security.Claims;
 
 namespace eLifeWEB.Controllers.WEBControllers
 {
@@ -111,6 +113,36 @@ namespace eLifeWEB.Controllers.WEBControllers
             }
             return View(clinic);
         }
+        public ActionResult ConfirmationDoctors()
+        {
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            var doctors = user.ClinicAdmin.Clinic.DoctorInforms.OrderBy(e => e.ApplicationUsers.FirstOrDefault().Name);
+            return View(doctors);
+        }
+        [HttpPost]
+        public ActionResult ConfirmationDoctors(FormCollection collectionPractice)
+        {
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            if (collectionPractice.Count != 0)
+            {
+                foreach (var item in user.ClinicAdmin.Clinic.DoctorInforms)
+                {
+                    Boolean tempValue = collectionPractice[item.Id.ToString()] != null ? true : false;
+                    if (tempValue == true)
+                    {
+                        item.Practiced = true;
+                    }
+                    else
+                    {
+                        item.Practiced = false;
+                    }
+                }
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("MyAccount", "Account");
+        }
+
 
         protected override void Dispose(bool disposing)
         {
