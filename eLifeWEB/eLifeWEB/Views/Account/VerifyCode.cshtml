@@ -1,4 +1,5 @@
 ﻿@model eLifeWEB.Models.VerifyCodeViewModel
+@Styles.Render("~/Content/RegisterClinicAdmin.css")
 @{
     ViewBag.Title = "Введіть перевірочний код";
 }
@@ -41,7 +42,7 @@
         <div class="col-md-6">
             <div class="custom-control custom-switch">
                 @Html.CheckBoxFor(m => m.RememberBrowser, new { @class = "custom-control-input" })
-                <label class="custom-control-label" >Запам'ятати мене</label>
+                <label class="custom-control-label">Запам'ятати мене</label>
             </div>
         </div>
     </div>
