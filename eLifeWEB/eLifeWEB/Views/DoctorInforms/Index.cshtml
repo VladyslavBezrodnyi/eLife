@@ -53,14 +53,19 @@
                                                  + Convert.ToBase64String(item.Image) + "\" />")
                     </div>
                     <div class="col-sm-9 pl-0">
-
-                        <div class="rating pt-2">
-                            <div class="rating__value value">5.0</div>
-                            <div class="rating__stars">
-                                <div class="rating__stars-bg"></div>
-                                <div style="width: 70%;" class="rating__stars-overlay"></div>
-                            </div>
-                        </div>
+                        @*@{
+                                var ID = item.ApplicationUsers.FirstOrDefault().Id;
+                                if (ViewBag.Feedbacks.Where(item.DoctorId == ID).ToList())
+                                {
+                                <div class="rating pt-2">
+                                    <div class="rating__value value">@item.ApplicationUsers.FirstOrDefault().Feedbacks1.Average(u => u.Stars)</div>
+                                    <div class="rating__stars">
+                                        <div class="rating__stars-bg"></div>
+                                        <div style="width: 70%;" class="rating__stars-overlay"></div>
+                                    </div>
+                                </div>
+                            }
+                        }*@
 
                         <div class="card-block px-3 pt-2">
                             <h4 class="card-title">@Html.DisplayFor(model => item.ApplicationUsers.FirstOrDefault().Name)</h4>

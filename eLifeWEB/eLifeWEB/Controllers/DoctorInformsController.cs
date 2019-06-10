@@ -32,6 +32,8 @@ namespace eLifeWEB.Controllers.WEBControllers
         // GET: DoctorInforms
         public ActionResult Index(string searchString, string specializations, int? page, bool? check)
         {
+            ViewBag.Feedback = db.Feedbacks;
+
             var doctorInforms = db.DoctorInforms.Include(d => d.Clinic).Where(q =>q.Practiced);
             SelectList specialiation = new SelectList(new Specializations().specializations);          
             ViewBag.Specialization = specialiation;
@@ -97,9 +99,12 @@ namespace eLifeWEB.Controllers.WEBControllers
             {
                 return HttpNotFound();
             }
-            var feedbacks = db.Feedbacks.Where(u => u.DoctorId == doctorInform.ApplicationUsers.FirstOrDefault().Id);
-            ViewBag.Feedbacks = feedbacks.ToList();
-            ViewBag.Average = feedbacks.Average(u => u.Stars);
+
+            var ID = doctorInform.ApplicationUsers.FirstOrDefault().Id;
+            var feedbacks = db.Feedbacks.Where(u => u.DoctorId == ID).ToList();
+            
+            ViewBag.Feedbacks = feedbacks;
+            ViewBag.Average = feedbacks.Average(u => u.Stars)*20;
             var scheduler = new DHXScheduler(this);
             scheduler.Skin = DHXScheduler.Skins.Material;
             scheduler.LoadData = true;
@@ -384,9 +389,17 @@ namespace eLifeWEB.Controllers.WEBControllers
         [HttpPost]
         public ActionResult DoctorFeedback(string DoctorID, string UserId, string Text , int Rating)
         {
-            Feedback feedback = new Feedback() { DoctorId = DoctorID, Comment = Text, Stars = Rating, PatientId = UserId , Date = DateTime.Now};
-            db.Feedbacks.Add(feedback);
-            db.SaveChanges();
+            Feedback feedback = new Feedback() { DoctorId = DoctorID, Comment = Text, Stars = Rating, PatientId = UserId, Date = DateTime.Now };
+            try
+            {
+                db.Feedbacks.Add(feedback);
+                db.SaveChanges();
+            }
+            catch
+            {
+                db.Entry(feedback).State = EntityState.Modified;
+                db.SaveChanges();
+            }
             return RedirectToAction("Index", "DoctorInforms");
         }
     }

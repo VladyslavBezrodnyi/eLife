@@ -17,11 +17,16 @@ namespace eLifeWEB.Controllers.WEBControllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Clinics
-        public ActionResult Index(int? page)
+        public ActionResult Index(string search, string sort,int? page)
         {
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            return View(db.Clinics.ToList().ToPagedList(pageNumber, pageSize));
+            var clinics = db.Clinics.ToList();
+            if (!String.IsNullOrEmpty(search))
+            {
+                clinics = db.Clinics.Where(s => s.Name.Contains(search)).ToList();
+            }
+            return View(clinics.ToPagedList(pageNumber, pageSize));
             //return View(db.Clinics.ToList());
         }
 
