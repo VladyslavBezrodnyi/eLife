@@ -79,7 +79,16 @@ namespace eLifeWEB.Controllers
                         item.Practiced = false;
                     }
                 }
-            };
+                db.SaveChanges();
+            }
+            else
+            {
+                foreach (var item in user.ClinicAdmin.Clinic.DoctorInforms)
+                {
+                        item.Practiced = false;
+                }
+                db.SaveChanges();
+            }
 
             if (ViewBag.Role == "clinicAdmin")
             {
