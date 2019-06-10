@@ -11,18 +11,42 @@ namespace eLifeWEB.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Admin
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult Admin()
         {
+            var clinics = db.ClinicAdmins.ToList();
             ViewBag.Password = "123456";
+            return View(clinics);
+        }
 
-
-            return View(db.ClinicAdmins.ToList());
+        [HttpPost]
+        public ActionResult Admin(List<int> clinicConfirm)
+        {
+            var clinics = db.ClinicAdmins.ToList();
+            ViewBag.Password = "123456";
+            if (clinicConfirm != null)
+            {
+                foreach (var item in clinics)
+                {
+                    if (clinicConfirm.Contains(item.Id))
+                    {
+                        item.ClinicConfirmed = true;
+                    }
+                    else
+                    {
+                        item.ClinicConfirmed = false;
+                    }
+                }
+                db.SaveChanges();
+            }
+            else
+            {
+                foreach (var item in clinics)
+                {
+                    item.ClinicConfirmed = false;
+                }
+                db.SaveChanges();
+            };
+            return RedirectToAction("Index", "Home");
         }
     }
 }
