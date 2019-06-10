@@ -32,7 +32,7 @@ namespace eLifeWEB.Controllers
         {
         }
 
-        public ActionResult MyAccount(ManageMessageId? message, List<int> doctorPracticed)
+        public ActionResult MyAccount(ManageMessageId? message, FormCollection collectionPractice)
         {
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
             ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
@@ -67,32 +67,29 @@ namespace eLifeWEB.Controllers
             scheduler.Extensions.Add(SchedulerExtensions.Extension.Readonly);
             scheduler.Lightbox.Clear();
             ViewBag.Scheduler = scheduler;
-            if (doctorPracticed != null)
-            {
-                foreach(var item in user.ClinicAdmin.Clinic.DoctorInforms)
-                {
-                    if (doctorPracticed.Contains(item.Id))
-                    {
-                        item.Practiced = true;
-                    } else
-                    {
-                        item.Practiced = false;
-                    }
-                }
-                db.SaveChanges();
-            }
-            else
-            {
-                foreach (var item in user.ClinicAdmin.Clinic.DoctorInforms)
-                {
-                        item.Practiced = false;
-                }
-                db.SaveChanges();
-            }
 
             if (ViewBag.Role == "clinicAdmin")
             {
                 ViewBag.Doctors = user.ClinicAdmin.Clinic.DoctorInforms.ToList();
+                if (collectionPractice != null)
+                {
+                    foreach (var item in user.ClinicAdmin.Clinic.DoctorInforms)
+                    {
+                        if (!string.IsNullOrEmpty(collectionPractice[item.Id.ToString()]))
+                        {
+                            if (Convert.ToBoolean(collectionPractice[item.Id.ToString()].Split(',')[0]))
+                            {
+                                item.Practiced = true;
+                            }
+                            else
+                            {
+                                item.Practiced = false;
+                            }
+                        }
+
+                    }
+                    db.SaveChanges();
+                }
             }
             return View(user);
         }
