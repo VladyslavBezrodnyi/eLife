@@ -57,7 +57,10 @@
         </div>
     </div>
 </section>
-
+@if (Request.IsAuthenticated && ViewBag.Role == "patient")
+{
+    @Html.ActionLink("Написати", "Chat", "Chats", new { interlocutorId = Model.Id }, new {@class="btn btn-primary m-3" })
+}
 <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#typeofservices">Всі послуги</a>
