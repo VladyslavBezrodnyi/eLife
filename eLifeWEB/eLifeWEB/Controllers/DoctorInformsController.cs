@@ -30,11 +30,14 @@ namespace eLifeWEB.Controllers.WEBControllers
         List<DoctorInform> doctorInforms;
         
         // GET: DoctorInforms
-        public ActionResult Index(string searchString, string specializations, int? page)
+        public ActionResult Index(string searchString, string specializations, int? page, string sortOrder)
         {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? ("desc") : ("");
             var doctorInforms = db.DoctorInforms.Include(d => d.Clinic).Where(q =>q.Practiced);
             SelectList specialiation = new SelectList(Specializations.specializations);          
             ViewBag.Specialization = specialiation;
+            //var doc = doctorInforms.ToList();
+            
             if (!String.IsNullOrEmpty(searchString))
             {
                 doctorInforms = doctorInforms.Where(s => s.ApplicationUsers.FirstOrDefault().Name.ToUpper().Contains(searchString.ToUpper())

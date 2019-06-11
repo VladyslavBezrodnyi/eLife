@@ -1,11 +1,13 @@
 ﻿@model PagedList.IPagedList<eLifeWEB.Models.Clinic>
 @using PagedList.Mvc;
+@using eLifeWEB.Models;
 @*@model IEnumerable<eLifeWEB.Models.Clinic>*@
 @Styles.Render("~/Content/rating.css")
 @Styles.Render("~/Content/searchField.css")
 @{
     ViewBag.Title = "Index";
 }
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 
 @using (Html.BeginForm())
 {
@@ -55,19 +57,10 @@
                         }
                     </div>
                     <div class="col-md-9 pl-0">
-
-                        <div class="rating pt-2">
-                            <div class="rating__value value">5.0</div>
-                            <div class="rating__stars">
-                                <div class="rating__stars-bg"></div>
-                                <div style="width: 70%;" class="rating__stars-overlay"></div>
-                            </div>
-                        </div>
-
                         <div class="card-block px-3 pt-2">
                             <h4 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h4>
                             <div class="mx-0" style="margin-top: -10px;">
-                                @foreach (var itemService in item.DoctorInforms.Select(e => new { Specialization = e.Specialization}).ToList().Distinct())
+                                @foreach (var itemService in item.DoctorInforms.Where(e => e.Practiced == true).Select(e => new { Specialization = e.Specialization }).ToList().Distinct())
                                 {
                                     <span class="badge badge-pill badge-success">@itemService.Specialization</span>
                                 }
