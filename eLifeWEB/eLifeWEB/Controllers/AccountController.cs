@@ -31,8 +31,8 @@ namespace eLifeWEB.Controllers
         public AccountController()
         {
         }
-
-        public ActionResult MyAccount( FormCollection collectionPractice)
+        
+        public ActionResult MyAccount(ManageMessageId? message)
         {
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
             ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
@@ -68,29 +68,7 @@ namespace eLifeWEB.Controllers
             scheduler.Extensions.Add(SchedulerExtensions.Extension.Readonly);
             ViewBag.Scheduler = scheduler;
 
-            if (ViewBag.Role == "clinicAdmin")
-            {
-                ViewBag.Doctors = user.ClinicAdmin.Clinic.DoctorInforms.ToList();
-                if (collectionPractice != null)
-                {
-                    foreach (var item in user.ClinicAdmin.Clinic.DoctorInforms)
-                    {
-                        if (!string.IsNullOrEmpty(collectionPractice[item.Id.ToString()]))
-                        {
-                            if (Convert.ToBoolean(collectionPractice[item.Id.ToString()].Split(',')[0]))
-                            {
-                                item.Practiced = true;
-                            }
-                            else
-                            {
-                                item.Practiced = false;
-                            }
-                        }
-
-                    }
-                    db.SaveChanges();
-                }
-            }
+           
             return View(user);
         }
         [Authorize]
@@ -647,7 +625,7 @@ namespace eLifeWEB.Controllers
         
         public ActionResult RegisterDoctor()
         {
-            SelectList specialiation = new SelectList(new Specializations().specializations);
+            SelectList specialiation = new SelectList(Specializations.specializations);
             ViewBag.Specialization = specialiation;
             string[] genders = new[]
             {

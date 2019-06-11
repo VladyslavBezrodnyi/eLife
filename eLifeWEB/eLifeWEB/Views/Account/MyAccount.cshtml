@@ -64,6 +64,11 @@ else
 }
 
 
+@if (ViewBag.Role == "doctor" || ViewBag.Role == "patient")
+{
+    @Html.ActionLink("Чати", "Index", "Chats", new { id = "" }, new { @class = "btn btn-primary" })
+}
+
 <script>
         function medicalAppointment(event_id){
         var url = "@Url.Action("ReceptionPreview", "Reception")" + "?recordId=" + event_id;

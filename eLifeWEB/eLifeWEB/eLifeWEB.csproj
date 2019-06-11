@@ -719,6 +719,7 @@
     <Content Include="Views\Reception\StartReception.cshtml" />
     <Content Include="Views\Reception\CancelReception.cshtml" />
     <Content Include="Views\Account\MyAppointment.cshtml" />
+    <Content Include="Views\Clinics\ConfirmationDoctors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

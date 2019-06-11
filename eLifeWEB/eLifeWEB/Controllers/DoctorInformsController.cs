@@ -29,11 +29,31 @@ namespace eLifeWEB.Controllers.WEBControllers
 
         
         // GET: DoctorInforms
-        public ActionResult Index(string searchString, string specializations, int? page, bool? check)
+        public ActionResult Index(string searchString, string specializations, int? page, string sortOrder)
         {
+            ViewBag.SortParm = String.IsNullOrEmpty(sortOrder) ? ("desc") : ("");
             var doctorInforms = db.DoctorInforms.Include(d => d.Clinic).Where(q =>q.Practiced);
-            SelectList specialiation = new SelectList(new Specializations().specializations);          
+            SelectList specialiation = new SelectList(Specializations.specializations);          
             ViewBag.Specialization = specialiation;
+            //var doc = doctorInforms.ToList();
+            switch (sortOrder)
+            {
+                case "desc":
+                    doctorInforms = doctorInforms
+                        .OrderByDescending(s =>
+                        db.Feedbacks.Where(e => e.DoctorId == s.ApplicationUsers.FirstOrDefault().Id).Sum(e => e.Stars) /
+                        db.Feedbacks.Count(e => e.DoctorId == s.ApplicationUsers.FirstOrDefault().Id)
+                        );
+                    break;
+                case "":
+                    doctorInforms = doctorInforms
+                        .OrderBy(s => 
+                        db.Feedbacks.Where(e => e.DoctorId == s.ApplicationUsers.FirstOrDefault().Id).Sum(e => e.Stars) /
+                        db.Feedbacks.Count(e => e.DoctorId == s.ApplicationUsers.FirstOrDefault().Id)
+                        );
+                    break;
+            }
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 doctorInforms = doctorInforms.Where(s => s.ApplicationUsers.FirstOrDefault().Name.ToUpper().Contains(searchString.ToUpper())
@@ -41,12 +61,7 @@ namespace eLifeWEB.Controllers.WEBControllers
             }
             if (!String.IsNullOrEmpty(specializations) && !specializations.Equals("Усі"))
             {
-                if (check == true)
-                {
-                    doctorInforms = doctorInforms.Where(p => p.Specialization != specializations);
-                }
-                else
-                    doctorInforms = doctorInforms.Where(p => p.Specialization == specializations);
+                doctorInforms = doctorInforms.Where(p => p.Specialization == specializations);
             }
             
             SelectList types = new SelectList(new List<string>()
