@@ -1,35 +1,31 @@
-﻿@model IEnumerable <eLifeWEB.Models.Conversation>
-@using eLifeWEB.Models 
+﻿@model IEnumerable<eLifeWEB.Models.Conversation>
+@using eLifeWEB.Models
 @{
-    ViewBag.Title = "Чаты";
+    ViewBag.Title = "Ваші чати";
 }
+<ol class="breadcrumb rounded-0 bg-white" style="margin: -24px -15px 0 -15px;">
+    <li class="breadcrumb-item">@Html.ActionLink("Мій аккаунт", "MyAccount", "Account", null, null)</li>
+    <li class="breadcrumb-item active">Чати</li>
+</ol>
 
-<h2>Чаты</h2>
- 
-<table class="table">
-    <tr>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @if (ViewBag.Role == "patient")
-                {
-                    @Html.DisplayFor(modelItem => item.Doctor.Name)
-                }
-                else
-                {
-                    @Html.DisplayFor(modelItem => item.Patient.Name)
-                }
-            </td>
-            <td>
-                @Html.ActionLink("Написать", "Chat", new { interlocutorId = (ViewBag.Role == "patient")?(item.Doctor.DoctorInformId):(item.Patient.PatientInformId) })
+<h3 class="d-table mx-auto">@ViewBag.Title</h3>
 
-            </td>
-        </tr>
-    }
-
-</table>
+@foreach (var item in Model)
+{
+    <div class="card border-success mb-3">
+        <div class="card-body justify-content-between d-flex">
+            @if (ViewBag.Role == "patient")
+            {
+                <h4 class="card-title my-auto">@Html.DisplayFor(modelItem => item.Doctor.Name)</h4>
+            }
+            else
+            {
+                <h4 class="card-title my-auto">@Html.DisplayFor(modelItem => item.Patient.Name)</h4>
+            }
+            @Html.ActionLink("Написати", "Chat", new { interlocutorId = (ViewBag.Role == "patient") ? (item.Doctor.DoctorInformId) : (item.Patient.PatientInformId) }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+}
 
 
 

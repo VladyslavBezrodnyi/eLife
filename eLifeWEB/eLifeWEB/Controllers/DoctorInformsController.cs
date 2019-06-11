@@ -112,7 +112,9 @@ namespace eLifeWEB.Controllers.WEBControllers
             {
                 return HttpNotFound();
             }
-
+            ViewBag.doctorId = id;
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
             var ID = doctorInform.ApplicationUsers.FirstOrDefault().Id;
             var feedbacks = db.Feedbacks.Where(u => u.DoctorId == ID).ToList();
             

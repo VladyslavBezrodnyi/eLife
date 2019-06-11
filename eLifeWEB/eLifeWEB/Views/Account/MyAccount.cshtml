@@ -14,8 +14,8 @@
 @if (ViewBag.Role == "patient")
 {
     @Html.Partial("_PatientInfo", Model.PatientInform)
-    @Html.ActionLink("Медична картка", "MedicalCard", new { }, new { @class = "btn btn-success" })
-    @Html.ActionLink("Усі записи", "MyAppointment", new { }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Медична картка", "MedicalCard", new { }, new { @class = "btn btn-success mt-3 ml-3" })
+    @Html.ActionLink("Усі записи", "MyAppointment", new { }, new { @class = "btn btn-primary mt-3 ml-3" })
 
 }
 @if (ViewBag.Role == "doctor")
@@ -34,7 +34,7 @@
 
 @if (ViewBag.Role == "doctor" || ViewBag.Role == "patient")
 {
-    @Html.ActionLink("Чати", "Index", "Chats", new { id = "" }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Чати", "Index", "Chats", new { id = "" }, new { @class = "btn btn-primary mt-3 ml-3" })
 }
 
 
@@ -44,7 +44,7 @@
     {
         @Html.AntiForgeryToken()
         <text>Двофакторна перевірка автентичності увімкнена:
-            <input type="submit" value="Вимкнути" class="btn btn-primary" />
+            <input type="submit" value="Вимкнути" class="btn btn-primary ml-2" />
         </text>
     }
 }
@@ -54,7 +54,7 @@ else
     {
         @Html.AntiForgeryToken()
         <text>Двофакторна перевірка автентичності вимкнена:
-            <input type="submit" value="Увімкнути" class="btn btn-primary" />
+            <input type="submit" value="Увімкнути" class="btn btn-primary ml-2" />
         </text>
     }
 }
@@ -62,13 +62,12 @@ else
 <div class="justify-content-around">
     @if (Model.PasswordHash != null)
     {
-        @Html.ActionLink("Змінити пароль", "ChangePassword", "Manage", new { @class = "btn btn-primary" })
+        @Html.ActionLink("Змінити пароль", "ChangePassword", "Manage", new { @class = "btn btn-primary ml-3" })
     }
     else
     {
-        @Html.ActionLink("Додати пароль", "SetPassword", "Manage", new { @class = "btn btn-primary" })
+        @Html.ActionLink("Додати пароль", "SetPassword", "Manage", new { @class = "btn btn-primary ml-3" })
     }
-    @Html.ActionLink("Чати", "Index", "Chats", new {id ="" },  new { @class = "btn btn-primary" })
 </div>
 
 <script>

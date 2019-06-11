@@ -98,21 +98,27 @@
 
 
 
-                        <div class="card-block px-3 pt-2">
-                            <h4 class="card-title">@Html.DisplayFor(model => item.ApplicationUsers.FirstOrDefault().Name)</h4>
-                            <h5 class="text-dark">Клініка "@Html.DisplayFor(modelItem => item.Clinic.Name)"</h5>
-                            <div class="mx-0 mb-1">
-                                <i class="fa fa-calendar-o  fa-2x" aria-hidden="true"></i>
-                                <strong>@Html.DisplayFor(modelItem => item.Guardian)</strong> досвіду в
-                                <span class="badge badge-pill badge-success">@Html.DisplayFor(modelItem => item.Specialization)</span>
+                            <div class="card-block px-3 pt-2">
+                                <h4 class="card-title">@Html.DisplayFor(model => item.ApplicationUsers.FirstOrDefault().Name)</h4>
+                                <h5 class="text-dark">Клініка "@Html.DisplayFor(modelItem => item.Clinic.Name)"</h5>
+                                <div class="mx-0 mb-1">
+                                    <i class="fa fa-calendar-o  fa-2x" aria-hidden="true"></i>
+                                    <strong>@Html.DisplayFor(modelItem => item.Guardian)</strong> досвіду в
+                                    <span class="badge badge-pill badge-success">@Html.DisplayFor(modelItem => item.Specialization)</span>
+                                </div>
+                                <p class="card-text"><i class="fa fa-drivers-license-o  fa-2x" aria-hidden="true"></i> Категорія: <strong> @Html.DisplayFor(modelItem => item.Category)</strong></p>
+                                <p class="card-text"><i class="fa fa-lightbulb-o  fa-2x" aria-hidden="true"></i> Уміння: </p>
+                                <p class="card-text">
+                                    @Html.DisplayFor(modelItem => item.Skills)
+                                </p>
+                                <div class="row m-0 float-right">
+                                    @if (Request.IsAuthenticated && ViewBag.Role == "patient")
+                                    {
+                                        @Html.ActionLink("Написати", "Chat", "Chats", new { interlocutorId = item.Id }, new { @class = "btn btn-primary float-right mr-3 mb-3" })
+                                    }
+                                    @Html.ActionLink("Детальніше", "Details", new { id = item.Id }, new { @class = "btn btn-primary float-right mr-3 mb-3" })
+                                </div>
                             </div>
-                            <p class="card-text"><i class="fa fa-drivers-license-o  fa-2x" aria-hidden="true"></i> Категорія: <strong> @Html.DisplayFor(modelItem => item.Category)</strong></p>
-                            <p class="card-text"><i class="fa fa-lightbulb-o  fa-2x" aria-hidden="true"></i> Уміння: </p>
-                            <p class="card-text">
-                                @Html.DisplayFor(modelItem => item.Skills)
-                            </p>
-                            @Html.ActionLink("Детальніше", "Details", new { id = item.Id }, new { @class = "btn btn-primary float-right mr-3 mb-3" })
-                        </div>
                     </div>
                 </div>
             </div>

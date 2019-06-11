@@ -1,61 +1,89 @@
 ﻿@model eLifeWEB.Models.LiqPayP2PFormModel
+@Styles.Render("~/Content/RegisterClinicAdmin.css")
 @{
     ViewBag.Title = "Підтвердження оплати";
 }
 
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label> Ім'я пацієнта:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-user fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.Patient.Name" readonly="">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label> Ім'я доктора:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-user-md fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.Record.AttendingDoctor.Name" readonly="">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label> Вид прийому:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-medkit fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.Record.TypeOfService.Name" readonly="">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label> Вартість прийому:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-money fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.Record.TypeOfService.Price" readonly="">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label> Дата прийому:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-calendar fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.Record.Date" readonly="">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label> Передплата:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-money fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@Html.Raw(ViewBag.Record.TypeOfService.Price / 2)" readonly="">
+            </div>
+        </div>
+    </div>
+</div>
 
-<dl class="dl-horizontal">
-    <dt>
-       Пацієнт
-    </dt>
-
-    <dd>
-        @ViewBag.Patient.Name
-    </dd>
-
-    <dt>
-        Лікарь
-    </dt>
-
-    <dd>
-        ViewBag.Record.AttendingDoctor.Name
-    </dd>
-
-    <dt>
-        Вид прийом
-    </dt>
-
-    <dd>
-        @ViewBag.Record.TypeOfService.Name
-    </dd>
-
-    <dt>
-        Ціна
-    </dt>
-
-    <dd>
-        @ViewBag.Record.TypeOfService.Price
-    </dd>
-
-    <dt>
-       Дата прийому
-    </dt>
-
-    <dd>
-        @ViewBag.Record.Date
-    </dd>
-
-    <dt>
-       Передоплата
-    </dt>
-
-    <dd>
-        @Html.Raw(ViewBag.Record.TypeOfService.Price / 2)
-    </dd>
-
-</dl>
-
-<h3 class="d-table mx-auto">Для оплати натисніть кнопку "Оплатити"</h3>
+<h4 class="d-table mx-auto">Для оплати натисніть кнопку "Оплатити"</h4>
 <hr />
 <div class="d-table mx-auto" width="255">
     <form method="POST" accept-charset="utf-8" action="https://www.liqpay.ua/api/3/checkout" ">

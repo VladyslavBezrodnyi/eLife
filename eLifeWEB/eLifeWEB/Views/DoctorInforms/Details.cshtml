@@ -60,7 +60,7 @@
 </section>
 @if (Request.IsAuthenticated && ViewBag.Role == "patient")
 {
-    @Html.ActionLink("Написати", "Chat", "Chats", new { interlocutorId = Model.Id }, new {@class="btn btn-primary m-3" })
+    @Html.ActionLink("Написати", "Chat", "Chats", new { interlocutorId = ViewBag.doctorId }, new {@class="btn btn-primary m-3" })
 }
 <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -72,28 +72,35 @@
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#newfeedback">Залишити відгук</a>
     </li>
-    <li class="nav-item active">
-        <a class="nav-link" data-toggle="tab" href="#schedule">Записатись на прийом</a>
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#schedule">Записатись на прийом</a>
     </li>
 </ul>
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade" id="typeofservices">
-        @foreach (TypeOfService typeOfService in Model.ApplicationUsers.FirstOrDefault().TypeOfServices)
+        @if (Model.ApplicationUsers.FirstOrDefault().TypeOfServices.Count == 0)
         {
-            <div class="col-7 card rounded-lg my-3 mx-auto">
-                <div class="card-body m-2 p-0">
-                    <div class="row">
-                        <div class="col">
-                            <p>
-                                <h4 class="float-left">@typeOfService.Name:</h4>
-                                <div class="clearfix"></div>
-                                <h4>@typeOfService.Price гривень</h4>
-                                <a href="#" class="float-right btn btn-primary ml-2"> Записатись </a>
-                            </p>
+            <h4 class="d-table mx-auto">Лікар не додав інформацію про послуги</h4>
+        }
+        else
+        {
+            foreach (TypeOfService typeOfService in Model.ApplicationUsers.FirstOrDefault().TypeOfServices)
+            {
+                <div class="col-7 card rounded-lg my-3 mx-auto">
+                    <div class="card-body m-2 p-0">
+                        <div class="row">
+                            <div class="col">
+                                <p>
+                                    <h4 class="float-left">@typeOfService.Name:</h4>
+                                    <div class="clearfix"></div>
+                                    <h4>@typeOfService.Price гривень</h4>
+                                    <a href="#" class="float-right btn btn-primary ml-2"> Записатись </a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     </div>
     <div class="tab-pane fade" id="feedback">
@@ -142,7 +149,7 @@
         {
             using (Html.BeginForm("DoctorFeedback", "DoctorInforms", FormMethod.Post))
             {
-                <div class="form-group col">
+                <div class="form-group col mt-3">
                     <input type="hidden" name="DoctorID" value="@Model.ApplicationUsers.FirstOrDefault().Id" />
                     <input type="hidden" name="UserId" value="@User.Identity.GetUserId()" />
                     <input type="hidden" name="Rating" id="ratingValue" />
