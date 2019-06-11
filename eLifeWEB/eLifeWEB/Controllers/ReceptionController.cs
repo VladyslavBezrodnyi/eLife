@@ -70,6 +70,8 @@ namespace eLifeWEB.Controllers
             return RedirectToAction("MyAccount","Account");
         }
 
+
+
         public ActionResult CancelReception(int? recordId)
         {
             ApplicationUser mainUser = db.Users.Find(User.Identity.GetUserId());
