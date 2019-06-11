@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9657DCE1-EA9B-4262-A3B7-32FE64F778F7}</ProjectGuid>
+    <ProjectGuid>{6C03A493-4471-49CB-81EE-E742F800B1C7}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{6143fdea-f3c2-4a09-aafa-6e230626515e}</TemplateGuid>
     <OutputType>Exe</OutputType>
@@ -130,7 +130,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\eLifeMobile\eLifeMobile.csproj">
-      <Project>{F1FFA028-14D1-4293-887D-9F6F2C393975}</Project>
+      <Project>{9FA0BC73-C889-4BE7-85DD-76A606E44AA0}</Project>
       <Name>eLifeMobile</Name>
     </ProjectReference>
   </ItemGroup>

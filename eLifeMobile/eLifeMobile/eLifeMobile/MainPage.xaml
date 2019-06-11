@@ -7,6 +7,11 @@
              x:Class="eLifeMobile.MainPage">
 
     <StackLayout>
-        <WebView x:Name="webView" Source="https://elifeweb20190609034059.azurewebsites.net" VerticalOptions="FillAndExpand" />
+        <WebView x:Name="webView" Source="https://elifeweb.azurewebsites.net" VerticalOptions="FillAndExpand" />
+        <!-- Place new controls here -->
+        <Label Text="Welcome to Xamarin.Forms!" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
     </StackLayout>
+
 </ContentPage>
