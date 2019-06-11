@@ -1,6 +1,5 @@
 ﻿@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 html {
-    overflow: hidden;
 }
 header {
     position: fixed;
@@ -237,7 +236,7 @@ header {
     height: 0;
 }
 
-img {
+.img.doctor {
     border-radius: 100px; /* Радиус скругления */
     border: 3px solid white; /* Параметры рамки */
     box-shadow: 0 0 7px #666; /* Параметры тени */

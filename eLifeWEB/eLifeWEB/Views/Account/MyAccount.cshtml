@@ -46,8 +46,6 @@ else
     @Html.ActionLink("Медична картка", "MedicalCard", new { }, new { @class = "btn btn-success" })
     @Html.ActionLink("Усі записи", "MyAppointment", new { }, new { @class = "btn btn-primary" })
 
-    @Html.ActionLink("Чати", "Index", "Chats")
-
 }
 @if (ViewBag.Role == "doctor")
 {
@@ -55,7 +53,6 @@ else
     <div style="margin:0 auto;">
         @Html.Raw(ViewBag.Scheduler.Render())
     </div>
-    @Html.ActionLink("Чати", "Index", "Chats")
 
 }
 @if (ViewBag.Role == "clinicAdmin")
