@@ -640,7 +640,7 @@ namespace eLifeWEB.Controllers
                 user.Bithday = model.Birthday;
                 
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("MyAccount");
             }
             return View(model);
         }
@@ -693,7 +693,7 @@ namespace eLifeWEB.Controllers
                     user.Gender = model.Gender;
                     user.Bithday = model.Birthday;
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("MyAccount");
                 }
                 else
                 {
@@ -797,7 +797,6 @@ namespace eLifeWEB.Controllers
                 newClinic.Description = clinic.Description;
                 newClinic.Adress = clinic.Adress;
                 newClinic.BankCard = clinic.BankCard;
-                newClinic.Image = clinic.Image;
                 byte[] imageData = null;
                 if (uploadImage != null)
                 {
@@ -844,7 +843,7 @@ namespace eLifeWEB.Controllers
                     db.SaveChanges();
                     user.ClinicAdminId = clinicAdmin.Id;
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("MyAccount");
                 }
                 else
                 {
