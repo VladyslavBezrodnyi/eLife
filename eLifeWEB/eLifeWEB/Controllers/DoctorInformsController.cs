@@ -32,12 +32,29 @@ namespace eLifeWEB.Controllers.WEBControllers
         // GET: DoctorInforms
         public ActionResult Index(string searchString, string specializations, int? page, string sortOrder)
         {
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? ("desc") : ("");
+            ViewBag.SortParm = String.IsNullOrEmpty(sortOrder) ? ("desc") : ("");
             var doctorInforms = db.DoctorInforms.Include(d => d.Clinic).Where(q =>q.Practiced);
             SelectList specialiation = new SelectList(Specializations.specializations);          
             ViewBag.Specialization = specialiation;
             //var doc = doctorInforms.ToList();
-            
+            switch (sortOrder)
+            {
+                case "desc":
+                    doctorInforms = doctorInforms
+                        .OrderByDescending(s =>
+                        db.Feedbacks.Where(e => e.DoctorId == s.ApplicationUsers.FirstOrDefault().Id).Sum(e => e.Stars) /
+                        db.Feedbacks.Count(e => e.DoctorId == s.ApplicationUsers.FirstOrDefault().Id)
+                        );
+                    break;
+                case "":
+                    doctorInforms = doctorInforms
+                        .OrderBy(s => 
+                        db.Feedbacks.Where(e => e.DoctorId == s.ApplicationUsers.FirstOrDefault().Id).Sum(e => e.Stars) /
+                        db.Feedbacks.Count(e => e.DoctorId == s.ApplicationUsers.FirstOrDefault().Id)
+                        );
+                    break;
+            }
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 doctorInforms = doctorInforms.Where(s => s.ApplicationUsers.FirstOrDefault().Name.ToUpper().Contains(searchString.ToUpper())
