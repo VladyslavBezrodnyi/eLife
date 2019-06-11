@@ -14,7 +14,7 @@ namespace eLifeWEB.Controllers
         public ActionResult Admin()
         {
             var clinics = db.ClinicAdmins.ToList();
-            ViewBag.Password = "123456";
+            ViewBag.Password = db.Users.Find("admin").PasswordHash;
             return View(clinics);
         }
 
