@@ -30,10 +30,10 @@ namespace eLifeWEB.Controllers.WEBControllers
         List<DoctorInform> doctorInforms;
         
         // GET: DoctorInforms
-        public ActionResult Index(string searchString, string specializations, int? page, bool? check)
+        public ActionResult Index(string searchString, string specializations, int? page)
         {
             var doctorInforms = db.DoctorInforms.Include(d => d.Clinic).Where(q =>q.Practiced);
-            SelectList specialiation = new SelectList(new Specializations().specializations);          
+            SelectList specialiation = new SelectList(Specializations.specializations);          
             ViewBag.Specialization = specialiation;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -42,12 +42,7 @@ namespace eLifeWEB.Controllers.WEBControllers
             }
             if (!String.IsNullOrEmpty(specializations) && !specializations.Equals("Усі"))
             {
-                if (check == true)
-                {
-                    doctorInforms = doctorInforms.Where(p => p.Specialization != specializations);
-                }
-                else
-                    doctorInforms = doctorInforms.Where(p => p.Specialization == specializations);
+                doctorInforms = doctorInforms.Where(p => p.Specialization == specializations);
             }
             
             SelectList types = new SelectList(new List<string>()

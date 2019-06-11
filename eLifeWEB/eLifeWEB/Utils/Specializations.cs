@@ -6,9 +6,9 @@ using System.Web;
 
 namespace eLifeWEB.Utils
 {
-    public class Specializations
+    public static class Specializations
     {
-        public List<String> specializations = new List<string>{
+        public static List<String> specializations = new List<string>{
             "Акушерство та гінекологія",
             "Анестезіологія та інтенсивна терапія",
             "Дерматовенерологія",

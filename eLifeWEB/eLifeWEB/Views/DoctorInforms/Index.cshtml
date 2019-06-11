@@ -1,12 +1,13 @@
 ﻿@*@model IEnumerable<eLifeWEB.Models.DoctorInform>*@
 @model PagedList.IPagedList<eLifeWEB.Models.DoctorInform>
 @using PagedList.Mvc;
+@using eLifeWEB.Models;
 @Styles.Render("~/Content/rating.css")
 @Styles.Render("~/Content/searchField.css")
 @{
     ViewBag.Title = "Index";
 }
-
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 
 @using (Html.BeginForm())
 {
@@ -25,9 +26,14 @@
                             <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                 <input type="submit" class="btn btn-primary wrn-btn" value="Знайти">
                             </div>
+
+
                             <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+
                                 <button type="button" class="btn btn-danger wrn-btn">Сортувати за рейтингом</button>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -50,12 +56,23 @@
 
                         </div>
                         @Html.Raw("<img style='width: 100%; border-radius: 10%' src=\"data:image/jpeg;base64,"
-                                                 + Convert.ToBase64String(item.Image) + "\" />")
+                              + Convert.ToBase64String(item.Image) + "\" />")
                     </div>
                     <div class="col-sm-9 pl-0">
 
                         <div class="rating pt-2">
-                            <div class="rating__value value">5.0</div>
+                            <div class="rating__value value" id="@item.Id">
+                                
+                                @{
+                                    string id = item.ApplicationUsers.FirstOrDefault().Id;
+                                    int cnt = new ApplicationDbContext().Feedbacks.Count(e => e.DoctorId == id);
+                                    <script>
+                                        var id = @item.Id;
+                                        $("#" + id).append("<p>" + @cnt +"</p>").html();
+                                    </script>
+                                }
+
+                            </div>
                             <div class="rating__stars">
                                 <div class="rating__stars-bg"></div>
                                 <div style="width: 70%;" class="rating__stars-overlay"></div>

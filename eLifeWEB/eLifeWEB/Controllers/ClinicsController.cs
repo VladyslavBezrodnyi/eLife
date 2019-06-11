@@ -11,6 +11,7 @@ using eLifeWEB.Models;
 using PagedList;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
+using eLifeWEB.Utils;
 
 namespace eLifeWEB.Controllers.WEBControllers
 {
@@ -19,11 +20,45 @@ namespace eLifeWEB.Controllers.WEBControllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Clinics
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string searchString, string specializations, bool? check)
         {
+            var clinics = db.Clinics.ToList();
+            SelectList specialiation = new SelectList(Specializations.specializations);
+            ViewBag.Specialization = specialiation;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                clinics = clinics.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper())).ToList();
+            }
+            if (!String.IsNullOrEmpty(specializations) && !specializations.Equals("Усі"))
+            {
+                clinics = clinics.Where(p => p.DoctorInforms.Any(e => e.Specialization == specializations)).ToList();
+            }
+
+            SelectList types = new SelectList(new List<string>()
+            {
+            "Усі",
+            "Акушерство та гінекологія",
+            "Анестезіологія та інтенсивна терапія",
+            "Дерматовенерологія",
+            "Дитяча хірургія",
+            "Інфекційні хвороби",
+            "Медична психологія",
+            "Неврологія",
+            "Нейрохірургія",
+            "Ортопедія і травматологія",
+            "Отоларингологія",
+            "Офтальмологія",
+            "Патологічна анатомія",
+            "Педіатрія",
+            "Психіатрія",
+            "Пульмонологія та фтизіатрія",
+            "Урологія",
+            "Хірургія"
+            });
+            ViewBag.Specialization = types;
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            return View(db.Clinics.ToList().ToPagedList(pageNumber, pageSize));
+            return View(clinics.ToList().ToPagedList(pageNumber, pageSize));
             //return View(db.Clinics.ToList());
         }
 

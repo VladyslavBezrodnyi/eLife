@@ -602,7 +602,7 @@ namespace eLifeWEB.Controllers
         
         public ActionResult RegisterDoctor()
         {
-            SelectList specialiation = new SelectList(new Specializations().specializations);
+            SelectList specialiation = new SelectList(Specializations.specializations);
             ViewBag.Specialization = specialiation;
             string[] genders = new[]
             {
