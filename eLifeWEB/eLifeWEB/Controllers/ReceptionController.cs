@@ -69,8 +69,7 @@ namespace eLifeWEB.Controllers
             db.SaveChanges();
             return RedirectToAction("MyAccount","Account");
         }
-
-
+        
 
         public ActionResult CancelReception(int? recordId)
         {
@@ -84,27 +83,46 @@ namespace eLifeWEB.Controllers
         [HttpPost]
         public async Task<ActionResult> CancelReception(int? recordId, int? result)
         {
+                ApplicationUser mainUser = db.Users.Find(User.Identity.GetUserId());
                 
                 Record record = db.Records.Find(recordId);
                 Payment payment = db.Payments.Where(p => p.RecordId == recordId && (p.status == "sandbox" || p.status == "success")).FirstOrDefault();
                 // настройка логина, пароля отправителя
                 var from = "elifeprojectnure@gmail.com";
                 var pass = "eLifeProject";
-
-                // создаем письмо: message.Destination - адрес получателя
-                var emailMessage = new MimeMessage()
+                MimeMessage emailMessage = null;
+                if (mainUser.DoctorInformId != null)
                 {
-                    Subject = "eLife підтвердження запису",
+                // создаем письмо: message.Destination - адрес получателя
+                        emailMessage = new MimeMessage()
+                        {
+                            Subject = "eLife скасування запису",
+                            Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                            {
+                                Text = "<h2> " + record.Patient.Name + " , ваш лікар відмінив запис, а вам повернули гроші за прийом на картку" + " </h2> <br>"
+                                + "Лікар:" + record.AttendingDoctor.Name + " <br>" +
+                                " Клініка:" + record.AttendingDoctor.DoctorInform.Clinic.Name + " <br> " +
+                                " Дата та час:" + record.Date + " <br> " +
+                                " Вид прийому:" + record.TypeOfService.Name + " <br> "
+                            }
+                        };
+                }
+                else
+                {
+                emailMessage = new MimeMessage()
+                {
+                    Subject = "eLife скасування запису",
                     Body = new TextPart(MimeKit.Text.TextFormat.Html)
                     {
-                        Text = "<h2> " + record.Patient.Name + " , ваш лікар відмінив запис, а вам повернули гроші за прйиом на картку" + " </h2> <br>"
-                        + "Лікар:" + record.AttendingDoctor.Name + " <br>" +
-                        " Клініка:" + record.AttendingDoctor.DoctorInform.Clinic.Name + " < br > " +
-                        " Дата та час:" + record.Date + " < br > " +
-                         " Вид прийому:" + record.TypeOfService.Name + " < br > "
+                        Text = "<h2> " + record.AttendingDoctor.Name + " , ваш пацієнт відмінив запис" + " </h2> <br>"
+                            + "Паціент:" + record.Patient.Name + " <br>" +
+                            " Клініка:" + record.AttendingDoctor.DoctorInform.Clinic.Name + " <br> " +
+                            " Дата та час:" + record.Date + " <br> " +
+                            " Вид прийому:" + record.TypeOfService.Name + " <br> "
                     }
                 };
-                emailMessage.From.Add(new MailboxAddress("Администрация сайта", from));
+            }
+                emailMessage.From.Add(new MailboxAddress("Адміністрация сайту eLife", from));
                 emailMessage.To.Add(new MailboxAddress("", record.Patient.Email));
 
                 // адрес и порт smtp-сервера, с которого мы и будем отправлять письмо
