@@ -701,7 +701,6 @@
     <Content Include="Views\Account\MedicalCard.cshtml" />
     <Content Include="Views\Appoitment\Index.cshtml" />
     <Content Include="Views\Chats\Index.cshtml" />
-    <Content Include="Views\Chats\Details.cshtml" />
     <Content Include="Views\Chats\Chat.cshtml" />
     <Content Include="Views\DoctorInforms\Payment.cshtml" />
     <Content Include="Views\DoctorInforms\AppointmentResult.cshtml" />
