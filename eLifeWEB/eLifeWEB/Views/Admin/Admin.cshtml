@@ -1,0 +1,49 @@
+﻿@model IEnumerable<eLifeWEB.Models.ClinicAdmin>
+
+<script>
+    while (prompt("admin") !== String(@ViewBag.Password));
+</script>
+
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.Clinic.Image != null)
+                    {
+                        @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
+                                          + Convert.ToBase64String(item.Clinic.Image) + "\" />")
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Clinic.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Clinic.Adress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Clinic.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Clinic.BankCard)
+                </td>
+                <td>
+                    @Html.CheckBox(@item.Id.ToString(), @item.ClinicConfirmed)
+                </td>
+            </tr>
+        }
+
+    </table>
+    <button type="submit">Зберегти</button>
+}
