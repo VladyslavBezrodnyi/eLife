@@ -3,7 +3,6 @@
 @using eLifeWEB.Models
 @Styles.Render("~/Content/rating.css")
 @Scripts.Render("~/bundles/jquery")
-@Styles.Render("~/Content/font-awesome.css")
 @Styles.Render("~/Content/dhtmlxScheduler/dhtmlxscheduler-responsive.css")
 @Scripts.Render("~/Scripts/dhtmlxScheduler/dhtmlxscheduler-responsive.js")
 
@@ -59,7 +58,10 @@
         </div>
     </div>
 </section>
-
+@if (Request.IsAuthenticated && ViewBag.Role == "patient")
+{
+    @Html.ActionLink("Написати", "Chat", "Chats", new { interlocutorId = Model.Id }, new {@class="btn btn-primary m-3" })
+}
 <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#typeofservices">Всі послуги</a>
@@ -95,54 +97,69 @@
         }
     </div>
     <div class="tab-pane fade" id="feedback">
-        @foreach (Feedback feedback in ViewBag.Feedbacks)
+        @if (ViewBag.Feedbacks.Count == 0)
         {
-            <div class="card rounded-lg m-3">
-                <div class="card-body m-2 p-0">
-                    <div class="row">
-                        <div class="col">
-                            <p>
-                            <p class="float-left"><strong class="mr-1"> @feedback.Patient.Name </strong> @feedback.Date</p>
-                            @for (int i = 1; i < 6; i++)
-                            {
-                                if (i <= feedback.Stars)
+            <h4 class="d-table mx-auto"> Для цього лікаря ще немає відгуків </h4>
+            <h3 class="d-table mx-auto"> Ви можете бути першим! </h3>
+        }
+        else
+        {
+            foreach (Feedback feedback in ViewBag.Feedbacks)
+            {
+                <div class="card rounded-lg m-3">
+                    <div class="card-body m-2 p-0">
+                        <div class="row">
+                            <div class="col">
+                                <p>
+                                <p class="float-left"><strong class="mr-1"> @feedback.Patient.Name </strong> @feedback.Date</p>
+                                @for (int i = 1; i < 6; i++)
                                 {
-                                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                    if (i <= feedback.Stars)
+                                    {
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                    }
                                 }
-                                else
-                                {
-                                    <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
-                                }
-                            }
-                            </p>
-                            <div class="clearfix"></div>
-                            <p>@feedback.Comment</p>
+                                </p>
+                                <div class="clearfix"></div>
+                                <p>@feedback.Comment</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     </div>
     <div class="tab-pane fade" id="newfeedback">
-        @using (Html.BeginForm("DoctorFeedback", "DoctorInforms", FormMethod.Post))
+        @if (false)
         {
-            <div class="form-group col">
-                <input type="hidden" name="DoctorID" value="@Model.ApplicationUsers.FirstOrDefault().Id" />
-                <input type="hidden" name="UserId" value="@User.Identity.GetUserId()" />
-                <input type="hidden" name="Rating" id="ratingValue" />
+            <h4 class="d-table mx-auto"> Ви не були на прийомі у лікаря, тому не можете залишити відгук. </h4>
+        }
+        else
+        {
+            using (Html.BeginForm("DoctorFeedback", "DoctorInforms", FormMethod.Post))
+            {
+                <div class="form-group col">
+                    <input type="hidden" name="DoctorID" value="@Model.ApplicationUsers.FirstOrDefault().Id" />
+                    <input type="hidden" name="UserId" value="@User.Identity.GetUserId()" />
+                    <input type="hidden" name="Rating" id="ratingValue" />
 
-                <textarea placeholder="Напишіть свій відгук" class="form-control" rows="6" name="Text" style="width: 100%; resize: none; max-width: unset"></textarea>
-            </div>
-            <div class="row m-0 col">
-                <button type="submit" class="btn btn-primary mx-4">Відправити</button>
-                <span class="text-warning float-right stars my-auto">
-                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="1"></i>
-                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="2"></i>
-                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="3"></i>
-                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="4"></i>
-                    <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="5"></i>
-                </span>
-            </div>
+                    <textarea placeholder="Напишіть свій відгук" class="form-control" rows="6" name="Text" style="width: 100%; resize: none; max-width: unset"></textarea>
+                </div>
+                <div class="row m-0 col">
+                    <button type="submit" class="btn btn-primary mx-4">Відправити</button>
+                    <span class="text-warning float-right stars my-auto">
+                        <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="1"></i>
+                        <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="2"></i>
+                        <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="3"></i>
+                        <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="4"></i>
+                        <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="5"></i>
+                    </span>
+                </div>
+            }
         }
     </div>
     <div class="tab-pane fade active show" id="schedule">
@@ -151,7 +168,7 @@
         </div>
     </div>
 </div>
-
+<hr />
 <p class="mx-auto my-2" style="display: table">
     <a href="" class="scroll-top btn btn-primary">На початок сторінки</a>
 </p>

@@ -1,4 +1,5 @@
 ﻿@model eLifeWEB.Models.DoctorInform
+@Styles.Render("~/Content/RegisterClinicAdmin.css")
 
 <div>
     <div class="row">
@@ -22,16 +23,19 @@
         </div>
         <div class="col-md-3">
             <div class="form-control-feedback">
-                @if (!Model.Practiced)
-                {
-                    <div class="alert alert-dismissible alert-danger" style="width=200px;">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        Клініка ще не пітвердила, що ви працюєте у них. Поки що інші коритувачі eLife не можуть перегрядати інформацію про вас, а ви не можете вести прийом!
-                    </div>
-                }
             </div>
         </div>
     </div>
+    @if (!Model.Practiced)
+    {
+        <div class="row">
+            <div class="alert alert-dismissible alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4 class="alert-heading">Warning!</h4>
+                <p class="mb-0">Клініка ще не пітвердила, що ви працюєте у них. Поки що інші коритувачі eLife не можуть перегрядати інформацію про вас, а ви не можете вести прийом!</p>
+            </div>
+        </div>
+    }
     <div class="row">
         <div class="col-md-3 field-label-responsive">
             <label>Ваша спеціалізація:</label>
@@ -51,30 +55,13 @@
     </div>
     <div class="row">
         <div class="col-md-3 field-label-responsive">
-            <label>День категорія:</label>
+            <label>Ваша категорія:</label>
         </div>
         <div class="col-md-6 pl-0">
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-graduation-cap fa-2x"></i></div>
                     <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Category)" readonly="">
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-control-feedback">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 field-label-responsive">
-            <label>Стаж роботи:</label>
-        </div>
-        <div class="col-md-6 pl-0">
-            <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-hourglass-half fa-2x"></i></div>
-                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Guardian)" readonly="">
                 </div>
             </div>
         </div>

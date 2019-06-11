@@ -2,8 +2,6 @@
 @{
     ViewBag.Title = "Реєстрація";
 }
-
-@Styles.Render("~/Content/font-awesome.css")
 @Styles.Render("~/Content/RegisterClinicAdmin.css")
 @Styles.Render("~/Content/stepper.css")
 <div class="col mx-auto mb-4 stepper">
@@ -29,37 +27,35 @@
 <h2 class="mx-auto" style="display: table">@ViewBag.Title</h2>
 <h3 class="mx-auto" style="display: table">За допомогою вашого облікового запису @ViewBag.LoginProvider.</h3>
 <p class="text-info mx-auto my-3" style="display: table">
-    Введіть ім'я користувача на цьому сайті нижче і натисніть кнопку "Зареєструвати", щоб завершити вхід.
+    Перевірте ім'я користувача на цьому сайті нижче і натисніть кнопку "Продовжити реєстрацію", щоб створити аккаунт.
 </p>
 <hr />
 
 @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-
     <div class="row">
         <div class="col-md-3 field-label-responsive">
             <label>Ваша електронна пошта:</label>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-envelope-o fa-2x"></i></div>
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "E-mail", @class = "form-control input_fix" } })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "E-mail",  @readonly ="", @class = "form-control input_fix" } })
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-control-feedback">
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger align-middle" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-user-plus"></i> Зареєструватися  </button>
+            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-user-plus"></i> Продовжити реєстрацію  </button>
         </div>
     </div>
 }

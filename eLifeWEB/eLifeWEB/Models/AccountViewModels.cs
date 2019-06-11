@@ -58,7 +58,7 @@ namespace eLifeWEB.Models
         [Display(Name = "Пароль")]
         public string Password { get; set; }
 
-        [Display(Name = "Запомнить меня")]
+        [Display(Name = "Запам'ятати меня")]
         public bool RememberMe { get; set; }
     }
 

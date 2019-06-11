@@ -3,6 +3,7 @@
     ViewBag.Title = "Підтвердження оплати";
 }
 
+
 <dl class="dl-horizontal">
     <dt>
        Пацієнт
@@ -54,15 +55,19 @@
 
 </dl>
 
-<form method="POST" accept-charset="utf-8" action="https://www.liqpay.ua/api/3/checkout" ">
-    <input type="hidden" name="data" value="@Model.Data" />
-    <input type="hidden" name="signature" value="@Model.Signature" />
-    <button style="border: none !important; display:inline-block !important;text-align: center !important;padding: 7px 20px !important;
+<h3 class="d-table mx-auto">Для оплати натисніть кнопку "Оплатити"</h3>
+<hr />
+<div class="d-table mx-auto" width="255">
+    <form method="POST" accept-charset="utf-8" action="https://www.liqpay.ua/api/3/checkout" ">
+        <input type="hidden" name="data" value="@Model.Data" />
+        <input type="hidden" name="signature" value="@Model.Signature" />
+        <button style="border: none !important; display:inline-block !important;text-align: center !important;padding: 7px 20px !important;
+
                                     color: #fff !important; font-size:16px !important; font-weight: 600 !important; font-family:OpenSans, sans-serif; cursor: pointer !important; border-radius: 2px !important;
                                     background: rgb(122,183,43) !important;" onmouseover="this.style.opacity='0.5';" onmouseout="this.style.opacity='1';">
-        <img src="https://static.liqpay.ua/buttons/logo-small.png" name="btn_text"
-             style="margin-right: 7px !important; vertical-align: middle !important;" />
-        <span style="vertical-align:middle !important">Оплатити через LiqPay</span>
-    </button>
-</form>
-
+            <img src="https://static.liqpay.ua/buttons/logo-small.png" name="btn_text"
+                 style="margin-right: 7px !important; vertical-align: middle !important;" />
+            <span style="vertical-align:middle !important">Оплатити через LiqPay</span>
+        </button>
+    </form>
+</div>

@@ -1,93 +1,171 @@
 ﻿@model eLifeWEB.Models.PatientInform
-
+@Styles.Render("~/Content/RegisterClinicAdmin.css")
 
 @{
     ViewBag.Title = "Редагувати";
 }
 
+<ol class="breadcrumb rounded-0 bg-white" style="margin: -24px -15px 0 -15px;">
+    <li class="breadcrumb-item">@Html.ActionLink("Аккаунт", "MyAccount")</li>
+    <li class="breadcrumb-item active">Редагувати інформацію пацієнта</li>
+</ol>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>PatientInform</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Adress, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
+    
+    <div class="row">
+        <div class="col-md-3">@Html.HiddenFor(model => model.Id)</div>
+        <div class="col-md-6">
+            <h2 class="text-center">@ViewBag.Title</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваші алергії:</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-certificate fa-2x"></i></div>
+                    @Html.EditorFor(model => model.Allergy, new { htmlAttributes = new { placeholder = "Алергії", @class = "form-control input_fix" } })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Activity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Activity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Activity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BloodGroup, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.BloodGroup, ViewBag.Bloodgroups as SelectList, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BloodGroup, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Allergy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Allergy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Allergy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Operations, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Operations, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Operations, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Infectious_diseases, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Infectious_diseases, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Infectious_diseases, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Diabetes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Diabetes, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Diabetes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BankCard, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BankCard, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BankCard, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Зберегти" class="btn btn-default" />
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Allergy, "", new { @class = "text-danger align-middle" })
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Адреса:</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-home fa-2x"></i></div>
+                    @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { placeholder = "Вулиця, номер будинку", @class = "form-control input_fix" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger align-middle" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Місце роботи:</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-building-o fa-2x"></i></div>
+                    @Html.EditorFor(model => model.Activity, new { htmlAttributes = new { placeholder = "Назва компанії", @class = "form-control input_fix" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Activity, "", new { @class = "text-danger align-middle" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваша группа крові:</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group has-danger">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-tint fa-2x"></i></div>
+                    @Html.DropDownListFor(model => model.BloodGroup, new SelectList(new List<String>(){"0+ (Перша резус позитивний)",
+                "0- (Перша резус негативний)",
+                "A- (Друга резус негативний)",
+                "A+ (Друга резус позитивний)",
+                "B- (Третя резус негативний)",
+                "B+ (Третя резус позитивний)",
+                "AB- (Четверта резус негативний)",
+                "AB+ (Четверта резус позитивний)"}), new { @class = "form-control input_fix custom-select" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.BloodGroup, "", new { @class = "text-danger align-middle" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваші хірургічні втручання:</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group has-danger">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-support fa-2x"></i></div>
+                    @Html.EditorFor(model => model.Operations, new { htmlAttributes = new { placeholder = "Операції і т.д.", @class = "form-control input_fix" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Operations, "", new { @class = "text-danger align-middle" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваші інфекційні захворювання:</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group has-danger">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-exclamation-triangle fa-2x"></i></div>
+                    @Html.EditorFor(model => model.Infectious_diseases, new { htmlAttributes = new { placeholder = "Інфекційні захворювання", @class = "form-control input_fix" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Infectious_diseases, "", new { @class = "text-danger align-middle" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Наявність цукрового діабету:</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group has-danger">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-heart-o fa-2x"></i></div>
+                    @Html.EditorFor(model => model.Diabetes, new { htmlAttributes = new { placeholder = "Наявність діабету", @class = "form-control input_fix" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Diabetes, "", new { @class = "text-danger align-middle" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <input type="submit" value="Зберегти" class="btn btn-primary btn-block" />
+        </div>
+    </div>
+
 }
-
-<div>
-    @Html.ActionLink("Назад", "MyAccount")
-</div>
-

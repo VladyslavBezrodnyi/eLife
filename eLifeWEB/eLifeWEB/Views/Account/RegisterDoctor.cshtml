@@ -239,24 +239,24 @@
             <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-user-plus"></i> Зареєструватися  </button>
         </div>
     </div>
+}
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image_upload_preview').attr('src', e.target.result);
+                $('#image_upload_preview').attr('height', '170');
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
     }
 
-    @Scripts.Render("~/bundles/jquery")
-    <script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#image_upload_preview').attr('src', e.target.result);
-                    $('#image_upload_preview').attr('height', '170');
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#inputFile").change(function () {
-            readURL(this);
-        });
-    </script>
+    $("#inputFile").change(function () {
+        readURL(this);
+    });
+</script>

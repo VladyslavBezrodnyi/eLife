@@ -18,6 +18,9 @@
                 <img src="/Content/Resourses/elife_logo.png" alt="" style="width: 40px; height: 40px; margin: 5px 0 0 6px">
             </div>
             @Html.ActionLink("eLife", "Index", "Home", null, new { @class = "navbar-brand ml-2" })
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -30,19 +33,19 @@
                         @Html.ActionLink("Лікарі", "Index", "DoctorInforms", null, new { @class = "nav-link" })
                     </li>
                 </ul>
-                <div class="navbar-brand mr-10">+38 (095) 2626 288</div>
+                <div class="navbar-brand mr-10 phone-num">+38 (095) 2626 288</div>
                 @Html.Partial("_LoginPartial")
             </div>
         </nav>
     </header>
     <div class="container body-content">
-        <div class="col py-4" style="background: #ffffff; min-height: calc(100% - 66px - 291px)">
+        <div class="col py-4 main-block">
             @RenderBody()
         </div>
     </div>
     
     <footer class="footer">
-        <div class="row m-0 pt-4" style="min-height: 220px; width: 100%">
+        <div class="row m-0 pt-4 footer-up">
             <div class="col-1"></div>
             <div class="col-4 footer_about p-0">
                 <div class="footer_rect" align="left">
@@ -81,9 +84,8 @@
                     +38 (095) 2626 288
                 </a>
             </div>
-            <div class="col-1"></div>
         </div>
-        <div class="row border-top border-white mt-3 mx-auto" style="width: 85%">
+        <div class="row border-top border-white mt-3 mx-auto footer-down">
             <p class="text-center col my-2">
                 2019 TM "eLife". Всі права захищені.
             </p>
