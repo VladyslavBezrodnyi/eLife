@@ -1,0 +1,51 @@
+﻿@model eLifeWEB.Models.VerifyPhoneNumberViewModel
+@Styles.Render("~/Content/RegisterClinicAdmin.css")
+@{
+    ViewBag.Title = "Перевірка номеру телефона";
+}
+
+<h2 class="d-table mx-auto">@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("VerifyPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("phoneNumber", @Model.PhoneNumber)
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h4 class="text-center">@ViewBag.Title</h4>
+            <hr />
+        </div>
+        <div class=" col-md-3">
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Введіть перевірочний код:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-unlock-alt fa-2x"></i></div>
+                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control  input_fix" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                <label>@ViewBag.Status</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <input type="submit" value="Відправити" class="btn btn-primary btn-block" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

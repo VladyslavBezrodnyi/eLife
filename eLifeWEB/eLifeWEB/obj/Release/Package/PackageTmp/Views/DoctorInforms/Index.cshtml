@@ -1,0 +1,147 @@
+﻿@*@model IEnumerable<eLifeWEB.Models.DoctorInform>*@
+@model PagedList.IPagedList<eLifeWEB.Models.DoctorInform>
+@using PagedList.Mvc;
+@using eLifeWEB.Models;
+@Styles.Render("~/Content/rating.css")
+@Styles.Render("~/Content/searchField.css")
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    <section class="search-sec">
+        <div class="container">
+            <form class="m-0">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                <input type="text" name="searchString" class="form-control search-slt" placeholder="Введіть ім'я лікаря">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                @Html.DropDownList("specializations", ViewBag.Specialization as SelectList, new { @class = "form-control search-slt сustom-select" })
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                <input type="submit" class="btn btn-primary wrn-btn" value="Знайти">
+                            </div>
+
+
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                @Html.ActionLink("Сортувати за рейтингом", "Index", new { sortOrder = ViewBag.SortParm }, new { @class = "btn btn-danger wrn-btn" })
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+}
+
+<h4 class="mx-auto" style="display: table"> Результат пошуку лікарів </h4>
+
+
+@foreach (var item in Model)
+{
+    <section>
+        <div class="container py-3">
+            <div class="card rounded-lg p-1 shadw">
+                <div class="row ">
+                    <div class="col-sm-3 ">
+                        <div class="card-image">
+
+                        </div>
+                        @if (item.Image != null)
+                        {
+                            @Html.Raw("<img style='width: 100%; border-radius: 10%' src=\"data:image/jpeg;base64,"
+      + Convert.ToBase64String(item.Image) + "\" />")
+                        }
+                    </div>
+                    <div class="col-sm-9 pl-0">
+
+                        <div class="rating pt-2" id="starsBlock_@item.Id">
+                            <div class="rating__value value" id="assessment_@item.Id"></div>
+                            <div class="rating__stars">
+                                <div class="rating__stars-bg"></div>
+                                <div class="rating__stars-overlay" id="stars_@item.Id"></div>
+                            </div>
+                        </div>
+                        @{
+                            ApplicationDbContext db = new ApplicationDbContext();
+                            string id = item.ApplicationUsers.FirstOrDefault().Id;
+                            int cnt = db.Feedbacks.Count(e => e.DoctorId == id);
+                            var feedbaks = db.Feedbacks.Where(e => e.DoctorId == id).ToList();
+                            int sum = (feedbaks == null) ? (0) : (feedbaks.Sum(e => e.Stars));
+                            <script>
+                                                                    var id = @item.Id;
+                                        if (@cnt === 0) {
+                                            $("#starsBlock_" + id).hide();
+                                                                    };
+                                                                    var assessment = Number(@sum) / Number(@cnt);
+                                        $("#assessment_" + id).append("<p>" + Math.round(assessment * 100) / 100 +"</p>").html();
+                                        var width = Math.floor(assessment * 20) + "%";
+                                        $("#stars_" + id).css("width", width);
+                            </script>
+                        }
+                        @*@{
+                                var ID = item.ApplicationUsers.FirstOrDefault().Id;
+                                if (ViewBag.Feedbacks.Where(item.DoctorId == ID).ToList())
+                                {
+                                <div class="rating pt-2">
+                                    <div class="rating__value value">@item.ApplicationUsers.FirstOrDefault().Feedbacks1.Average(u => u.Stars)</div>
+                                    <div class="rating__stars">
+                                        <div class="rating__stars-bg"></div>
+                                        <div style="width: 70%;" class="rating__stars-overlay"></div>
+                                    </div>
+                                </div>
+                            }
+                        }*@
+
+
+
+                            <div class="card-block px-3 pt-2">
+                                <h4 class="card-title">@Html.DisplayFor(model => item.ApplicationUsers.FirstOrDefault().Name)</h4>
+                                <h5 class="text-dark">Клініка "@Html.DisplayFor(modelItem => item.Clinic.Name)"</h5>
+                                <div class="mx-0 mb-1">
+                                    <i class="fa fa-calendar-o  fa-2x" aria-hidden="true"></i>
+                                    <strong>@Html.DisplayFor(modelItem => item.Guardian)</strong> досвіду в
+                                    <span class="badge badge-pill badge-success">@Html.DisplayFor(modelItem => item.Specialization)</span>
+                                </div>
+                                <p class="card-text"><i class="fa fa-drivers-license-o  fa-2x" aria-hidden="true"></i> Категорія: <strong> @Html.DisplayFor(modelItem => item.Category)</strong></p>
+                                <p class="card-text"><i class="fa fa-lightbulb-o  fa-2x" aria-hidden="true"></i> Уміння: </p>
+                                <p class="card-text">
+                                    @Html.DisplayFor(modelItem => item.Skills)
+                                </p>
+                                <div class="row m-0 float-right">
+                                    @if (Request.IsAuthenticated && ViewBag.Role == "patient")
+                                    {
+                                        @Html.ActionLink("Написати", "Chat", "Chats", new { interlocutorId = item.Id }, new { @class = "btn btn-primary float-right mr-3 mb-3" })
+                                    }
+                                    @Html.ActionLink("Детальніше", "Details", new { id = item.Id }, new { @class = "btn btn-primary float-right mr-3 mb-3" })
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<div class="mx-auto" style="display: table;">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+        new PagedListRenderOptions
+        {
+            LinkToPreviousPageFormat = "&laquo;",
+            LinkToNextPageFormat = "&raquo;",
+            LiElementClasses = new string[] { "page-item" }
+        })
+</div>
+
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        $(".page-item").children().addClass("page-link");
+    });
+</script>

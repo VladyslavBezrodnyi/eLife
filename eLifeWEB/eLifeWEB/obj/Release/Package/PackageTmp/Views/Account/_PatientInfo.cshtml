@@ -1,0 +1,138 @@
+﻿@model eLifeWEB.Models.PatientInform
+@using eLifeWEB.Models
+
+<div>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h4 class="text-center">Ваші дані</h4>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Адреса:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-home fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Adress)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Місце роботи:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-building-o fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Activity)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваша группа крові:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-tint fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.BloodGroup)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваші хірургічні втручання:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-support fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Operations)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваші алергії:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-certificate fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Allergy)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Ваші інфекційні захворювання:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-exclamation-triangle fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Infectious_diseases)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Наявність цукрового діабету:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-heart-o fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Diabetes)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            @Html.ActionLink("Редагувати", "EditGeneralInfoPatient", new {  }, new { @class = "btn btn-primary btn-block" })
+        </div>
+    </div>
+</div>

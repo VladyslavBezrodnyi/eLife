@@ -33,7 +33,7 @@ namespace eLifeWEB.Hubs
                 db.ConversationReplies.Add(mess);
                 db.SaveChanges();
                 var sender = db.Users.FirstOrDefault(e => e.Id == senderId);
-                Clients.Caller.addMessage(senderId, mess.Time.ToString("H:mm"), sender.Name, message);
+                Clients.All.addMessage(senderId, mess.Time.ToString("H:mm"), sender.Name, message);
             }
         }
 

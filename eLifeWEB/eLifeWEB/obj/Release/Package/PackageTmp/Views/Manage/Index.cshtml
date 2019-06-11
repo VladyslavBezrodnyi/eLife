@@ -1,0 +1,121 @@
+﻿@model eLifeWEB.Models.IndexViewModel
+@Styles.Render("~/Content/RegisterClinicAdmin.css")
+@{
+    ViewBag.Title = "Управління";
+}
+
+<h2 class="d-table mx-auto">@ViewBag.Title</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div class="col-10 mx-auto">
+    <h4 class="mx-auto d-table">Налаштування параметрів облікового запису</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Пароль:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    @if (Model.HasPassword)
+                    {
+                        @Html.ActionLink("Змінити пароль", "ChangePassword", new { id = "" }, new { @class = "btn btn-primary btn-block" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Створити", "SetPassword", new { id = "" }, new { @class = "btn btn-primary btn-block" })
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Зовнішні імена авторизації:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    @Html.ActionLink("Налаштувати", "ManageLogins", new { id = "" }, new { @class = "btn btn-primary btn-block" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                <label>Усього імен: </label>@Model.Logins.Count
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Номер телефону:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    @if (Model.PhoneNumber == null)
+                    {
+                        @Html.ActionLink("Змінити", "AddPhoneNumber", new { id = "" }, new { @class = "btn btn-primary col" })
+                        using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal m-0 col pr-0", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Видалити" class="btn btn-primary w-100" />
+                        }
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Додати", "AddPhoneNumber", new { id = "" }, new { @class = "btn btn-primary" })
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                <label>@(Model.PhoneNumber ?? "Немає номеру телефона")</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Двофакторна перевірка:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    @if (Model.TwoFactor)
+                    {
+                        using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal p-0 w-100", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Вимкнути" class="btn btn-primary btn-block" />
+                        }
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal p-0 w-100", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Увімкнути" class="btn btn-primary btn-block" />
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @if (Model.TwoFactor)
+                {
+                    <label>Увімкнена</label>
+                }
+                else
+                {
+                    <label>Вимкнена</label>
+                }
+            </div>
+        </div>
+    </div>
+</div>

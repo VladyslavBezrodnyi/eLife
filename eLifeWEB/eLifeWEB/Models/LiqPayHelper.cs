@@ -15,8 +15,8 @@ namespace eLifeWEB.Models
 
         static LiqPayHelper()
         {
-            _public_key = "i43342429875";     // Public Key компанії, який можна знайти в особистому кабінеті на сайті liqpay.ua
-            _private_key = "flbcNuWijYAQb827jepw5C28uZVSwNrSE0eRXobi";    // Private Key компанії, який можна знайти в особистому кабінеті на сайті liqpay.ua
+            _public_key = "sandbox_i34944618324";     // Public Key компанії, який можна знайти в особистому кабінеті на сайті liqpay.ua
+            _private_key = "sandbox_MWpqfhZRpkwWJqE0AuDJbMM7GTQoMoys09NUf6Oc";    // Private Key компанії, який можна знайти в особистому кабінеті на сайті liqpay.ua
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace eLifeWEB.Models
                 order_id = payment.order_id,
                 sandbox = 0,
                 language = "uk",
-                result_url = "https://localhost:44300/DoctorInforms/AppointmentResult"
+                result_url = "https://elifeweb.azurewebsites.net/DoctorInforms/AppointmentResult"
             };
             var json_string = JsonConvert.SerializeObject(signature_source);
             var data_hash = Convert.ToBase64String(Encoding.UTF8.GetBytes(json_string));
@@ -66,7 +66,7 @@ namespace eLifeWEB.Models
                 ip = HttpContext.Current.Request.UserHostAddress,
                 order_id = payment.order_id,
                 //sandbox = 1,
-                result_url = "https://localhost:44300/Reception/CancelReception"
+                result_url = "https://elifeweb.azurewebsites.net/Reception/CancelReception"
             };
             var json_string = JsonConvert.SerializeObject(signature_source);
             var data_hash = Convert.ToBase64String(Encoding.UTF8.GetBytes(json_string));
