@@ -731,6 +731,8 @@ namespace eLifeWEB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditGeneralInfoDoctor(DoctorInform doctorInform, HttpPostedFileBase uploadImage)
         {
+            SelectList clinics = new SelectList(db.Clinics, "Id", "Name");
+            ViewBag.Clinics = clinics;
             if (ModelState.IsValid)
             {
                 ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
