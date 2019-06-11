@@ -1,5 +1,11 @@
 ﻿$(function () {
 
+    var options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        timezone: 'UTC',
+    }
     var connection = 1;
     var patient = $("#patientId").val();
     var doctor = $("#doctorId").val();
@@ -37,7 +43,7 @@
                     '</span >  &nbsp; &nbsp;' +
                     '<span class="message-data-name">' +
                     htmlEncode(name) +
-                    '</span> <i class="fa fa-circle me"></i>' +
+                    '</span> <i class="fa me"></i>' +
                     '</div>' +
                     '<div class="message other-message float-right">' +
                     htmlEncode(message) +
