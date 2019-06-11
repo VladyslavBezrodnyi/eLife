@@ -27,7 +27,6 @@ namespace eLifeWEB.Controllers.WEBControllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        List<DoctorInform> doctorInforms;
         
         // GET: DoctorInforms
         public ActionResult Index(string searchString, string specializations, int? page, bool? check)
@@ -125,6 +124,8 @@ namespace eLifeWEB.Controllers.WEBControllers
             scheduler.Config.drag_lightbox = false;
             scheduler.Config.drag_resize = false;
             scheduler.Config.drag_move = false;
+            scheduler.Config.dblclick_create = false;
+            scheduler.Config.show_loading = true;
             var items = services;
             select.AddOptions(items);
             scheduler.Lightbox.Add(select);
@@ -151,7 +152,7 @@ namespace eLifeWEB.Controllers.WEBControllers
         {
             List<Appointment> list = new List<Appointment>();
             ApplicationDbContext db = new ApplicationDbContext();
-            var records = new ApplicationDbContext().Records.Where((d => (d.TypeOfService.Doctor.DoctorInform.Id == id || d.AttendingDoctor.DoctorInform.Id == id ) && d.Patient == null));
+            var records = new ApplicationDbContext().Records.Where((d => (d.TypeOfService.Doctor.DoctorInform.Id == id || d.AttendingDoctor.DoctorInform.Id == id ) && d.Patient == null && d.Date > DateTime.Now));
 
             foreach (Record record in records)
             {
@@ -239,7 +240,7 @@ namespace eLifeWEB.Controllers.WEBControllers
             ViewBag.Id_clinic = new SelectList(db.Clinics, "Id_clinic", "Name", doctorInform.ClinicId);
             return View(doctorInform);
         }
-
+        [Authorize]
         public ActionResult AcceptAppointment(int? id, int? serviceId)
         {
             if (id == null)

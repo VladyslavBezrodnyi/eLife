@@ -3,6 +3,9 @@
     ViewBag.Title = "Моя сторінка";
 }
 
+@Styles.Render("~/Content/dhtmlxScheduler/dhtmlxscheduler-responsive.css")
+@Scripts.Render("~/Scripts/dhtmlxScheduler/dhtmlxscheduler-responsive.js")
+
 <h2>Моя сторінка</h2>
 
 @Html.Partial("_AccountInfo", Model)
@@ -40,24 +43,30 @@ else
 @if (ViewBag.Role == "patient")
 {
     @Html.Partial("_PatientInfo", Model.PatientInform)
+    @Html.ActionLink("Медична картка", "MedicalCard", new { }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Усі записи", "MyAppointment", new { }, new { @class = "btn btn-primary" })
+
+    @Html.ActionLink("Чати", "Index", "Chats")
+
 }
 @if (ViewBag.Role == "doctor")
 {
     @Html.Partial("_DoctorInfo", Model.DoctorInform)
-    <div style="height:700px;width:900px;margin:0 auto">
+    <div style="margin:0 auto;">
         @Html.Raw(ViewBag.Scheduler.Render())
     </div>
+    @Html.ActionLink("Чати", "Index", "Chats")
+
 }
 @if (ViewBag.Role == "clinicAdmin")
 {
     @Html.Partial("_ClinicAdminInfo", Model.ClinicAdmin.Clinic)
 }
 
-@Html.ActionLink("Чати", "Index", "Chats")
 
-    <script>
+<script>
         function medicalAppointment(event_id){
         var url = "@Url.Action("ReceptionPreview", "Reception")" + "?recordId=" + event_id;
         window.location.href = url;
     }
-    </script>
+</script>

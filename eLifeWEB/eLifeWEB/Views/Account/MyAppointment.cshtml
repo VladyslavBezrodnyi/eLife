@@ -1,0 +1,66 @@
+﻿@model IEnumerable<eLifeWEB.Models.Record>
+
+<h2>Мои записи</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AttendingDoctor.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeOfService.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeOfService.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payments.LastOrDefault().amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payments.LastOrDefault().status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AttendingDoctor.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeOfService.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeOfService.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @if (item.Payments.Count != 0) {
+                @Html.Raw(item.Payments.LastOrDefault().amount.ToString() +"UAH")
+            }
+        </td>
+        <td>
+            @if (item.Payments.Count != 0)
+            {
+
+                <span class="badge badge-pill badge-success">@item.Payments.LastOrDefault().status </span>
+            }
+            </td>
+        <td>
+            @Html.ActionLink("Скасувати", "CancelReception", "Reception",new { recoidId = item.Id}, new { @class = "btn btn-danger"})
+        </td>
+
+    </tr>
+}
+
+</table>

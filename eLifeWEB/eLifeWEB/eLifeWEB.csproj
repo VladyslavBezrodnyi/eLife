@@ -351,6 +351,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\chat.css" />
     <Content Include="Content\ChoiseRole.css" />
+    <Content Include="Content\dhtmlxScheduler\dhtmlxscheduler-responsive-classic.css" />
+    <Content Include="Content\dhtmlxScheduler\dhtmlxscheduler-responsive.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\footer.css" />
@@ -377,6 +379,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler-responsive.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -696,12 +699,10 @@
     <Content Include="Views\Account\EditClinic.cshtml" />
     <Content Include="Views\Account\MedicalCard.cshtml" />
     <Content Include="Views\Appoitment\Index.cshtml" />
-    <Content Include="Views\DoctorInforms\AcceptAppointment.cshtml" />
     <Content Include="Views\Chats\Index.cshtml" />
     <Content Include="Views\Chats\Details.cshtml" />
     <Content Include="Views\Chats\Chat.cshtml" />
     <Content Include="Views\DoctorInforms\Payment.cshtml" />
-    <Content Include="Views\DoctorInforms\AppointentResult.cshtml" />
     <Content Include="Views\DoctorInforms\AppointmentResult.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -717,6 +718,7 @@
     <Content Include="Views\Reception\ReceptionPreview.cshtml" />
     <Content Include="Views\Reception\StartReception.cshtml" />
     <Content Include="Views\Reception\CancelReception.cshtml" />
+    <Content Include="Views\Account\MyAppointment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,9 +3,58 @@
     ViewBag.Title = "Підтвердження оплати";
 }
 
+<dl class="dl-horizontal">
+    <dt>
+       Пацієнт
+    </dt>
 
+    <dd>
+        @ViewBag.Patient.Name
+    </dd>
 
-<form method="POST" accept-charset="utf-8" action="https://www.liqpay.ua/api/3/checkout"">
+    <dt>
+        Лікарь
+    </dt>
+
+    <dd>
+        ViewBag.Record.AttendingDoctor.Name
+    </dd>
+
+    <dt>
+        Вид прийом
+    </dt>
+
+    <dd>
+        @ViewBag.Record.TypeOfService.Name
+    </dd>
+
+    <dt>
+        Ціна
+    </dt>
+
+    <dd>
+        @ViewBag.Record.TypeOfService.Price
+    </dd>
+
+    <dt>
+       Дата прийому
+    </dt>
+
+    <dd>
+        @ViewBag.Record.Date
+    </dd>
+
+    <dt>
+       Передоплата
+    </dt>
+
+    <dd>
+        @Html.Raw(ViewBag.Record.TypeOfService.Price / 2)
+    </dd>
+
+</dl>
+
+<form method="POST" accept-charset="utf-8" action="https://www.liqpay.ua/api/3/checkout" ">
     <input type="hidden" name="data" value="@Model.Data" />
     <input type="hidden" name="signature" value="@Model.Signature" />
     <button style="border: none !important; display:inline-block !important;text-align: center !important;padding: 7px 20px !important;

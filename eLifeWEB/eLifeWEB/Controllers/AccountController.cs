@@ -32,14 +32,15 @@ namespace eLifeWEB.Controllers
         {
         }
 
-        public ActionResult MyAccount(ManageMessageId? message, FormCollection collectionPractice)
+        public ActionResult MyAccount( FormCollection collectionPractice)
         {
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
             ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
             var scheduler = new DHXScheduler(this);
-
+            scheduler.BeforeInit.Add(string.Format("initResponsive({0})", scheduler.Name));
             scheduler.Skin = DHXScheduler.Skins.Material;
             scheduler.LoadData = true;
+            scheduler.InitialValues.Add("text", "Вільний запис");
             scheduler.EnableDataprocessor = true;
             scheduler.Config.show_loading = true;
             scheduler.Config.first_hour = 6;
@@ -48,8 +49,8 @@ namespace eLifeWEB.Controllers
             scheduler.Localization.Set(SchedulerLocalization.Localizations.Ukrainian);
             scheduler.Config.drag_lightbox = true;
             scheduler.Config.edit_on_create = false;
-            scheduler.Config.event_duration = 2;
-            scheduler.Lightbox.Add(new LightboxText(""));
+            scheduler.Config.event_duration = 30;
+            scheduler.Lightbox.Add(new LightboxField("text"));
             scheduler.Config.buttons_right = new LightboxButtonList
             {
             };
@@ -65,7 +66,6 @@ namespace eLifeWEB.Controllers
                 LightboxButtonList.Cancel,
             };
             scheduler.Extensions.Add(SchedulerExtensions.Extension.Readonly);
-            scheduler.Lightbox.Clear();
             ViewBag.Scheduler = scheduler;
 
             if (ViewBag.Role == "clinicAdmin")
@@ -92,6 +92,33 @@ namespace eLifeWEB.Controllers
                 }
             }
             return View(user);
+        }
+        [Authorize]
+        public ActionResult MedicalCard()
+        {
+            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+            ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
+            IEnumerable<Record> medicalRecord = null;
+            if (ViewBag.Role == "patient")
+            {
+                 medicalRecord = db.Records.Where(r => r.PatientId == user.Id && r.EndDate < DateTime.Now && r.Appointment != null).OrderBy(r => r.Date).ToList();
+                
+            }
+            return View(medicalRecord);
+        }
+
+        [Authorize]
+        public ActionResult MyAppointment()
+        {
+            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+            ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
+            IEnumerable<Record> appointments = null;
+            if (ViewBag.Role == "patient")
+            {
+                appointments = db.Records.Where(r => r.PatientId == user.Id).Include(u => u.Payments).OrderBy(r => r.Date).ToList();
+
+            }
+            return View(appointments);
         }
 
         public ContentResult Data(string id)
@@ -151,12 +178,6 @@ namespace eLifeWEB.Controllers
             }
 
             return (new AjaxSaveResponse(action));
-        }
-
-        public ActionResult MedicalCard(string id)
-        {
-            var records = db.Records.Where(r => r.PatientId == id);
-            return View(records.ToList());
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )

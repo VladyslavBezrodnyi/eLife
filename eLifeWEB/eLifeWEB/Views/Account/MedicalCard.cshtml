@@ -1,13 +1,12 @@
 ﻿@model IEnumerable<eLifeWEB.Models.Record>
 
 @{
-    ViewBag.Title = "Медична карта";
+    ViewBag.Title = "Медична карта eLife";
 }
+<h2>Медична карта eLife</h2>
 
-<h2>Медична карта</h2>
-
-<table class="table">
-    <tr>
+<table class="table table-hover">
+    <tr class="table-info">
         <th>
             @Html.DisplayNameFor(model => model.Patient.Name)
         </th>
@@ -15,7 +14,7 @@
             @Html.DisplayNameFor(model => model.TypeOfService.Doctor.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TypeId)
+            @Html.DisplayNameFor(model => model.TypeOfService.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Date)
@@ -38,37 +37,38 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Patient.Name)
-        </td>
-        <td>
-            @Html.ActionLink(item.TypeOfService.Doctor.Name, "Details", "DoctorInforms", new { id = item.DoctorId }) |
-            @Html.DisplayFor(modelItem => item.TypeOfService.Doctor.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TypeId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Complaints)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ObjectiveData)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Diagnoses)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseOfTheDisease)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Appointment)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.Name)
+            </td>
+            <td>
+                @Html.ActionLink(item.TypeOfService.Doctor.Name, "Details", "DoctorInforms", new { id = item.AttendingDoctor.DoctorInform.Id }) |
+                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfService.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Complaints)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ObjectiveData)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Diagnoses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseOfTheDisease)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Appointment)
+            </td>
+        </tr>
+    }
 
 </table>
