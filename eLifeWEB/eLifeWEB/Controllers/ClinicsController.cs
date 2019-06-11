@@ -20,6 +20,7 @@ namespace eLifeWEB.Controllers.WEBControllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Clinics
+
         public ActionResult Index(int? page, string searchString, string specializations, bool? check)
         {
             var clinics = db.Clinics.ToList();
@@ -59,7 +60,6 @@ namespace eLifeWEB.Controllers.WEBControllers
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(clinics.ToList().ToPagedList(pageNumber, pageSize));
-            //return View(db.Clinics.ToList());
         }
 
         // GET: Clinics/Details/5

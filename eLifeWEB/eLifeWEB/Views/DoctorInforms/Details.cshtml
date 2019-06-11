@@ -32,10 +32,10 @@
                 <div class="col-sm-9 pl-0">
 
                     <div class="rating pt-2">
-                        <div class="rating__value value">@ViewBag.Average</div>
+                        <div class="rating__value value">@Html.Raw(ViewBag.Average/20)</div>
                         <div class="rating__stars">
                             <div class="rating__stars-bg"></div>
-                            <div style="width: @{ViewBag.Average*20}%;" class="rating__stars-overlay"></div>
+                            <div style="width: @ViewBag.Average%;" class="rating__stars-overlay"></div>
                         </div>
                     </div>
 
