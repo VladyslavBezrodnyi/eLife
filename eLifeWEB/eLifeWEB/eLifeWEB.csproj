@@ -313,6 +313,14 @@
     <Compile Include="Migrations\201906081506030_DataMigration10.Designer.cs">
       <DependentUpon>201906081506030_DataMigration10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906120111150_DataMigration11.cs" />
+    <Compile Include="Migrations\201906120111150_DataMigration11.Designer.cs">
+      <DependentUpon>201906120111150_DataMigration11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906120117396_DataMigration12.cs" />
+    <Compile Include="Migrations\201906120117396_DataMigration12.Designer.cs">
+      <DependentUpon>201906120117396_DataMigration12.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -771,6 +779,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906081506030_DataMigration10.resx">
       <DependentUpon>201906081506030_DataMigration10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906120111150_DataMigration11.resx">
+      <DependentUpon>201906120111150_DataMigration11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906120117396_DataMigration12.resx">
+      <DependentUpon>201906120117396_DataMigration12.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

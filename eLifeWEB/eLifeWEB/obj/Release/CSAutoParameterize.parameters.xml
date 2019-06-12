@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Строка подключения в web.config, используемая приложением для доступа к базе данных." defaultValue="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-eLifeWEB-20190524015219.mdf;Initial Catalog=aspnet-eLifeWEB-20190524015219;Integrated Security=True" tags="SqlConnectionString">
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Строка подключения в web.config, используемая приложением для доступа к базе данных." defaultValue="Server=tcp:elife.database.windows.net,1433;Initial Catalog=eLifeDB;Persist Security Info=False;User ID=eLifeAdmin;Password=e123Life123Admin;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="E:\\eLife\\eLife\\eLifeWEB\\eLifeWEB\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
   </parameter>
   <parameter name="DefaultConnection_DatabasePublish-Web.config Connection String" description="DefaultConnection_DatabasePublish Строка подключения в web.config, используемая приложением для доступа к базе данных." defaultValue="DefaultConnection_DatabasePublish.ConnetionString" tags="SqlConnectionString">

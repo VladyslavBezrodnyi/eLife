@@ -180,3 +180,5 @@ E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Release\eLifeWEB.csproj.CoreCompileInputs.c
 E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Release\eLifeWEB.csproj.CopyComplete
 E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Release\eLifeWEB.dll
 E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Release\eLifeWEB.pdb
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Release\eLifeWEB.Migrations.DataMigration11.resources
+E:\eLife\eLife\eLifeWEB\eLifeWEB\obj\Release\eLifeWEB.Migrations.DataMigration12.resources
