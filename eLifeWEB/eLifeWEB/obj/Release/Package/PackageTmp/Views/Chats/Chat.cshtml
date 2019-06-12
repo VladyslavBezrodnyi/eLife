@@ -1,0 +1,84 @@
+﻿@model IEnumerable<eLifeWEB.Utils.ChatView>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Бутылка</title>
+    @section scripts{
+        <link href="~/Content/chat.css" rel="stylesheet">
+        <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+        <!--Ссылка на библиотеку SignalR -->
+        <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+        <!--Ссылка на автоматически сгенерированный скрипт хаба SignalR -->
+        <script src="~/signalr/hubs"></script>
+        <script src="~/Scripts/util.js"></script>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    }
+
+</head>
+<body>
+    <input id="doctorId" type="hidden" value="@ViewBag.Conversation.DoctorId" />
+    <input id="patientId" type="hidden" value="@ViewBag.Conversation.PatientId" />
+    <input id="conversationId" type="hidden" value="@ViewBag.Conversation.Id" />
+    <input id="sender" type="hidden" value="@ViewBag.Sender" />
+    <input id="lastDate" type="hidden"/>
+
+    <div class="chat">
+        <div class="chat-header clearfix">
+            @if (@ViewBag.Conversation.Doctor.DoctorInform.Image != null && @ViewBag.Sender == @ViewBag.Conversation.PatientId)
+            {
+                @Html.Raw("<img class=\"img doctor\" style= \"height:100px;width:100px;\" src=\"data:image/jpeg;base64,"
+                                 + Convert.ToBase64String(ViewBag.Conversation.Doctor.DoctorInform.Image) + "\" alt=\"avatar\"/>")
+            }
+            <div class="chat-about">
+                <div class="chat-with">@((ViewBag.Sender == ViewBag.Conversation.PatientId) ? (ViewBag.Conversation.Doctor.Name) : (ViewBag.Conversation.Patient.Name))</div>
+            </div>
+        </div> <!-- end chat-header -->
+
+        <div id="chat-history" class="chat-history">
+            @foreach (var item in Model)
+            {
+                <p class="groupTimeDate text-center">@(item.Date)</p>
+                foreach (var it in item.Messages)
+                {
+                    if (it.SenderId == ViewBag.Sender)
+                    {
+                        <div class="clearfix">
+                            <div class="message-data align-right">
+                                <span class="message-data-time">@it.Time</span> &nbsp; &nbsp;
+                                <span class="message-data-name">@it.Name</span>
+                            </div>
+                            <div class="message other-message float-right">
+                                <p>@it.Text</p>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <div class="message-data">
+                                <span class="message-data-name">@it.Name</span>
+                                <span class="message-data-time">@it.Time</span>
+                            </div>
+                            <div class="message my-message">
+                                <p>@it.Text</p>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div> <!-- end chat-history -->
+
+        <div class="chat-message clearfix" style="background:#18BC9C">
+            <textarea id="message-to-send" name="message-to-send" placeholder="Введіть повідомлення..." maxlength="180" ></textarea>
+            <button class="btn btn-primary btn-block" id="sendmessage">Send</button>
+
+        </div> <!-- end chat-message -->
+
+    </div> <!-- end chat -->
+    <!-- end container -->
+</body>
+</html>

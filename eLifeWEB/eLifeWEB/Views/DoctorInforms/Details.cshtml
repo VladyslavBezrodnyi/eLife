@@ -1,0 +1,216 @@
+﻿@model eLifeWEB.Models.DoctorInform
+@using Microsoft.AspNet.Identity
+@using eLifeWEB.Models
+@Styles.Render("~/Content/rating.css")
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/dhtmlxScheduler/dhtmlxscheduler-responsive.css")
+@Scripts.Render("~/Scripts/dhtmlxScheduler/dhtmlxscheduler-responsive.js")
+
+@{
+    ViewBag.Title = "Сторінка лікаря";
+}
+
+<ol class="breadcrumb rounded-0 bg-white" style="margin: -24px -15px 0 -15px;">
+    <li class="breadcrumb-item">@Html.ActionLink("Лікарі", "Index")</li>
+    <li class="breadcrumb-item active">Детальніше</li>
+</ol>
+<hr class="mt-0" />
+<h4 class="mx-auto" style="display: table">@ViewBag.Title</h4>
+
+<section>
+    <div class="container py-3">
+        <div class="card rounded-lg p-1 border-0">
+            <div class="row ">
+                <div class="col-sm-3 ">
+                    <div class="card-image">
+
+                    </div>
+                    @Html.Raw("<img style='width: 100%; border-radius: 10%' src=\"data:image/jpeg;base64,"
+                                             + Convert.ToBase64String(Model.Image) + "\" />")
+                </div>
+                <div class="col-sm-9 pl-0">
+
+                    <div class="rating pt-2">
+                        <div class="rating__value value">@Html.Raw(ViewBag.Average/20)</div>
+                        <div class="rating__stars">
+                            <div class="rating__stars-bg"></div>
+                            <div style="width: @ViewBag.Average%;" class="rating__stars-overlay"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-block px-3 pt-2">
+                        <h4 class="card-title">@Html.DisplayFor(model => Model.ApplicationUsers.FirstOrDefault().Name)</h4>
+                        <h5 class="text-dark">Клініка "@Html.DisplayFor(modelItem => Model.Clinic.Name)"</h5>
+                        <div class="mx-0 mb-2">
+                            <i class="fa fa-calendar-o  fa-2x" aria-hidden="true"></i>
+                            <strong>@Html.DisplayFor(modelItem => Model.Guardian)</strong> досвіду в
+                            <span class="badge badge-pill badge-success">@Html.DisplayFor(modelItem => Model.Specialization)</span>
+                        </div>
+                        <p class="card-text mb-2"><i class="fa fa-drivers-license-o fa-2x" aria-hidden="true"></i> Категорія: <strong> @Html.DisplayFor(modelItem => Model.Category)</strong></p>
+                        <p class="card-text mb-2"><i class="fa fa-graduation-cap  fa-2x" aria-hidden="true"></i> Освіта: <strong> @Html.DisplayFor(modelItem => Model.Education)</strong></p>
+                        <p class="card-text mb-2"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i> Уміння: </p>
+                        <p class="card-text" style="margin-top: -5px;">
+                            @Html.DisplayFor(modelItem => Model.Skills)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@if (Request.IsAuthenticated && ViewBag.Role == "patient")
+{
+    @Html.ActionLink("Написати", "Chat", "Chats", new { interlocutorId = ViewBag.doctorId }, new {@class="btn btn-primary m-3" })
+}
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#typeofservices">Всі послуги</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#feedback">Всі відгуки</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#newfeedback">Залишити відгук</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#schedule">Записатись на прийом</a>
+    </li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade" id="typeofservices">
+        @if (Model.ApplicationUsers.FirstOrDefault().TypeOfServices.Count == 0)
+        {
+            <h4 class="d-table mx-auto">Лікар не додав інформацію про послуги</h4>
+        }
+        else
+        {
+            foreach (TypeOfService typeOfService in Model.ApplicationUsers.FirstOrDefault().TypeOfServices)
+            {
+                <div class="col-7 card rounded-lg my-3 mx-auto">
+                    <div class="card-body m-2 p-0">
+                        <div class="row">
+                            <div class="col">
+                                <p>
+                                    <h4 class="float-left">@typeOfService.Name:</h4>
+                                    <div class="clearfix"></div>
+                                    <h4>@typeOfService.Price гривень</h4>
+                                    <a href="#" class="float-right btn btn-primary ml-2"> Записатись </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="tab-pane fade" id="feedback">
+        @if (ViewBag.Feedbacks.Count == 0)
+        {
+            <h4 class="d-table mx-auto"> Для цього лікаря ще немає відгуків </h4>
+            <h3 class="d-table mx-auto"> Ви можете бути першим! </h3>
+        }
+        else
+        {
+            foreach (Feedback feedback in ViewBag.Feedbacks)
+            {
+                <div class="card rounded-lg m-3">
+                    <div class="card-body m-2 p-0">
+                        <div class="row">
+                            <div class="col">
+                                <p>
+                                <p class="float-left"><strong class="mr-1"> @feedback.Patient.Name </strong> @feedback.Date</p>
+                                @for (int i = 1; i < 6; i++)
+                                {
+                                    if (i <= feedback.Stars)
+                                    {
+                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="float-right"><i class="text-warning fa fa-star-o"></i></span>
+                                    }
+                                }
+                                </p>
+                                <div class="clearfix"></div>
+                                <p>@feedback.Comment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="tab-pane fade" id="newfeedback">
+        @if (false)
+        {
+            <h4 class="d-table mx-auto"> Ви не були на прийомі у лікаря, тому не можете залишити відгук. </h4>
+        }
+        else
+        {
+            using (Html.BeginForm("DoctorFeedback", "DoctorInforms", FormMethod.Post))
+            {
+                <div class="form-group col mt-3">
+                    <input type="hidden" name="DoctorID" value="@Model.ApplicationUsers.FirstOrDefault().Id" />
+                    <input type="hidden" name="UserId" value="@User.Identity.GetUserId()" />
+                    <input type="hidden" name="Rating" id="ratingValue" />
+
+                    <textarea placeholder="Напишіть свій відгук" class="form-control" rows="6" name="Text" style="width: 100%; resize: none; max-width: unset"></textarea>
+                </div>
+                <div class="row m-0 col">
+                    <button type="submit" class="btn btn-primary mx-4">Відправити</button>
+                    <span class="text-warning float-right stars my-auto">
+                        <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="1"></i>
+                        <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="2"></i>
+                        <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="3"></i>
+                        <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="4"></i>
+                        <i class="ratingStar fa fa-star-o" style="font-size: 1.5rem;" data-value="5"></i>
+                    </span>
+                </div>
+            }
+        }
+    </div>
+    <div class="tab-pane fade active show" id="schedule">
+        <div style="margin:0 auto;">
+            @Html.Raw(ViewBag.Scheduler.Render())
+        </div>
+    </div>
+</div>
+<hr />
+<p class="mx-auto my-2" style="display: table">
+    <a href="" class="scroll-top btn btn-primary">На початок сторінки</a>
+</p>
+
+<script>
+    $(".scroll-top").click(function () {
+        $('body,html').animate({ scrollTop: 0 }, 200);
+        return false;
+    });
+    $(".ratingStar").hover(function () {
+        $(".ratingStar").addClass("fa-star-o").removeClass("fa-star")
+
+        $(this).addClass("fa-star").removeClass("fa-star-o");
+        $(this).prevAll(".ratingStar").addClass("fa-star").removeClass("fa-star-o");
+    });
+    $('.stars').mouseleave(function () {
+        for (i = 1; i < 6; i++) {
+            if (i <= $("#ratingValue").attr("value")) {
+                $(".stars").children('[data-value="' + i + '"]').addClass("fa-star").removeClass("fa-star-o");
+            }
+            else {
+                $(".stars").children('[data-value="' + i + '"]').addClass("fa-star-o").removeClass("fa-star");
+            }
+        }
+    });
+    $(".ratingStar").click(function () {
+        var starValue = $(this).attr("data-value");
+
+        $("#ratingValue").val(starValue);
+    });
+    function appointment(event_id){
+        //var event = scheduler.getEvent(event_id);
+        var value = scheduler.formSection('service').getValue();
+        //var url = "@Url.Action("AppointmentResultTest", "DoctorInforms")" + "?id=" + event_id + "&serviceId=" + value;
+        var url = "@Url.Action("AcceptAppointment", "DoctorInforms")" + "?id=" + event_id + "&serviceId=" + value;
+        window.location.href = url;
+    }
+</script>

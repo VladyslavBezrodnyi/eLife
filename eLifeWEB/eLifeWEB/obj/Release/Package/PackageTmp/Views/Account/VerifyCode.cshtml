@@ -1,0 +1,59 @@
+﻿@model eLifeWEB.Models.VerifyCodeViewModel
+@Styles.Render("~/Content/RegisterClinicAdmin.css")
+@{
+    ViewBag.Title = "Введіть перевірочний код";
+}
+
+@using (Html.BeginForm("VerifyCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("provider", @Model.Provider)
+    @Html.Hidden("rememberMe", @Model.RememberMe)
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h4 class="text-center">@ViewBag.Title</h4>
+            <hr />
+        </div>
+        <div class=" col-md-3">
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Код підтвердження:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-unlock-alt fa-2x"></i></div>
+                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control input-fix" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="custom-control custom-switch">
+                @Html.CheckBoxFor(m => m.RememberBrowser, new { @class = "custom-control-input" })
+                <label class="custom-control-label">Запам'ятати мене</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <input type="submit" value="Відправити код" class="btn btn-primary btn-block" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

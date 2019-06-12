@@ -1,0 +1,57 @@
+﻿@using eLifeWEB.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Выполнить вход";
+}
+
+@Styles.Render("~/Content/login.css")
+<div class="card">
+    <article class="card-body mx-auto" style="width: 100%; max-width: 350px;">
+        <h4 class="card-title mt-3 text-center">Авторизація</h4>
+        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                </div>
+                @Html.TextBoxFor(m => m.Email, new { placeholder = "E-mail адреса", @class = "form-control" })
+            </div>
+            <!-- form-group// -->
+
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                @Html.PasswordFor(m => m.Password, new { placeholder = "Пароль", @class = "form-control" })
+            </div>
+            <!-- form-group// -->
+
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "custom-control-input" })
+                    @Html.LabelFor(m => m.RememberMe, new { @class = "custom-control-label" })
+                </div>
+            </div>
+            <!-- form-group// -->
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block"> Увійти  </button>
+            </div>
+            <!-- form-group// -->
+
+            @* Включите, когда будет включено подтверждение учетной записи для функции сброса пароля
+                <p class="text-center">
+                    @Html.ActionLink("Забули пароль?", "ForgotPassword")
+                </p>*@
+            <p class="text-center">Немає аккаунту? @Html.ActionLink("Зареєструватися", "Register")</p>
+        }
+    </article>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,340 @@
+﻿@model eLifeWEB.Models.Record
+@using eLifeWEB.Models
+@Styles.Render("~/Content/RegisterClinicAdmin.css")
+@{
+    ViewBag.Title = "Прийом";
+}
+
+<h2 class="d-table mx-auto">Прийом</h2>
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <h4 class="text-center">Дані пацієнта</h4>
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label>Ім'я:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-user fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.Patient.Name" readonly="">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-control-feedback">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label>День народження:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-birthday-cake fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.Patient.Bithday" readonly="">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-control-feedback">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label>Адреса:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-home fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.PatientInfo.Adress" readonly="">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-control-feedback">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label>Місце роботи:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-building-o fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.PatientInfo.Activity" readonly="">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-control-feedback">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label>Группа крові:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-tint fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.PatientInfo.BloodGroup" readonly="">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-control-feedback">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label>Хірургічні втручання:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-support fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.PatientInfo.Operations" readonly="">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-control-feedback">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label>Алергії:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-certificate fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.PatientInfo.Allergy" readonly="">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-control-feedback">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label>Інфекційні захворювання:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-exclamation-triangle fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.PatientInfo.Infectious_diseases" readonly="">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-control-feedback">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label>Наявність цукрового діабету:</label>
+    </div>
+    <div class="col-md-6 pl-0">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-heart-o fa-2x"></i></div>
+                <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.PatientInfo.Diabetes" readonly="">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-control-feedback">
+        </div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h2 class="text-center">DoctorInform</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            @Html.LabelFor(model => model.Complaints, htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    @Html.EditorFor(model => model.Complaints, new { htmlAttributes = new { @class = "form-control input_fix" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Complaints, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            @Html.LabelFor(model => model.ObjectiveData, htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    @Html.EditorFor(model => model.ObjectiveData, new { htmlAttributes = new { @class = "form-control input_fix" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.ObjectiveData, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            @Html.LabelFor(model => model.Diagnoses, htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    @Html.EditorFor(model => model.Diagnoses, new { htmlAttributes = new { @class = "form-control input_fix" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Diagnoses, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            @Html.LabelFor(model => model.CourseOfTheDisease, htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    @Html.EditorFor(model => model.CourseOfTheDisease, new { htmlAttributes = new { @class = "form-control input_fix" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.CourseOfTheDisease, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            @Html.LabelFor(model => model.Appointment, htmlAttributes: new { @class = "" })
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    @Html.EditorFor(model => model.Appointment, new { htmlAttributes = new { @class = "form-control input-fix" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Appointment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <input type="submit" value="Завершити запис" class="btn btn-primary btn-block" />
+        </div>
+    </div>
+}
+
+<h2 class="d-table mx-auto">Медична картка хворого</h2>
+<table class="table">
+    <tr class="table-info">
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AttendingDoctor.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AttendingDoctor.DoctorInform.Clinic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Complaints)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ObjectiveData)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseOfTheDisease)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Diagnoses)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Appointment)
+        </th>
+    </tr>
+    @foreach (Record record in ViewBag.MedicalCard)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Date.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.AttendingDoctor.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.AttendingDoctor.DoctorInform.Clinic)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Complaints)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.ObjectiveData)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CourseOfTheDisease)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Diagnoses)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Appointment)
+            </td>
+        </tr>
+    }
+</table>
+

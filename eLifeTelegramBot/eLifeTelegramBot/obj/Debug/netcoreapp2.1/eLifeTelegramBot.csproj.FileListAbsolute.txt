@@ -1,0 +1,11 @@
+C:\Users\Серега\source\repos\eLifeTelegramBot\eLifeTelegramBot\bin\Debug\netcoreapp2.1\eLifeTelegramBot.deps.json
+C:\Users\Серега\source\repos\eLifeTelegramBot\eLifeTelegramBot\bin\Debug\netcoreapp2.1\eLifeTelegramBot.runtimeconfig.json
+C:\Users\Серега\source\repos\eLifeTelegramBot\eLifeTelegramBot\bin\Debug\netcoreapp2.1\eLifeTelegramBot.runtimeconfig.dev.json
+C:\Users\Серега\source\repos\eLifeTelegramBot\eLifeTelegramBot\bin\Debug\netcoreapp2.1\eLifeTelegramBot.dll
+C:\Users\Серега\source\repos\eLifeTelegramBot\eLifeTelegramBot\obj\Debug\netcoreapp2.1\eLifeTelegramBot.csprojAssemblyReference.cache
+C:\Users\Серега\source\repos\eLifeTelegramBot\eLifeTelegramBot\obj\Debug\netcoreapp2.1\eLifeTelegramBot.csproj.CoreCompileInputs.cache
+C:\Users\Серега\source\repos\eLifeTelegramBot\eLifeTelegramBot\obj\Debug\netcoreapp2.1\eLifeTelegramBot.AssemblyInfoInputs.cache
+C:\Users\Серега\source\repos\eLifeTelegramBot\eLifeTelegramBot\obj\Debug\netcoreapp2.1\eLifeTelegramBot.AssemblyInfo.cs
+C:\Users\Серега\source\repos\eLifeTelegramBot\eLifeTelegramBot\bin\Debug\netcoreapp2.1\eLifeTelegramBot.pdb
+C:\Users\Серега\source\repos\eLifeTelegramBot\eLifeTelegramBot\obj\Debug\netcoreapp2.1\eLifeTelegramBot.dll
+C:\Users\Серега\source\repos\eLifeTelegramBot\eLifeTelegramBot\obj\Debug\netcoreapp2.1\eLifeTelegramBot.pdb

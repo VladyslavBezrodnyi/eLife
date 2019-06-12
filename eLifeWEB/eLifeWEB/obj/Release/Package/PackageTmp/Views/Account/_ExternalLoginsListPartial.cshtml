@@ -1,0 +1,33 @@
+﻿@model eLifeWEB.Models.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+
+<hr />
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (loginProviders.Count() == 0)
+    {
+        <div>
+            <p>
+                Внешние службы проверки подлинности не настроены. Подробности о настройке входа через внешние службы для этого приложения ASP.NET
+                см. в <a href="https://go.microsoft.com/fwlink/?LinkId=403804">этой статье</a>.
+            </p>
+        </div>
+    }
+    else
+    {
+        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }))
+        {
+            @Html.AntiForgeryToken()
+            <p class="text-center">Оберіть спосіб авторизації</p>
+            <p>
+                @foreach (AuthenticationDescription p in loginProviders)
+                {
+                    <button type="submit" class="btn btn-block btn-@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Увійти за допомогою аккаунту @p.Caption"> <i class="fa fa-@p.AuthenticationType pr-1"></i>@p.AuthenticationType</button>
+                }
+            </p>
+            <p class="divider-text">
+                <span class="bg-white">АБО</span>
+            </p>
+        }
+    }
+}

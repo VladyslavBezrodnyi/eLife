@@ -1,0 +1,41 @@
+﻿@model eLifeWEB.Models.SendCodeViewModel
+@Styles.Render("~/Content/RegisterClinicAdmin.css")
+@{
+    ViewBag.Title = "Відпарвити перевірочний код";
+}
+
+<h2 class="d-table mx-auto">@ViewBag.Title.</h2>
+<hr />
+@using (Html.BeginForm("SendCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("rememberMe", @Model.RememberMe)
+
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Oберіть постачальника двухфакторной перевірки:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-unlock-alt fa-2x"></i></div>
+                    @Html.DropDownListFor(model => model.SelectedProvider, Model.Providers, new { @class = "form-control  input_fix" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <input type="submit" value="Відправити код" class="btn btn-primary btn-block" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,95 @@
+﻿@model eLifeWEB.Models.Record
+@Styles.Render("~/Content/RegisterClinicAdmin.css")
+@{
+    ViewBag.Title = "Підтверження запису";
+}
+
+<h2 class="d-table mx-auto">Підтверження запису</h2>
+
+<div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h4 class="text-center">Ви успішно записались</h4>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>@Html.DisplayNameFor(model => model.AttendingDoctor.Name)</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.AttendingDoctor.Name)" readonly="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>@Html.DisplayNameFor(model => model.Patient.Name):</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Patient.Name)" readonly="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>@Html.DisplayName("Лікар"):</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.AttendingDoctor.Name)" readonly="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>@Html.DisplayName("Клініка"):</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.AttendingDoctor.DoctorInform.Clinic.Name)" readonly="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>@Html.DisplayName("Тип прийому"):</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input class="form-control input_fix text-box single-line" type="text" value="@ViewBag.Type" readonly="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>@Html.DisplayNameFor(model => model.Date):</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Date)" readonly="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            @Html.ActionLink("Повернутися до аккаунту", "MyAccount", "Account", new { @class = "btn btn-primary btn-block" })
+        </div>
+    </div>
+</div>

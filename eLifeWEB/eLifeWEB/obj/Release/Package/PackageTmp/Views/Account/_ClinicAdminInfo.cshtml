@@ -1,0 +1,108 @@
+﻿@model eLifeWEB.Models.Clinic
+@using eLifeWEB.Models
+@Styles.Render("~/Content/RegisterClinicAdmin.css")
+
+<div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h4 class="text-center">Моя клініка</h4>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Назва клініки:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-hospital-o fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Name)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Адреса клініки:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-map-marker fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Adress)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Опис клініки:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-font fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.Description)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label>Номер банківської картки:</label>
+        </div>
+        <div class="col-md-6 pl-0">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.2rem"><i class="fa fa-credit-card fa-2x"></i></div>
+                    <input class="form-control input_fix text-box single-line" type="text" value="@Html.DisplayFor(model => model.BankCard)" readonly="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+            </div>
+        </div>
+    </div>
+    @if (Model.Image != null)
+    {
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label>Логотип Вашої клініки:</label>
+            </div>
+            <div class="col-md-6">
+                @Html.Raw("<img style='height:170px;' src=\"data:image/jpeg;base64,"
+                            + Convert.ToBase64String(Model.Image) + "\" />")
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            @Html.ActionLink("Редагувати", "EditClinic", Model, new { @class = "btn btn-primary btn-block" })
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <div class="d-flex justify-content-center">
+        @Html.ActionLink("Підтвердити лікарів", "ConfirmationDoctors", "Clinics", new { id = "" }, new { @class = "btn btn-primary" })
+    </div>
+</div>
