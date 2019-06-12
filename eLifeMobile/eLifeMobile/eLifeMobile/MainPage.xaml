@@ -8,10 +8,6 @@
 
     <StackLayout>
         <WebView x:Name="webView" Source="https://elifeweb.azurewebsites.net" VerticalOptions="FillAndExpand" />
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
     </StackLayout>
 
 </ContentPage>
