@@ -112,14 +112,20 @@ namespace eLifeWEB.Controllers.WEBControllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.doctorId = id;
-            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
-            ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
+            if (Request.IsAuthenticated)
+            {
+                ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+                ViewBag.Role = db.Roles.Find(user.Roles.FirstOrDefault().RoleId).Name;
+            }
             var ID = doctorInform.ApplicationUsers.FirstOrDefault().Id;
             var feedbacks = db.Feedbacks.Where(u => u.DoctorId == ID).ToList();
-            
             ViewBag.Feedbacks = feedbacks;
-            ViewBag.Average = feedbacks.Average(u => u.Stars)*20;
+            if (feedbacks.Count != 0)
+            {
+                ViewBag.Average = feedbacks.Average(u => u.Stars) * 20;
+            }
             var scheduler = new DHXScheduler(this);
             scheduler.Skin = DHXScheduler.Skins.Material;
             scheduler.LoadData = true;

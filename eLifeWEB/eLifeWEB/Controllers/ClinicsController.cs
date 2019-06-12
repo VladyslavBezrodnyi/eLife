@@ -23,7 +23,7 @@ namespace eLifeWEB.Controllers.WEBControllers
 
         public ActionResult Index(int? page, string searchString, string specializations, bool? check)
         {
-            var clinics = db.Clinics.ToList();
+            var clinics = db.Clinics.Where(e => e.ClinicAdmins.FirstOrDefault().ClinicConfirmed).ToList();
             SelectList specialiation = new SelectList(Specializations.specializations);
             ViewBag.Specialization = specialiation;
             if (!String.IsNullOrEmpty(searchString))
